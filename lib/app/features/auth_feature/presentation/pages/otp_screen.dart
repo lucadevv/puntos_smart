@@ -1,14 +1,18 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
-import 'package:puntos_smart_user/app/core/physics/custom_scroll_physics.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_arrow_back.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/presentation/cubit/cubit/send_number_cubit.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/widgets/custom_button_widget.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/widgets/customt_extformfield_widget.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
@@ -23,13 +27,30 @@ class _OtpScreenState extends State<OtpScreen> {
   final List<TextEditingController> _controllers = [];
   late ScrollController _scrollController;
 
+  String code = '';
+
   @override
   void initState() {
     super.initState();
+
     _scrollController = ScrollController();
     focusNodeListners();
-    Future.delayed(const Duration(seconds: 2)).then((_) {
-      populateOtpFields('4325');
+    _listenForCode();
+    // Future.delayed(const Duration(seconds: 2)).then((_) {
+    //   populateOtpFields('4053');
+    // });
+  }
+
+  void _listenForCode() async {
+    await SmsAutoFill().listenForCode();
+  }
+
+  @override
+  void codeUpdated(String code) {
+    setState(() {
+      code = code;
+      print(code);
+      populateOtpFields(code);
     });
   }
 
@@ -42,40 +63,38 @@ class _OtpScreenState extends State<OtpScreen> {
       _focusNodes[i].addListener(() {
         setState(() {
           _isFocused[i] = _focusNodes[i].hasFocus;
-
-          if (_focusNodes[i].hasFocus) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              // Calculamos la posición del campo de texto
-              RenderObject? object = _focusNodes[i].context?.findRenderObject();
-              if (object is RenderBox) {
-                double objectPosition = object.localToGlobal(Offset.zero).dy;
-                double screenHeight = MediaQuery.of(context).size.height;
-
-                // Calculamos si es necesario hacer scroll
-                if (objectPosition > screenHeight * 0.7 || objectPosition < 0) {
-                  double scrollOffset = objectPosition - (screenHeight * 0.3);
-                  _scrollController.animateTo(
-                    _scrollController.offset + scrollOffset,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                  );
-                }
-              }
-            });
-          }
         });
       });
     }
   }
 
   void populateOtpFields(String otp) {
-    if (otp.length == 4) {
-      for (int i = 0; i < 4; i++) {
-        Future.delayed(Duration(milliseconds: i * 200), () {
-          setState(() {
-            _controllers[i].text = otp[i];
+    if (otp.isNotEmpty) {
+      if (otp.length == 4) {
+        for (int i = 0; i < 4; i++) {
+          Future.delayed(Duration(milliseconds: i * 200), () {
+            setState(() {
+              _controllers[i].text = otp[i];
+              if (i == 0) {
+                context
+                    .read<SendNumberCubit>()
+                    .changedNumberOne(number: otp[i]);
+              } else if (i == 1) {
+                context
+                    .read<SendNumberCubit>()
+                    .changedNumberTwo(number: otp[i]);
+              } else if (i == 2) {
+                context
+                    .read<SendNumberCubit>()
+                    .changedNumberThree(number: otp[i]);
+              } else if (i == 3) {
+                context
+                    .read<SendNumberCubit>()
+                    .changedNumberFour(number: otp[i]);
+              }
+            });
           });
-        });
+        }
       }
     }
   }
@@ -92,10 +111,17 @@ class _OtpScreenState extends State<OtpScreen> {
     }
   }
 
+  String formatTime(int seconds) {
+    int minutes = seconds ~/ 60;
+    int remainingSeconds = seconds % 60;
+    return '$minutes:${remainingSeconds.toString().padLeft(2, '0')}'; // mm:ss
+  }
+
   @override
   void dispose() {
     focusNodeDisposes();
     focusNodeUnFocus();
+    SmsAutoFill().unregisterListener();
     _scrollController.dispose();
     super.dispose();
   }
@@ -104,6 +130,7 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
+    final phoneNumber = context.read<SendNumberCubit>().state.phoneNumber;
 
     return GestureDetector(
       onTap: () {
@@ -120,8 +147,7 @@ class _OtpScreenState extends State<OtpScreen> {
           child: Stack(
             children: [
               SingleChildScrollView(
-                controller: _scrollController,
-                physics: const NoUserBouncingScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 child: Container(
                   height: size.height,
                   width: size.width,
@@ -142,7 +168,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         ),
                       ),
                       Text(
-                        '${AppText.codeOtp} +51 930453423',
+                        '${AppText.codeOtp} +51 $phoneNumber',
                         style: textTheme.bodyLarge!.copyWith(
                           color: Colors.black87,
                           fontWeight: FontWeight.normal,
@@ -174,8 +200,24 @@ class _OtpScreenState extends State<OtpScreen> {
                                   controller: controller,
                                   onChanged: (value) {
                                     if (value.isNotEmpty) {
+                                      if (index == 0) {
+                                        context
+                                            .read<SendNumberCubit>()
+                                            .changedNumberOne(number: value);
+                                      } else if (index == 1) {
+                                        context
+                                            .read<SendNumberCubit>()
+                                            .changedNumberTwo(number: value);
+                                      } else if (index == 2) {
+                                        context
+                                            .read<SendNumberCubit>()
+                                            .changedNumberThree(number: value);
+                                      } else if (index == 3) {
+                                        context
+                                            .read<SendNumberCubit>()
+                                            .changedNumberFour(number: value);
+                                      }
                                       if (index < 3) {
-                                        // Establece el foco en el siguiente campo
                                         FocusScope.of(context).requestFocus(
                                             _focusNodes[index + 1]);
                                       } else {
@@ -192,9 +234,25 @@ class _OtpScreenState extends State<OtpScreen> {
                                                 .length),
                                       );
                                     } else if (value.isEmpty && index > 0) {
-                                      // Mueve el foco al campo anterior si se borra el contenido
                                       FocusScope.of(context)
                                           .requestFocus(_focusNodes[index - 1]);
+                                      if (index == 0) {
+                                        context
+                                            .read<SendNumberCubit>()
+                                            .changedNumberOne(number: '');
+                                      } else if (index == 1) {
+                                        context
+                                            .read<SendNumberCubit>()
+                                            .changedNumberTwo(number: '');
+                                      } else if (index == 2) {
+                                        context
+                                            .read<SendNumberCubit>()
+                                            .changedNumberThree(number: '');
+                                      } else if (index == 3) {
+                                        context
+                                            .read<SendNumberCubit>()
+                                            .changedNumberFour(number: '');
+                                      }
                                     }
                                   },
                                 ),
@@ -204,7 +262,10 @@ class _OtpScreenState extends State<OtpScreen> {
                       CustomButtonWidget(
                         onTap: () {
                           focusNodeUnFocus();
-                          context.push(NameRoutes.registerScreen);
+                          context
+                              .read<SendNumberCubit>()
+                              .requestCodeVerification();
+                          // context.push(NameRoutes.registerScreen);
                         },
                         title: AppText.validate,
                         width: size.width,

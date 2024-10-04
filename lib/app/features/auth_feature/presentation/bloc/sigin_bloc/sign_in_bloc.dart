@@ -38,20 +38,19 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     emit(state.copyWith(signInStatus: SignInStatus.loading));
     try {
       final result =
-          await _authRepository.signIn(signInModel: event.signInEntity);
+          await _authRepository.signIn(signInEntity: event.signInEntity);
       if (result is SignInSuccess) {
         await _tokenStorageServices.saveToken(result.accessToken);
-
-        emit(state.copyWith(
-          signInStatus: SignInStatus.success,
-        ));
-
-        _authBloc.add(CheckAuthStatus());
         if (state.rememberCheck) {
           add(SaveCredentials());
         } else {
           add(ClearCredentials());
         }
+        emit(state.copyWith(
+          signInStatus: SignInStatus.success,
+        ));
+
+        _authBloc.add(CheckAuthStatus());
       } else if (result is SignInFailure) {
         switch (result.signInFailureStatus) {
           case SignInFailureStatus.unAuthorized:
@@ -76,17 +75,26 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   Future<void> _signInEmailChangedEvent(
       SignInEmailChanged event, Emitter<SignInState> emit) async {
-    emit(state.copyWith(user: event.user));
+    emit(state.copyWith(
+      user: event.user,
+      signInStatus: SignInStatus.initial,
+    ));
   }
 
   Future<void> _signInPasswordChangedEvent(
       SignInPasswordChanged event, Emitter<SignInState> emit) async {
-    emit(state.copyWith(password: event.password));
+    emit(state.copyWith(
+      password: event.password,
+      signInStatus: SignInStatus.initial,
+    ));
   }
 
   Future<void> _signInTermsChangedEvent(
       SignInTermsChanged event, Emitter<SignInState> emit) async {
-    emit(state.copyWith(rememberCheck: event.rememberCheck));
+    emit(state.copyWith(
+      rememberCheck: event.rememberCheck,
+      signInStatus: SignInStatus.initial,
+    ));
   }
 
   Future<void> _saveCredentialsEvent(

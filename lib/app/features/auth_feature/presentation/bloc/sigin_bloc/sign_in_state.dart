@@ -2,7 +2,6 @@ part of 'sign_in_bloc.dart';
 
 class SignInState extends Equatable {
   final SignInStatus signInStatus;
-
   final String token;
   final String message;
   final String user;

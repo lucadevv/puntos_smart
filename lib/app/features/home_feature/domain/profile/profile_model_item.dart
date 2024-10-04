@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
@@ -21,8 +22,11 @@ final List<ProfileModelItem> poinstAndSubscription = [
         color: AppColors.onPrimary,
         borderRadius: BorderRadius.circular(15),
       ),
-      child: const Text(
-        "50 ps",
+      child: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(
+          "50 ps",
+        ),
       ),
     ),
   ),
@@ -39,6 +43,40 @@ final List<ProfileModelItem> poinstAndSubscription = [
     title: AppText.subcriptionSmart,
     widget: const Icon(
       Icons.navigate_next,
+      color: AppColors.onPrimary,
+    ),
+  ),
+];
+final List<ProfileModelItem> profileList = [
+  ProfileModelItem(
+    image: AppImages.fire,
+    title: AppText.personalInformation,
+    widget: const Icon(
+      Iconsax.user,
+      color: AppColors.onPrimary,
+    ),
+  ),
+  ProfileModelItem(
+    image: AppImages.fire,
+    title: AppText.address,
+    widget: const Icon(
+      Icons.directions,
+      color: AppColors.onPrimary,
+    ),
+  ),
+  ProfileModelItem(
+    image: AppImages.fire,
+    title: AppText.personalPreferences,
+    widget: const Icon(
+      Icons.room_preferences,
+      color: AppColors.onPrimary,
+    ),
+  ),
+  ProfileModelItem(
+    image: AppImages.fire,
+    title: AppText.myFavorities,
+    widget: const Icon(
+      Icons.favorite,
       color: AppColors.onPrimary,
     ),
   ),

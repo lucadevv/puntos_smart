@@ -52,7 +52,7 @@ class CustomTextFormFielWidget extends StatelessWidget {
           builder: (context, child) {
             // Aplicar transformación en el eje Z para simular que viene de afuera
             final scaleValue = animation.value;
-            final zValue = (1 - animation.value) * 50; // Ajusta este valor
+            final zValue = (1 - animation.value) * 1; // Ajusta este valor
 
             return Transform(
               transform: Matrix4.identity()

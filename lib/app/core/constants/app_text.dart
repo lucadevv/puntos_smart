@@ -9,6 +9,9 @@ class AppText {
   static const puntosSmart = 'Puntos Smart';
   static const loginIntoToContinue = 'Inicia sesión para continuar';
   static const user = 'Usuario';
+  static const mail = 'Email';
+  static const name = 'Nombres';
+  static const lastName = 'Apellidos';
   static const password = 'Contraseña';
   static const numberPhone = 'Número Celular';
   static const confirmPassword = 'Confirmar Contraseña';
@@ -35,7 +38,7 @@ class AppText {
   static const termnsAndConditinos1 = 'Por favor lee y acepta nuestros ';
   static const termnsAndConditinos2 = 'Términos y Condiciones ';
   static const termnsAndConditinos3 = 'y ';
-  static const termnsAndConditinos4 = 'Condiciones y Política de Privacidad.';
+  static const termnsAndConditinos4 = 'Política de Privacidad.';
   static const resetWithNumberSubtitle =
       'Ingresa tu número de celular para recibir un código y restablecerla fácilmente.';
   static const myLocation = 'Mi ubicación';
@@ -57,6 +60,7 @@ class AppText {
   static const answer = 'Encuesta';
   static const profile = 'Perfil';
   static const adresses = 'Mis direcciones Smart';
+
   static const pointsAndSubscription = 'Puntos y Suscripciones';
   static const myWallet = 'Mi billetera Smart';
   static const sendPoints = 'Enviar y recibir puntos Smart';
@@ -71,4 +75,10 @@ class AppText {
   static const termsAndContion = 'Terminos y condiciones';
   static const privacyPolicy = 'Política de privacidad';
   static const logOut = 'Cerrar sesión';
+  static const invalidCredentials = 'Credenciasles Invalidos 😩';
+  static const networkError = 'Error de conexión 🛜';
+  static const serverError = 'En mantenimiendo 😃';
+  static const personalInformation = 'Información Personal';
+  static const address = 'Direcciones';
+  static const personalPreferences = 'Preferencias Personales';
 }

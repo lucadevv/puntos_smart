@@ -22,4 +22,10 @@ class NameRoutes {
   static const couponScreen = '/coupon';
 
   static const rateStoreScreen = '/rate_store_screen';
+
+  //profile
+  static const personalInformationScreen = '/personalInformationScreen';
+  static const addressScreen = '/addressScreen';
+  static const personalPreferencesScreen = '/personalPreferencesScreen';
+  static const favoritesScreen = '/favoritesScreen';
 }

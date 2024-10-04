@@ -3,20 +3,29 @@ abstract class SignUpResult {}
 class SignUpSuccess extends SignUpResult {
   final String accessToken;
   final String message;
+  final String status;
 
-  SignUpSuccess({required this.accessToken, required this.message});
+  SignUpSuccess({
+    required this.accessToken,
+    required this.message,
+    required this.status,
+  });
 }
 
-class SignUpFealure extends SignUpResult {
-  final SignUpFealure signUpFealure;
+class SignUpFailure extends SignUpResult {
+  final SignUpFailureStatus signUpFailureStatus;
 
-  SignUpFealure({required this.signUpFealure});
+  SignUpFailure({required this.signUpFailureStatus});
 }
 
-enum SignUpFealureStatus {
-  network,
-  notFound,
-  server,
-  unAuthorized,
-  unknow,
+enum SignUpFailureStatus {
+  network, // Problemas de conexión
+  server, // Error en el servidor
+  emailAlreadyInUse, // El correo ya está registrado
+  invalidEmail, //Email invalido
+  phoneNumberExist, //Numero de telefono ya existe
+  invalidData, // Datos proporcionados no válidos
+  weakPassword, // La contraseña es débil
+  termsNotAccepted, // No se aceptaron los términos y condiciones
+  unknown, // Error desconocido
 }

@@ -2,6 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:puntos_smart_user/app/api/network/api_client.dart';
 import 'package:puntos_smart_user/app/core/common/end_points.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_code_request_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_number_request_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/send_code_response_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/send_number_response_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/sig_up_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/sing_in_mode.dart';
 
@@ -39,19 +43,86 @@ class AuthDatasourceNtw {
     }
   }
 
-  Future<void> sigUp({required SignUpModel model}) async {
+  Future<SendNumberResponseModel> sendNumber(
+      {required SendNumberRequestModel model}) async {
     try {
-      // Convertir el modelo SignUpModel a un mapa (JSON) para la solicitud
+      final response = await _apiClient.postData(
+        EndPoints.sendNumber,
+        data: model.toJson(),
+      );
+      if (response.statusCode == 200) {
+        return SendNumberResponseModel.fromJson(response.data);
+      } else {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          type: DioExceptionType.badResponse,
+        );
+      }
+    } catch (e) {
+      if (e is DioException) {
+        rethrow;
+      } else {
+        debugPrint('Error durante el envio de telefono: $e');
+        throw Exception('Error inesperado durante el envio de telefono');
+      }
+    }
+  }
+
+  Future<SendCodeResponseModel> sendCode(
+      {required SendCodeRequestModel model}) async {
+    print("_____${model.code}");
+    try {
+      final response = await _apiClient.postData(
+        EndPoints.sendCodeVerify,
+        data: model.toJson(),
+      );
+
+      if (response.statusCode == 200) {
+        return SendCodeResponseModel.fromJson(response.data);
+      } else {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          type: DioExceptionType.badResponse,
+        );
+      }
+    } catch (e) {
+      if (e is DioException) {
+        rethrow;
+      } else {
+        debugPrint('Error durante el envio de codigo de verificacion: $e');
+        throw Exception(
+            'Error inesperado durante el envio de codigo de verificacion');
+      }
+    }
+  }
+
+  Future<Map<String, dynamic>> sigUp({required SignUpModel model}) async {
+    try {
       final response = await _apiClient.postData(
         EndPoints.register,
         data: model.toJson(),
       );
-      // Manejar la respuesta según sea necesario
-      debugPrint('Signup successful: ${response.data}');
+      if (response.statusCode == 200) {
+        final token = response.data['access_token'];
+        final status = response.data['status'];
+        final message = response.data['message'];
+        return {'access_token': token, 'status': status, 'message': message};
+      } else {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          type: DioExceptionType.badResponse,
+        );
+      }
     } catch (e) {
-      // Manejo de errores
-      debugPrint('Error during signup: $e');
-      throw Exception('Failed to sign up');
+      if (e is DioException) {
+        rethrow;
+      } else {
+        debugPrint('Error durante el registro: $e');
+        throw Exception('Error inesperado durante el registro');
+      }
     }
   }
 }

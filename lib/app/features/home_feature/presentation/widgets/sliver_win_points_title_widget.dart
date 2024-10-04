@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
-import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 
 class SliverWinPointsTitleProfile extends StatelessWidget {
   const SliverWinPointsTitleProfile({
@@ -13,13 +12,14 @@ class SliverWinPointsTitleProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16)
+          .copyWith(bottom: 12, top: 16),
       sliver: SliverToBoxAdapter(
         child: Text(
           AppText.winPoints,
-          style: textTheme.bodySmall!.copyWith(
-            color: AppColors.descriptionColor,
-            fontWeight: FontWeight.w700,
+          style: textTheme.titleMedium!.copyWith(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),

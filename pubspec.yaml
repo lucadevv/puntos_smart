@@ -34,6 +34,7 @@ dependencies:
   iconsax: ^0.0.8
   permission_handler: ^11.3.1
   shared_preferences: ^2.3.2
+  sms_autofill: ^2.4.0
   text_marquee: ^0.0.2
   url_launcher: ^6.3.0
 dev_dependencies:

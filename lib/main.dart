@@ -7,6 +7,7 @@ import 'package:puntos_smart_user/app/core/theme/app_theme.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/repositories/auth_repository.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/sigin_bloc/sign_in_bloc.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/presentation/cubit/cubit/send_number_cubit.dart';
 import 'package:puntos_smart_user/app/injection.dart';
 
 void main() async {
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthBloc(
+          create: (_) => AuthBloc(
               tokenStorageService: GetIt.instance<TokenStorageServices>())
             ..add(CheckAuthStatus()),
         ),
@@ -33,6 +34,12 @@ class MyApp extends StatelessWidget {
             tokenStorageServices: GetIt.instance<TokenStorageServices>(),
             authBloc: BlocProvider.of<AuthBloc>(context),
           ),
+        ),
+        BlocProvider(
+          create: (context) => SendNumberCubit(
+            authRepository: GetIt.instance<AuthRepository>(),
+          ),
+          lazy: false,
         ),
       ],
       child: MaterialApp.router(

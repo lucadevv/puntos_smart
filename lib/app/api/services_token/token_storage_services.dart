@@ -25,12 +25,8 @@ class TokenStorageServices {
     final prefs = await instance;
 
     if (user.isEmpty || password.isEmpty) {
-      print(
-          'No se puede guardar porque el usuario o la contraseña están vacíos.');
       return;
     }
-
-    print('Guardando usuario: $user y contraseña.');
     await prefs.setString('saved_user', user);
     await prefs.setString('saved_password', password);
   }

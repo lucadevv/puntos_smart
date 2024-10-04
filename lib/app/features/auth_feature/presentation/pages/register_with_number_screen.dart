@@ -1,5 +1,6 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
@@ -8,6 +9,7 @@ import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/physics/custom_scroll_physics.dart';
 
 import 'package:puntos_smart_user/app/core/widgets/custom_arrow_back.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/presentation/cubit/cubit/send_number_cubit.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/widgets/custom_button_widget.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/widgets/customt_extformfield_widget.dart';
 
@@ -92,7 +94,7 @@ class _RegisterWithNumberScreenState extends State<RegisterWithNumberScreen> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
-
+    final sendNumberCubit = context.read<SendNumberCubit>();
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -143,6 +145,9 @@ class _RegisterWithNumberScreenState extends State<RegisterWithNumberScreen> {
                             isFocused: isFocus,
                             isPhone: true,
                             controller: controller,
+                            onChanged: (value) => context
+                                .read<SendNumberCubit>()
+                                .changedNumber(phoneNumber: value),
                             iconDataPrefix: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 12),
@@ -163,13 +168,85 @@ class _RegisterWithNumberScreenState extends State<RegisterWithNumberScreen> {
                           ),
                         );
                       })),
-                      CustomButtonWidget(
-                        onTap: () {
-                          context.push(NameRoutes.otpScreen);
-                          focusNodeUnFocus();
+                      BlocConsumer<SendNumberCubit, SendNumberState>(
+                        listener: (context, state) {
+                          switch (state.sendNumberStatus) {
+                            case SendNumberStatus.success:
+                              context.push(NameRoutes.otpScreen);
+                              break;
+                            case SendNumberStatus.server:
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("Error de servidor")),
+                              );
+                              break;
+                            case SendNumberStatus.notFound:
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("404")),
+                              );
+                              break;
+                            case SendNumberStatus.phoneNumberExist:
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("Numero ya esta registrado")),
+                              );
+                              break;
+                            case SendNumberStatus.activeCodeExpiration:
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content:
+                                        Text("Expiracion de codigo activo")),
+                              );
+                              context.push(NameRoutes.otpScreen);
+                              break;
+                            case SendNumberStatus.invalidNumber:
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("Numero invalido")),
+                              );
+                              break;
+                            case SendNumberStatus.invalidData:
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("Datos invalidos")),
+                              );
+                              break;
+                            default:
+                          }
                         },
-                        title: AppText.next,
-                        width: size.width,
+                        builder: (context, state) {
+                          switch (state.sendNumberStatus) {
+                            case SendNumberStatus.loading:
+                              return CustomButtonWidget(
+                                onTap: () {},
+                                title: "Cargando...",
+                                width: size.width,
+                              );
+
+                            default:
+                              return CustomButtonWidget(
+                                onTap: () {
+                                  final phoneNumer = context
+                                      .read<SendNumberCubit>()
+                                      .state
+                                      .phoneNumber;
+                                  if (phoneNumer.length == 9) {
+                                    sendNumberCubit.requestNumber();
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              'Numero de telefono invalido')),
+                                    );
+                                  }
+
+                                  focusNodeUnFocus();
+                                },
+                                title: AppText.next,
+                                width: size.width,
+                              );
+                          }
+                        },
                       ),
                     ],
                   ),

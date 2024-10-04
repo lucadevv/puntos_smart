@@ -1,3 +1,5 @@
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/sign_up_entity.dart';
+
 class SignUpModel {
   final String? name;
   final String? lastname;
@@ -80,4 +82,11 @@ class SignUpModel {
         "fcm_token": fcmToken,
         "location": location,
       };
+  factory SignUpModel.entityToModel(SignUpEntity entity) => SignUpModel(
+        name: entity.name,
+        lastname: entity.lastname,
+        email: entity.email,
+        phone: entity.phone,
+        password: entity.password,
+      );
 }

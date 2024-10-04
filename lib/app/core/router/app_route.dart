@@ -14,6 +14,10 @@ import 'package:puntos_smart_user/app/features/coupon_feature/presentation/coupo
 import 'package:puntos_smart_user/app/features/coupon_feature/presentation/pages/coupon_screen.dart';
 import 'package:puntos_smart_user/app/features/home_feature/presentation/home_screen.dart';
 import 'package:puntos_smart_user/app/features/modules_feature/presentation/module_screen.dart';
+import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/personal_inforamcion_screen.dart';
+import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/screens/address_screen.dart';
+import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/screens/favorites_screen.dart';
+import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/screens/personal_preferences_screen.dart';
 import 'package:puntos_smart_user/app/features/product_detail_feature/presentation/product_detail_screen.dart';
 import 'package:puntos_smart_user/app/features/products_feature/presentation/products_screen.dart';
 import 'package:puntos_smart_user/app/features/rate_store_feature/presentation/rate_store_screen.dart';
@@ -193,6 +197,26 @@ final appRoute = GoRouter(
           },
         );
       },
+    ),
+    /*
+     ------------------PERSONAL INFORMATION SCREEN-----------
+    */
+
+    GoRoute(
+      path: NameRoutes.personalInformationScreen,
+      builder: (context, state) => const PersonalInforamcionScreen(),
+    ),
+    GoRoute(
+      path: NameRoutes.addressScreen,
+      builder: (context, state) => const AddressScreen(),
+    ),
+    GoRoute(
+      path: NameRoutes.personalPreferencesScreen,
+      builder: (context, state) => const PersonalPreferencesScreen(),
+    ),
+    GoRoute(
+      path: NameRoutes.favoritesScreen,
+      builder: (context, state) => const FavoritesScreen(),
     ),
   ],
 );

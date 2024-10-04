@@ -17,14 +17,16 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final listLabel = [
-    AppText.user,
-    AppText.numberPhone,
+    AppText.name,
+    AppText.lastName,
+    AppText.mail,
     AppText.password,
     AppText.confirmPassword
   ];
   final listIcon = [
     Icons.person,
-    Icons.phone,
+    Icons.person,
+    Icons.mail,
     Icons.private_connectivity,
     Icons.private_connectivity
   ];
@@ -45,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void focusNodeListners() {
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < listLabel.length; i++) {
       _focusNodes.add(FocusNode());
       _isFocused.add(false);
       _controllers.add(TextEditingController());
@@ -54,26 +56,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
         setState(() {
           _isFocused[i] = _focusNodes[i].hasFocus;
 
-          if (_focusNodes[i].hasFocus) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              // Calculamos la posición del campo de texto
-              RenderObject? object = _focusNodes[i].context?.findRenderObject();
-              if (object is RenderBox) {
-                double objectPosition = object.localToGlobal(Offset.zero).dy;
-                double screenHeight = MediaQuery.of(context).size.height;
+          // if (_focusNodes[i].hasFocus) {
+          //   WidgetsBinding.instance.addPostFrameCallback((_) {
+          //     // Calculamos la posición del campo de texto
+          //     RenderObject? object = _focusNodes[i].context?.findRenderObject();
+          //     if (object is RenderBox) {
+          //       double objectPosition = object.localToGlobal(Offset.zero).dy;
+          //       double screenHeight = MediaQuery.of(context).size.height;
 
-                // Calculamos si es necesario hacer scroll
-                if (objectPosition > screenHeight * 0.5 || objectPosition < 0) {
-                  double scrollOffset = objectPosition - (screenHeight * 0.3);
-                  scrollController.animateTo(
-                    scrollController.offset + scrollOffset,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                  );
-                }
-              }
-            });
-          }
+          //       // Calculamos si es necesario hacer scroll
+          //       if (objectPosition > screenHeight * 0.5 || objectPosition < 0) {
+          //         double scrollOffset = objectPosition - (screenHeight * 0.3);
+          //         scrollController.animateTo(
+          //           scrollController.offset + scrollOffset,
+          //           duration: const Duration(milliseconds: 300),
+          //           curve: Curves.easeInOut,
+          //         );
+          //       }
+          //     }
+          //   });
+          // }
         });
       });
     }
@@ -133,8 +135,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Stack(
             children: [
               SingleChildScrollView(
-                controller: scrollController,
-                physics: const NoUserBouncingScrollPhysics(),
+                // controller: scrollController,
+                physics: const ClampingScrollPhysics(),
                 child: Container(
                   height: size.height,
                   width: size.width,
@@ -173,16 +175,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: CustomTextFormFielWidget(
                               unFocus: focusNode,
                               isFocused: isFocus,
-                              isOtp: false,
-                              isPhone: index == 1
+                              isPassword: index == 3
                                   ? _isPasswordVisible
-                                  : false, // Si es número de teléfono
-                              isPassword: index == 2 ||
-                                  index ==
-                                      3, // Si es contraseña o confirmar contraseña
-                              isPasswordVisible: index == 2
+                                  : index == 4
+                                      ? _isConfirmPasswordVisible
+                                      : false,
+                              isPasswordVisible: index == 3
                                   ? _isPasswordVisible
-                                  : index == 3
+                                  : index == 4
                                       ? _isConfirmPasswordVisible
                                       : false,
                               controller: controller,
@@ -191,16 +191,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 color: AppColors.onPrimary,
                               ),
                               label: label,
-                              isTapPrefixIcon: index == 2
+                              isTapPrefixIcon: index == 3
                                   ? _togglePasswordVisibility // Alternar visibilidad para "password"
-                                  : index == 3
+                                  : index == 4
                                       ? _toggleConfirmPasswordVisibility // Alternar visibilidad para "confirm password"
                                       : null,
-                              iconDataSufix: index == 2
+                              iconDataSufix: index == 3
                                   ? _isPasswordVisible
                                       ? Icons.visibility
                                       : Icons.visibility_off
-                                  : index == 3
+                                  : index == 4
                                       ? _isConfirmPasswordVisible
                                           ? Icons.visibility
                                           : Icons.visibility_off

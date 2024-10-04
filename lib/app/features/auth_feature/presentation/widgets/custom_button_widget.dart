@@ -26,14 +26,14 @@ class CustomButtonWidget extends StatelessWidget {
             width: width,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(4),
               color: onTap == null ? AppColors.surface : AppColors.onPrimary,
             ),
             child: Text(
               title,
-              style: textTheme.bodyLarge!.copyWith(
+              style: textTheme.bodyMedium!.copyWith(
                 color: Colors.white,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),

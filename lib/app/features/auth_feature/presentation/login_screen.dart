@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/sign_in_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/repositories/auth_repository.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/sigin_bloc/sign_in_bloc.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/presentation/cubit/cubit/send_number_cubit.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/widgets/custom_button_widget.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/widgets/social_widget.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/widgets/customt_extformfield_widget.dart';
@@ -20,7 +23,11 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _listLabe = [AppText.user, AppText.password];
+  final _listLabe = [
+    AppText.mail,
+    AppText.password,
+  ];
+
   final _listIcon = [Icons.person, Icons.private_connectivity];
   final List<FocusNode> _focusNodes = [];
   final List<bool> _isFocused = [];
@@ -82,15 +89,19 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
-    debugPrint('---scaffold');
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus &&
+              currentFocus.focusedChild != null) {
+            currentFocus.unfocus();
+          }
+        },
         behavior: HitTestBehavior.opaque,
         child: Scaffold(
           backgroundColor: AppColors.onPrimary,
           body: CustomScrollView(
-            // controller: _scrollController,
-            physics: const BouncingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             slivers: [
               SliverToBoxAdapter(
                 child: SizedBox(
@@ -266,19 +277,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                     SignInStatus.invalidCredentials) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                        content: Text('Invalid Credentials')),
+                                        content:
+                                            Text(AppText.invalidCredentials)),
                                   );
                                 } else if (state.signInStatus ==
                                     SignInStatus.networkError) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                        content: Text('Network Error')),
+                                        content: Text(AppText.networkError)),
                                   );
                                 } else if (state.signInStatus ==
                                     SignInStatus.failure) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                        content: Text('Server Error')),
+                                        content: Text(AppText.serverError)),
                                   );
                                 }
                               },
@@ -287,7 +299,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     SignInStatus.loading) {
                                   return CustomButtonWidget(
                                     onTap: () {},
-                                    title: 'Loaging ...',
+                                    title: 'Cargando ...',
                                     width: size.width,
                                   );
                                 }

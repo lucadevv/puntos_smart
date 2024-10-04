@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
+import 'package:puntos_smart_user/app/core/constants/app_text.dart';
+import 'package:puntos_smart_user/app/core/extension/custom_extension.dart';
+import 'package:puntos_smart_user/app/core/widgets/custom_ontap.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:puntos_smart_user/app/features/home_feature/domain/profile/profile_model_item.dart';
+import 'package:puntos_smart_user/app/features/home_feature/presentation/slivers/sliver_complete_profile.dart';
 import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_address_widget.dart';
-import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_appbar_widget.dart';
 import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_button_logout_profile.dart';
 import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_header_widget.dart';
 import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_point_list_widget.dart';
-import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_points_title_widget.dart';
-import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_soporter_title_widget.dart';
+import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_profile_item.dart';
+import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_title_widget.dart';
 import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_sopporter_list_widget.dart';
 import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_win_points_list_widget.dart';
-import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_win_points_title_widget.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -36,14 +38,22 @@ class ProfilePage extends StatelessWidget {
               case AuthStateStatus.authAuthenticated:
                 return CustomScrollView(
                   slivers: [
-                    SliverAppbarProfile(textTheme: textTheme),
-                    SliverHeaderProfile(size: size, textTheme: textTheme),
-                    const SliverBoxAdressProfile(),
-                    SliverBoxPointsTitleProfile(textTheme: textTheme),
+                    SliverPadding(
+                      padding: const EdgeInsets.only(top: kToolbarHeight),
+                      sliver: SliverHeaderProfile(
+                        size: size,
+                        textTheme: textTheme,
+                        onTap: () {},
+                      ),
+                    ),
+                    const SliverCompleteProfile(),
+                    const SliverProfilesItems(),
+                    const SliverTitleProfile(
+                        title: AppText.pointsAndSubscription),
                     const SliverBoxPointsListProfile(),
-                    SliverWinPointsTitleProfile(textTheme: textTheme),
+                    const SliverTitleProfile(title: AppText.winPoints),
                     const SliverWinPointsListProfile(),
-                    SliverSopporterTitleProfile(textTheme: textTheme),
+                    const SliverTitleProfile(title: AppText.smartSupport),
                     const SlvierSopporterListProfile(),
                     SliverButtonLogoutProfile(textTheme: textTheme)
                   ],
@@ -51,20 +61,17 @@ class ProfilePage extends StatelessWidget {
               default:
                 return CustomScrollView(
                   slivers: [
-                    SliverAppbarProfile(textTheme: textTheme),
-                    SliverHeaderProfile(size: size, textTheme: textTheme),
-                    const SliverBoxAdressProfile(),
-                    SliverBoxPointsTitleProfile(textTheme: textTheme),
-                    const SliverBoxPointsListProfile(),
-                    SliverWinPointsTitleProfile(textTheme: textTheme),
-                    const SliverWinPointsListProfile(),
-                    SliverSopporterTitleProfile(textTheme: textTheme),
-                    const SlvierSopporterListProfile(),
-                    SliverToBoxAdapter(
-                      child: Container(
-                        alignment: Alignment.topCenter,
-                        padding: const EdgeInsets.only(top: 32),
-                        height: 100,
+                    SliverFillRemaining(
+                      hasScrollBody:
+                          false, // Evita que el contenido sea desplazable
+                      child: Center(
+                        child: Text(
+                          "Inicia sesión o registrate para continuar",
+                          style: textTheme.headlineLarge!.copyWith(
+                            color: Colors.black54,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ],
@@ -77,48 +84,14 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-class CustomItemProfile extends StatelessWidget {
-  const CustomItemProfile({
-    super.key,
-    required this.image,
-    required this.title,
-    required this.widget,
-  });
-
-  final String image;
-  final String title;
-  final Widget widget;
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final textTheme = Theme.of(context).textTheme;
-    return Container(
-      height: 50,
-      width: size.width,
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: AppColors.onPrimary,
-        ),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Row(
-        children: [
-          Image.asset(image),
-          const SizedBox(width: 12),
-          Text(
-            title,
-            style: textTheme.bodyMedium!.copyWith(
-              color: AppColors.descriptionColor,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const Spacer(),
-          widget,
-        ],
-      ),
-    );
+extension ListUtils<T> on List<T> {
+  List<T> insertBetween(T separator) {
+    if (isEmpty) return this;
+    final List<T> result = [];
+    for (int i = 0; i < length; i++) {
+      result.add(this[i]);
+      if (i != length - 1) result.add(separator);
+    }
+    return result;
   }
 }
