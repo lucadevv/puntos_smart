@@ -19,6 +19,7 @@ class CustomTextFormFielWidget extends StatelessWidget {
     this.isPasswordVisible = false,
     this.onChanged,
     this.prefixText,
+    this.isSearch = false,
   });
 
   final String? hintText;
@@ -35,6 +36,7 @@ class CustomTextFormFielWidget extends StatelessWidget {
   final bool? isPasswordVisible;
   final Function(String)? onChanged;
   final String? prefixText;
+  final bool? isSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +105,7 @@ class CustomTextFormFielWidget extends StatelessWidget {
           prefixStyle: textTheme.titleSmall!.copyWith(
             color: Colors.black54,
           ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
+          contentPadding: const EdgeInsets.symmetric(vertical: 15.0).copyWith(right: 5),
           labelText: label,
           labelStyle: textTheme.titleSmall!.copyWith(
             color:
@@ -113,7 +115,7 @@ class CustomTextFormFielWidget extends StatelessWidget {
           hintText: hintText,
           hintStyle: TextStyle(
             color:
-                isFocused == true ? AppColors.onPrimary : AppColors.textfield,
+                isFocused == true ? AppColors.onPrimary : AppColors.greymedium/*textfield*/,
           ),
           prefixIcon:
               iconDataPrefix != null ? Container(child: iconDataPrefix) : null,
@@ -128,18 +130,29 @@ class CustomTextFormFielWidget extends StatelessWidget {
                   ),
                 )
               : null,
-          enabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
+              //dar color de fondo
+              filled: isSearch == true ? true : false, // Esto activa el fondo
+          fillColor:
+              isSearch == true ? AppColors.greyligth : Colors.transparent,
+
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12)),
             borderSide: BorderSide(
-              color: AppColors.textfield,
-              width: 2,
+              //color: AppColors.textfield,
+              color: isSearch == true
+                  ? Colors.transparent
+                  : AppColors.textfield, // AppColors.textfield,
+              width: 1,
             ),
           ),
-          focusedBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12)),
             borderSide: BorderSide(
-              color: AppColors.onPrimary,
-              width: 2,
+              //color: AppColors.onPrimary,
+              color: isSearch == true
+                  ? Colors.transparent
+                  : AppColors.onPrimary,
+              width: 1,
             ),
           ),
         ),

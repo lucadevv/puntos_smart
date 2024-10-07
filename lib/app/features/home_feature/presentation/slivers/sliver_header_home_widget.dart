@@ -31,7 +31,7 @@ class SliverHeaderHomeWidget extends StatelessWidget {
                   AppText.welcomeSmarter,
                   style: textTheme.titleMedium!.copyWith(
                     color: Colors.black,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w800,
                     fontSize: 18,
                   ),
                 ),
@@ -39,7 +39,8 @@ class SliverHeaderHomeWidget extends StatelessWidget {
                   AppText.welcomeSmarter2,
                   style: textTheme.headlineLarge!.copyWith(
                     color: AppColors.onPrimary,
-                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Bungee',
+                    //fontWeight: FontWeight.w700,
                   ),
                 ),
               ],

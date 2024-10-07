@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
@@ -31,8 +32,8 @@ class AnswerWinScreen extends StatelessWidget {
               title: Text(
                 AppText.answerAndWin,
                 style: textTheme.bodyLarge!.copyWith(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w700,
+                  color: AppColors.blacknew,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               leadingWidth: 70,
@@ -51,8 +52,8 @@ class AnswerWinScreen extends StatelessWidget {
                     message: AppText.infoAnswerAndWin,
                     textStyle: textTheme.labelSmall,
                     child: const Icon(
-                      Icons.info,
-                      size: 40,
+                      Iconsax.info_circle,
+                      size: 25,
                       color: AppColors.onPrimary,
                     ),
                   ),
@@ -76,10 +77,21 @@ class AnswerWinScreen extends StatelessWidget {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 8),
+                          horizontal: 12, vertical: 12), //8
                       decoration: BoxDecoration(
-                        color: AppColors.surface.withOpacity(0.2),
+                        color: AppColors
+                            .primary, //AppColors.surface.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.greynew.withOpacity(
+                                0.2), // Color de la sombra con opacidad
+                            spreadRadius: 1, // Extensión de la sombra
+                            blurRadius: 8, // Desenfoque de la sombra
+                            offset: Offset(
+                                0, 4), // Desplazamiento de la sombra (x, y)
+                          ),
+                        ],
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -88,8 +100,8 @@ class AnswerWinScreen extends StatelessWidget {
                             height: 110,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: AppColors.surface,
-                                width: 2,
+                                color: AppColors.greyligth,
+                                width: 1,
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -98,7 +110,7 @@ class AnswerWinScreen extends StatelessWidget {
                           Text(
                             'Hamburguesas',
                             style: textTheme.bodySmall!.copyWith(
-                              color: Colors.black54,
+                              color: AppColors.blacknew,
                             ),
                             maxLines: 1,
                           ),
@@ -106,7 +118,7 @@ class AnswerWinScreen extends StatelessWidget {
                           Text(
                             'Titulo de la Encuesta, maximo tres lineas y longitud',
                             style: textTheme.bodySmall!.copyWith(
-                              color: Colors.black54,
+                              color: AppColors.blacknew,
                               fontWeight: FontWeight.w700,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -116,7 +128,7 @@ class AnswerWinScreen extends StatelessWidget {
                           Text(
                             'Gana 20 PS',
                             style: textTheme.bodySmall!.copyWith(
-                              color: Colors.black54,
+                              color: AppColors.blacknew,
                               fontWeight: FontWeight.w700,
                             ),
                             textAlign: TextAlign.end,

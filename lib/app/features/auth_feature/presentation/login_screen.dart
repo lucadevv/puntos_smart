@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
@@ -13,6 +14,8 @@ import 'package:puntos_smart_user/app/features/auth_feature/presentation/cubit/c
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/widgets/custom_button_widget.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/widgets/social_widget.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/widgets/customt_extformfield_widget.dart';
+
+import 'widgets/custom_button_widget_social.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -28,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     AppText.password,
   ];
 
-  final _listIcon = [Icons.person, Icons.private_connectivity];
+  final _listIcon = [Iconsax.user, Iconsax.check];
   final List<FocusNode> _focusNodes = [];
   final List<bool> _isFocused = [];
 
@@ -138,8 +141,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             Text(
                               AppText.puntosSmart,
                               style: textTheme.headlineLarge!.copyWith(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
+                                color: AppColors.onSecondary,
+                                //fontWeight: FontWeight.w700,
+                                fontFamily: 'Bungee',
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -334,56 +338,77 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                               },
                             ),
-                            const SizedBox(height: 16),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  height: 2,
-                                  width: size.width * 0.2,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.surface,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                                Text(
-                                  AppText.loginWith,
-                                  style: textTheme.labelMedium!.copyWith(
-                                    color: AppColors.surface,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                Container(
-                                  height: 2,
-                                  width: size.width * 0.2,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.surface,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                              ],
+                            const SizedBox(height: 8),
+                            CustomButtonWidgetSocial(
+                              onTap: () {
+                                //AppImages.apple,
+                              },
+                              title: 'Inicia sesión con Google',
+                              width: size.width,
+                              image: AppImages.google,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SocialWidget(
-                                  image: AppImages.google,
-                                  ontap: () {},
-                                ),
-                                const SizedBox(width: 32),
-                                SocialWidget(
-                                  image: AppImages.apple,
-                                  ontap: () {},
-                                ),
-                              ],
+                            const SizedBox(height: 8),
+                            CustomButtonWidgetSocial(
+                              onTap: () {
+                                //AppImages.apple,
+                              },
+                              title: 'Inicia sesión con Apple',
+                              width: size.width,
+                              image: AppImages.apple,
                             ),
+                            const SizedBox(height: 15),
+
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+                            //     Container(
+                            //       height: 2,
+                            //       width: size.width * 0.2,
+                            //       decoration: BoxDecoration(
+                            //         color: AppColors.surface,
+                            //         borderRadius: BorderRadius.circular(10),
+                            //       ),
+                            //     ),
+                            //     Text(
+                            //       AppText.loginWith,
+                            //       style: textTheme.labelMedium!.copyWith(
+                            //         color: AppColors.surface,
+                            //         fontWeight: FontWeight.w500,
+                            //       ),
+                            //     ),
+                            //     Container(
+                            //       height: 2,
+                            //       width: size.width * 0.2,
+                            //       decoration: BoxDecoration(
+                            //         color: AppColors.surface,
+                            //         borderRadius: BorderRadius.circular(10),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     SocialWidget(
+                            //       image: AppImages.google,
+                            //       ontap: () {},
+                            //     ),
+                            //     const SizedBox(width: 32),
+                            //     SocialWidget(
+                            //       image: AppImages.apple,
+                            //       ontap: () {},
+                            //     ),
+                            //   ],
+                            // ),
+                            
+                            // no tienes cuenta
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
                                   AppText.youDontHaveAnAccountYet,
-                                  style: textTheme.labelMedium!.copyWith(
-                                    color: AppColors.surface,
+                                  style: textTheme.bodySmall!.copyWith(
+                                    color: AppColors.ligthcolort, //surface
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -401,9 +426,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         AppColors.onPrimary.withOpacity(0.2),
                                     child: Text(
                                       AppText.register,
-                                      style: textTheme.labelMedium!.copyWith(
+                                      style: textTheme.bodySmall!.copyWith(
                                         color: AppColors.onPrimary,
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ),

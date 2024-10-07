@@ -5,7 +5,7 @@ class AppTheme {
   static ThemeData lighTheme() => ThemeData(
         scaffoldBackgroundColor: AppColors.primary,
         useMaterial3: true,
-        fontFamily: "Poppins",
+        fontFamily: "Onest",
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: AppColors.onPrimary, // Color del cursor
           selectionHandleColor:

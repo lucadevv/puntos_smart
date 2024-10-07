@@ -26,13 +26,13 @@ class SliverDescWidget extends StatelessWidget {
               child: Text(
                 "Destacados",
                 style: textTheme.headlineSmall!.copyWith(
-                  color: Colors.black87,
+                  color: AppColors.blacknew,
                   fontWeight: FontWeight.w600,
                 ),
               ),
             ),
             SizedBox(
-              height: 269,
+              height: 275,//269
               child: ListView.builder(
                 itemCount: 10,
                 itemExtent: 224,

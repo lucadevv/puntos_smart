@@ -12,9 +12,10 @@ class WinPointsModuleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
-        height: 250,
+        height: 260, //250
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        //padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: ListView.builder(
           itemCount: 5,
           scrollDirection: Axis.horizontal,

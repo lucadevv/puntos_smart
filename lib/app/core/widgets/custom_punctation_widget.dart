@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 
 class CustomPunctationWidget extends StatelessWidget {
@@ -12,8 +13,8 @@ class CustomPunctationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Container(
-      height: 20,
-      width: 46,
+      height: 30,
+      width: 55,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: color,
@@ -23,16 +24,22 @@ class CustomPunctationWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Icon(
-            Icons.star,
+            Iconsax.star1,
             color: AppColors.colorStar,
-            size: 15,
+            size: 18,
+          ),
+          const SizedBox(
+            width: 1,
           ),
           Text(
             '4.5',
             style: textTheme.labelMedium!.copyWith(
-              color: AppColors.colorStar,
+              color: AppColors.primary,
               fontWeight: FontWeight.w600,
             ),
+          ),
+          const SizedBox(
+            width: 4,
           ),
         ],
       ),

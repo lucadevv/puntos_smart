@@ -214,10 +214,21 @@ class _StoreScreenState extends State<StoreScreen> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 12, vertical: 12),
                                 decoration: BoxDecoration(
+                                  color: AppColors.primary,
                                   borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: AppColors.textfield,
-                                  ),
+                                  // border: Border.all(
+                                  //   color: AppColors.textfield,
+                                  // ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColors.greynew.withOpacity(
+                                          0.2), // Color de la sombra con opacidad
+                                      spreadRadius: 1, // Extensión de la sombra
+                                      blurRadius: 8, // Desenfoque de la sombra
+                                      offset: Offset(0,
+                                          4), // Desplazamiento de la sombra (x, y)
+                                    ),
+                                  ],
                                 ),
                                 child: Row(
                                   children: [
@@ -329,8 +340,9 @@ class _StoreScreenState extends State<StoreScreen> {
           onTap: () {
             context.push('${NameRoutes.couponsScreen}/1');
           },
-          heigh: 80,
-          width: 80,
+          heigh: 60,
+          width: 60,
+          floating: true,
         ),
       ),
     );

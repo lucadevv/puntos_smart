@@ -11,24 +11,34 @@ class CustomItemAnswerWidget extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Container(
       width: 175,
+      //height: 250,
       margin: const EdgeInsets.only(
         right: 0,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10), //12
       decoration: BoxDecoration(
-        color: AppColors.surface.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(15),
+        color: AppColors.primary, //AppColors.surface.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.greymedium
+                .withOpacity(0.2), // Color de la sombra con opacidad
+            spreadRadius: 1, // Extensión de la sombra
+            blurRadius: 8, // Desenfoque de la sombra
+            offset: Offset(0, 4), // Desplazamiento de la sombra (x, y)
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            height: 150,
-            width: 150,
+            height: 120,
+            width: 120,
             decoration: BoxDecoration(
               border: Border.all(
-                color: AppColors.surface,
-                width: 2,
+                color: AppColors.greyligth,
+                width: 1,
               ),
               borderRadius: BorderRadius.circular(10),
             ),
