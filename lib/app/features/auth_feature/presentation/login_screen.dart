@@ -281,6 +281,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                             Text(AppText.invalidCredentials)),
                                   );
                                 } else if (state.signInStatus ==
+                                    SignInStatus.notFound) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text("Not Found")),
+                                  );
+                                } else if (state.signInStatus ==
                                     SignInStatus.networkError) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(

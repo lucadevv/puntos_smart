@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:label="puntos_smart_user"
         android:name="${applicationName}"
@@ -36,6 +39,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCaCSJ0BZItSyXqBv8vpD1N4WBffJeKhLQ" />
         <!-- <receiver android:name="com.google.android.gms.auth.api.phone.SmsRetrieverBroadcastReceiver"
         android:exported="true">
         <intent-filter>

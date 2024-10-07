@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
+import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/extension/custom_extension.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/widgets/custom_button_widget.dart';
@@ -117,7 +118,9 @@ class AddressScreen extends StatelessWidget {
                 child: CustomButtonWidget(
                   title: "Agregar dirección",
                   width: size.width,
-                  onTap: () {},
+                  onTap: () {
+                    context.push(NameRoutes.addAddressPage);
+                  },
                 ),
               ),
             )

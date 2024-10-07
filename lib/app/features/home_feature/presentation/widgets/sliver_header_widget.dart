@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:iconsax/iconsax.dart';
 import 'package:puntos_smart_user/app/core/extension/custom_extension.dart';

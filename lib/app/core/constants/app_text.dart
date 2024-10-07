@@ -81,4 +81,13 @@ class AppText {
   static const personalInformation = 'Información Personal';
   static const address = 'Direcciones';
   static const personalPreferences = 'Preferencias Personales';
+  static const stores = 'Tiendas';
+  static const products = 'Productos';
+  static const emptyStoreTtitle = 'Aun no tienes locales favoritos';
+  static const emptyStoreSubtitle =
+      'Agrega los lugares que mas te gusta y encuéntralos más rápido aquí';
+  static const emptyProductsTitle = 'Aun no tienes productos favoritos';
+  static const emptyProductsSubtitle =
+      'Agrega los products que mas te gusta y encuéntralos más rápido aquí';
+  static const newAddress = "Nueva dirección";
 }

@@ -61,19 +61,37 @@ class ProfilePage extends StatelessWidget {
               default:
                 return CustomScrollView(
                   slivers: [
-                    SliverFillRemaining(
-                      hasScrollBody:
-                          false, // Evita que el contenido sea desplazable
-                      child: Center(
-                        child: Text(
-                          "Inicia sesión o registrate para continuar",
-                          style: textTheme.headlineLarge!.copyWith(
-                            color: Colors.black54,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                    // SliverFillRemaining(
+                    //   hasScrollBody:
+                    //       false, // Evita que el contenido sea desplazable
+                    //   child: Center(
+                    //     child: Text(
+                    //       "Inicia sesión o registrate para continuar",
+                    //       style: textTheme.headlineLarge!.copyWith(
+                    //         color: Colors.black54,
+                    //       ),
+                    //       textAlign: TextAlign.center,
+                    //     ),
+                    //   ),
+                    // ),
+                    SliverPadding(
+                      padding: const EdgeInsets.only(top: kToolbarHeight),
+                      sliver: SliverHeaderProfile(
+                        size: size,
+                        textTheme: textTheme,
+                        onTap: () {},
                       ),
                     ),
+                    const SliverCompleteProfile(),
+                    const SliverProfilesItems(),
+                    const SliverTitleProfile(
+                        title: AppText.pointsAndSubscription),
+                    const SliverBoxPointsListProfile(),
+                    const SliverTitleProfile(title: AppText.winPoints),
+                    const SliverWinPointsListProfile(),
+                    const SliverTitleProfile(title: AppText.smartSupport),
+                    const SlvierSopporterListProfile(),
+                    SliverButtonLogoutProfile(textTheme: textTheme)
                   ],
                 );
             }

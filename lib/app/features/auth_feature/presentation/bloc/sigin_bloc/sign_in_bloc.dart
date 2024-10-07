@@ -56,6 +56,9 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
           case SignInFailureStatus.unAuthorized:
             emit(state.copyWith(signInStatus: SignInStatus.invalidCredentials));
             break;
+          case SignInFailureStatus.notFound:
+            emit(state.copyWith(signInStatus: SignInStatus.notFound));
+            break;
           case SignInFailureStatus.network:
             emit(state.copyWith(signInStatus: SignInStatus.networkError));
             break;
@@ -64,7 +67,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
             break;
           case SignInFailureStatus.unknown:
           default:
-            emit(state.copyWith(signInStatus: SignInStatus.failure));
+            emit(state.copyWith(signInStatus: SignInStatus.unknown));
             break;
         }
       }

@@ -52,7 +52,10 @@ enum SignInStatus {
   initial, // Estado inicial antes de cualquier acción
   loading, // Estado mientras se está procesando el inicio de sesión
   success, // Estado cuando el inicio de sesión fue exitoso
+  notFound,
+  server,
   failure, // Estado cuando ocurrió un error
   invalidCredentials, // Estado cuando las credenciales son incorrectas
-  networkError // Estado cuando hay un problema de red
+  networkError, // Estado cuando hay un problema de red
+  unknown,
 }

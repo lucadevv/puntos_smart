@@ -32,9 +32,13 @@ class AuthRepositoryImpl extends AuthRepository {
       return SignInSuccess(accessToken: accessToken, status: status);
     } catch (e) {
       if (e is DioException) {
-        if (e.response?.statusCode == 400 || e.response?.statusCode == 404) {
+        if (e.response?.statusCode == 400) {
           return SignInFailure(
             signInFailureStatus: SignInFailureStatus.unAuthorized,
+          );
+        } else if (e.response?.statusCode == 404) {
+          return SignInFailure(
+            signInFailureStatus: SignInFailureStatus.notFound,
           );
         } else if (e.response?.statusCode == 500) {
           return SignInFailure(signInFailureStatus: SignInFailureStatus.server);

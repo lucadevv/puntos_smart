@@ -14,6 +14,7 @@ import 'package:puntos_smart_user/app/features/coupon_feature/presentation/coupo
 import 'package:puntos_smart_user/app/features/coupon_feature/presentation/pages/coupon_screen.dart';
 import 'package:puntos_smart_user/app/features/home_feature/presentation/home_screen.dart';
 import 'package:puntos_smart_user/app/features/modules_feature/presentation/module_screen.dart';
+import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/page/add_adresss_page.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/personal_inforamcion_screen.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/screens/address_screen.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/screens/favorites_screen.dart';
@@ -209,6 +210,10 @@ final appRoute = GoRouter(
     GoRoute(
       path: NameRoutes.addressScreen,
       builder: (context, state) => const AddressScreen(),
+    ),
+    GoRoute(
+      path: NameRoutes.addAddressPage,
+      builder: (context, state) => const AddAddressPage(),
     ),
     GoRoute(
       path: NameRoutes.personalPreferencesScreen,

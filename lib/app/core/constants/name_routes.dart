@@ -26,6 +26,7 @@ class NameRoutes {
   //profile
   static const personalInformationScreen = '/personalInformationScreen';
   static const addressScreen = '/addressScreen';
+  static const addAddressPage = '/addAdressPage';
   static const personalPreferencesScreen = '/personalPreferencesScreen';
   static const favoritesScreen = '/favoritesScreen';
 }
