@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_answer_widget.dart';
 
+import '../../../../core/theme/app_colors.dart';
+
 class WinPointsModuleWidget extends StatelessWidget {
   const WinPointsModuleWidget({
     super.key,
@@ -12,10 +14,17 @@ class WinPointsModuleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
+        // decoration: BoxDecoration(
+        //   border: Border.all(
+        //     color: AppColors.greyligth,
+        //     width: 1,
+        //   ),
+        // ),
+        //color: Colors.amber,
         height: 260, //250
         width: double.infinity,
-        //padding: const EdgeInsets.symmetric(horizontal: 16),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        //padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: ListView.builder(
           itemCount: 5,
           scrollDirection: Axis.horizontal,

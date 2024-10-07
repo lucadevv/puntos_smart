@@ -11,14 +11,21 @@ class CustomItemAnswerWidget extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Container(
       width: 175,
-      //height: 250,
+      //height: 50,
       margin: const EdgeInsets.only(
+        left: 6,
         right: 0,
+        top: 10,
+        bottom: 10,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10), //12
       decoration: BoxDecoration(
         color: AppColors.primary, //AppColors.surface.withOpacity(0.2),
         borderRadius: BorderRadius.circular(12),
+        // border: Border.all(
+        //   color: AppColors.blacknew,
+        //   width: 1,
+        // ),
         boxShadow: [
           BoxShadow(
             color: AppColors.greymedium

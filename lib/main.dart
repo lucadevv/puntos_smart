@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SendNumberCubit(
             authRepository: GetIt.instance<AuthRepository>(),
-          ),
+          ), 
           lazy: false,
         ),
       ],

@@ -38,7 +38,7 @@ class CustomButtonWidget extends StatelessWidget {
             ),
           ),
           ClipRRect(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(4),
             child: Material(
               color: Colors.transparent,
               child: InkWell(

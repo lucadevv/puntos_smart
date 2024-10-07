@@ -28,8 +28,8 @@ class CustomButtonWidgetSocial extends StatelessWidget {
             width: width,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(999),
-              color: onTap == null ? AppColors.surface : AppColors.buttonLigth,
+              borderRadius: BorderRadius.circular(4),
+              color: onTap == null ? AppColors.surface : AppColors.greyligth,
             ),
             // child: Text(title,
             //     style: TextStyle(
@@ -47,17 +47,16 @@ class CustomButtonWidgetSocial extends StatelessWidget {
                 const SizedBox(width: 8), // Espacio entre la imagen y el texto
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 16.0,
+                  style: textTheme.bodyMedium!.copyWith(
+                    color: AppColors.greymedium,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.ligthcolort,
                   ),
                 ),
               ],
             ),
           ),
           ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(4),
             child: Material(
               color: Colors.transparent,
               child: InkWell(

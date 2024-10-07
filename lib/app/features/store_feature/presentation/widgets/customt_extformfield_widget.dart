@@ -78,11 +78,11 @@ class CustomTextFormFielWidget extends StatelessWidget {
         obscureText: isPassword!,
         style: isOtp == true
             ? textTheme.titleLarge!.copyWith(
-                color: Colors.black87,
+                color: AppColors.blacknew,
                 fontWeight: FontWeight.w700,
               )
             : textTheme.titleMedium!.copyWith(
-                color: Colors.black54,
+                color: AppColors.blacknew,
               ),
         readOnly: isOtp == true ? false : false,
         showCursor: isOtp == true ? true : true,
@@ -101,11 +101,14 @@ class CustomTextFormFielWidget extends StatelessWidget {
               ]
             : null,
         decoration: InputDecoration(
+          border: InputBorder.none, // Desactiva el subrayado
+ 
+          //
           prefixText: isPhone == true ? "+51 " : null,
-          prefixStyle: textTheme.titleSmall!.copyWith(
-            color: Colors.black54,
-          ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 15.0).copyWith(right: 5),
+          prefixStyle: textTheme.titleSmall!
+              .copyWith(color: AppColors.greymedium, fontSize: 16.0),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15.0).copyWith(right: 5),
           labelText: label,
           labelStyle: textTheme.titleSmall!.copyWith(
             color:
@@ -114,8 +117,9 @@ class CustomTextFormFielWidget extends StatelessWidget {
           ),
           hintText: hintText,
           hintStyle: TextStyle(
-            color:
-                isFocused == true ? AppColors.onPrimary : AppColors.greymedium/*textfield*/,
+            color: isFocused == true
+                ? AppColors.onPrimary
+                : AppColors.greymedium /*textfield*/,
           ),
           prefixIcon:
               iconDataPrefix != null ? Container(child: iconDataPrefix) : null,
@@ -130,8 +134,8 @@ class CustomTextFormFielWidget extends StatelessWidget {
                   ),
                 )
               : null,
-              //dar color de fondo
-              filled: isSearch == true ? true : false, // Esto activa el fondo
+          //dar color de fondo
+          filled: isSearch == true ? true : false, // Esto activa el fondo
           fillColor:
               isSearch == true ? AppColors.greyligth : Colors.transparent,
 
@@ -149,9 +153,8 @@ class CustomTextFormFielWidget extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(12)),
             borderSide: BorderSide(
               //color: AppColors.onPrimary,
-              color: isSearch == true
-                  ? Colors.transparent
-                  : AppColors.onPrimary,
+              color:
+                  isSearch == true ? Colors.transparent : AppColors.onPrimary,
               width: 1,
             ),
           ),
