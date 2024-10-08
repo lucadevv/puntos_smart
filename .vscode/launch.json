@@ -11,7 +11,7 @@
             "flutterMode": "debug",
             "args": [
                 "--dart-define-from-file",
-                "api_keys.json"
+                "env.json"
             ]
         },
         {
@@ -21,7 +21,7 @@
             "flutterMode": "profile",
             "args": [
                 "--dart-define-from-file",
-                "api_keys.json"
+                "env.json"
             ]
         },
         {
@@ -31,7 +31,7 @@
             "flutterMode": "release",
             "args": [
                 "--dart-define-from-file",
-                "api_keys.json"
+                "env.json"
             ]
         }
     ]
