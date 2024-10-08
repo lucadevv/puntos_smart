@@ -31,7 +31,7 @@ class SliverAppbarHomePage extends StatelessWidget {
             'Jr. Sol de Oro, Los Olivos, Lima ....',
             style: textTheme.labelMedium!.copyWith(
               fontWeight: FontWeight.w500,
-              color: Colors.black87,
+              color: AppColors.blacknew, //black87
             ),
           ),
         ],
@@ -50,8 +50,8 @@ class SliverAppbarHomePage extends StatelessWidget {
           padding: EdgeInsets.only(right: 8),
           child: Icon(
             size: 30,
-            Iconsax.notification5,
-            color: AppColors.descriptionColor,
+            Iconsax.notification,
+            color: AppColors.greymedium, //descriptionColor
           ),
         ),
       ],

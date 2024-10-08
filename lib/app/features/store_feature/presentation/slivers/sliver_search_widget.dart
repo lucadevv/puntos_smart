@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/slivers/persisten_header_delegate.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/widgets/customt_extformfield_widget.dart';
@@ -22,8 +23,8 @@ class SliverSearchWidget extends StatelessWidget {
     return SliverPersistentHeader(
       pinned: true,
       delegate: MySliverPersistentHeaderDelegate(
-        minHeight: _showBackIcon ? 140.0 : 70,
-        maxHeight: _showBackIcon ? 140.0 : 70,
+        minHeight: _showBackIcon ? 140.0 : 80,
+        maxHeight: _showBackIcon ? 140.0 : 80,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300), // Suaviza la transición
           curve: Curves.easeInOut, // Define una curva de animación suave
@@ -42,7 +43,7 @@ class SliverSearchWidget extends StatelessWidget {
                         height: 50,
                         width: 50,
                         decoration: BoxDecoration(
-                          color: AppColors.arrowbacButtonColor,
+                          color: AppColors.greyligth, //arrowbacButtonColor
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: IconButton(
@@ -50,8 +51,8 @@ class SliverSearchWidget extends StatelessWidget {
                             context.pop();
                           },
                           icon: const Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.black54,
+                            Iconsax.arrow_left_2,
+                            color: AppColors.greymedium,
                           ),
                         ),
                       )
@@ -70,11 +71,12 @@ class SliverSearchWidget extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: CustomTextFormFielWidget(
                     unFocus: _focusNode,
-                    hintText: 'Search',
+                    hintText: 'Buscar',
                     iconDataPrefix: const Icon(
-                      Icons.search,
-                      color: AppColors.onPrimary,
+                      Iconsax.search_normal,
+                      color: AppColors.greymedium,
                     ),
+                    isSearch: true,
                   ),
                 ),
               ),

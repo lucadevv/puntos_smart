@@ -9,8 +9,10 @@ class CustomCardProductWidget extends StatelessWidget {
   const CustomCardProductWidget({
     super.key,
     required this.index,
+    this.isDiscound = true,
   });
   final int index;
+  final bool? isDiscound;
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -19,22 +21,33 @@ class CustomCardProductWidget extends StatelessWidget {
         context.push('${NameRoutes.productDetailScreen}/$index');
       },
       child: Container(
-        height: 250,
+        height: 250, //250
         decoration: BoxDecoration(
+          color: AppColors.primary,
           borderRadius: BorderRadius.circular(15),
-          border: Border.all(
-            color: AppColors.surface,
-            width: 2,
-          ),
+          // border: Border.all(
+          //   color: AppColors.textfield,
+          //   width: 2,
+          // ),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.greynew
+                  .withOpacity(0.2), // Color de la sombra con opacidad
+              spreadRadius: 1, // Extensión de la sombra
+              blurRadius: 8, // Desenfoque de la sombra
+              offset: Offset(0, 4), // Desplazamiento de la sombra (x, y)
+            ),
+          ],
         ),
+
         child: Column(
           children: [
             SizedBox(
-              height: 163,
+              height: 163, //163
               child: Stack(
                 children: [
                   Container(
-                    height: 163,
+                    height: 163, //163
                     decoration: const BoxDecoration(
                       color: Colors.amber,
                       borderRadius: BorderRadius.only(
@@ -43,11 +56,42 @@ class CustomCardProductWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Positioned(
-                    bottom: 16,
-                    right: 16,
-                    child: CustomPunctationWidget(color: Colors.black),
-                  ),
+                  //
+                  if (isDiscound == true)
+                    Align(
+                      //Positioned
+                      //top: 10, // Ajusta la posición vertical
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Container(
+                          height: 40,
+                          width: 150,
+                          decoration: BoxDecoration(
+                            color: AppColors.blacknew,
+                            borderRadius: BorderRadius.circular(999),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Hay descuento',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(
+                                  color: Colors.white, // Color del texto
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  // CANTIDAD DE ESTRELLAS POR PRODUCTO
+                  // const Positioned(
+                  //   bottom: 16,
+                  //   right: 16,
+                  //   child: CustomPunctationWidget(color: Colors.black),
+                  // ),
                 ],
               ),
             ),
@@ -67,14 +111,16 @@ class CustomCardProductWidget extends StatelessWidget {
                         Text(
                           'Doble Cuarto de Libra con Queso',
                           style: textTheme.titleMedium!.copyWith(
-                            color: Colors.black,
+                            color: AppColors.blacknew,
                             fontWeight: FontWeight.w600,
+                            overflow: TextOverflow.ellipsis,
                           ),
+                          maxLines: 1,
                         ),
                         Text(
                           'Hamburguesa de carne 100% de res con queso doble queso cheddar, cebolla ...',
                           style: textTheme.labelSmall!.copyWith(
-                            color: Colors.black87,
+                            color: AppColors.blacknew,
                             fontWeight: FontWeight.w600,
                             overflow: TextOverflow.ellipsis,
                             fontSize: 10,
@@ -84,7 +130,7 @@ class CustomCardProductWidget extends StatelessWidget {
                         Text(
                           'Descuento valido en tienda fisica',
                           style: textTheme.labelSmall!.copyWith(
-                            color: Colors.black54,
+                            color: AppColors.greymedium,
                             fontWeight: FontWeight.w600,
                             fontSize: 10,
                           ),

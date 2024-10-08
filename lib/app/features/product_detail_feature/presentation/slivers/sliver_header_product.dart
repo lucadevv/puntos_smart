@@ -29,18 +29,18 @@ class SliverHeaderWidget extends StatelessWidget {
                   Text(
                     'Hamburguesa',
                     style: textTheme.titleMedium!.copyWith(
-                      color: Colors.black,
+                      color: AppColors.blacknew,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const CustomPunctationWidget(color: Colors.black),
+                  //const CustomPunctationWidget(color: Colors.black),
                 ],
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 8),
               Text(
                 'Doble Cuarto de Libra con Queso',
                 style: textTheme.titleLarge!.copyWith(
-                  color: Colors.black,
+                  color: AppColors.blacknew,
                   fontWeight: FontWeight.w700,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -50,36 +50,49 @@ class SliverHeaderWidget extends StatelessWidget {
               Text(
                 's/.22.90',
                 style: textTheme.titleMedium!.copyWith(
-                  color: AppColors.descriptionColor,
+                  color: AppColors.greymedium,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0,
                   decoration: TextDecoration.lineThrough,
-                  decorationColor: AppColors.descriptionColor,
+                  decorationColor: AppColors.greymedium,
                 ),
               ),
               Text(
                 's/.22.90',
                 style: textTheme.titleLarge!.copyWith(
-                  color: Colors.black,
+                  color: AppColors.blacknew,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 2,
                 ),
               ),
               const SizedBox(height: 12),
-              Text(
-                productDescription,
-                style: textTheme.bodyLarge!.copyWith(
-                  color: AppColors.descriptionColor,
-                  fontWeight: FontWeight.normal,
-                  overflow: TextOverflow.ellipsis,
+              // Text(
+              //   productDescription,
+              //   style: textTheme.bodyLarge!.copyWith(
+              //     color: AppColors.descriptionColor,
+              //     fontWeight: FontWeight.normal,
+              //     overflow: TextOverflow.ellipsis,
+              //   ),
+              //   maxLines: 10,
+              // ),
+              SizedBox(
+                height: 115, // Define una altura máxima visible para el texto
+                child: SingleChildScrollView(
+                  child: Text(
+                    productDescription,
+                    style: textTheme.bodyLarge!.copyWith(
+                      color: AppColors.greymedium,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 14,
+                    ),
+                  ),
                 ),
-                maxLines: 10,
               ),
               const Spacer(),
               Text(
                 'Canjea tu cupón smart',
                 style: textTheme.headlineSmall!.copyWith(
-                  color: Colors.black,
+                  color: AppColors.blacknew,
                   fontWeight: FontWeight.w700,
                   overflow: TextOverflow.ellipsis,
                 ),

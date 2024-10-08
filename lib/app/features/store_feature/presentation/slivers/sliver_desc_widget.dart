@@ -18,6 +18,9 @@ class SliverDescWidget extends StatelessWidget {
         key: categoryKeys[0],
         width: double.infinity,
         padding: const EdgeInsets.only(left: 16),
+        //
+        //
+        //
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -26,24 +29,46 @@ class SliverDescWidget extends StatelessWidget {
               child: Text(
                 "Destacados",
                 style: textTheme.headlineSmall!.copyWith(
-                  color: Colors.black87,
+                  color: AppColors.blacknew,
                   fontWeight: FontWeight.w600,
                 ),
               ),
             ),
             SizedBox(
-              height: 269,
+              height: 318, //269
               child: ListView.builder(
                 itemCount: 10,
                 itemExtent: 224,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (contex, index) {
                   return Container(
-                    margin: const EdgeInsets.only(right: 12),
+                    decoration: BoxDecoration(
+                      color: AppColors
+                          .primary, //AppColors.surface.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(10),
+                      // border: Border.all(
+                      //   color: AppColors.blacknew,
+                      //   width: 1,
+                      // ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.greymedium.withOpacity(
+                              0.2), // Color de la sombra con opacidad
+                          spreadRadius: 1, // Extensión de la sombra
+                          blurRadius: 8, // Desenfoque de la sombra
+                          offset: Offset(
+                              0, 4), // Desplazamiento de la sombra (x, y)
+                        ),
+                      ],
+                    ),
+                    margin: const EdgeInsets.only(
+                        right: 12, top: 10, bottom: 10, left: 6),
+                    padding: const EdgeInsets.only(
+                        right: 8, top: 8, bottom: 5, left: 8),
                     child: Column(
                       children: [
                         Container(
-                          height: 164,
+                          height: 160,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
@@ -59,18 +84,18 @@ class SliverDescWidget extends StatelessWidget {
                             color: Colors.black,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           maxLines: 2,
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          "  Hamburguesa de carne 100% de res con queso doble queso cheddar, cebolla ...",
+                          "Hamburguesa de carne 100% de res con queso doble queso cheddar, cebolla ...",
                           style: textTheme.labelSmall!.copyWith(
                             fontWeight: FontWeight.w400,
                             color: Colors.black,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           maxLines: 2,
                         ),
                         const SizedBox(height: 8),
@@ -79,14 +104,14 @@ class SliverDescWidget extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 16),
                             child: Text(
-                              "s/ 60.00",
+                              "s/. 60.00",
                               style: textTheme.bodyMedium!.copyWith(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                                 overflow: TextOverflow.ellipsis,
                               ),
                               textAlign: TextAlign.center,
-                              maxLines: 2,
+                              maxLines: 1,
                             ),
                           ),
                         ),

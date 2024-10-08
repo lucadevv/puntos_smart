@@ -91,33 +91,81 @@ class _HomeScreenState extends State<HomeScreen> {
               left: 0,
               right: 0,
               child: Container(
-                height: 55,
+                padding: const EdgeInsets.all(5.0),
+                height: 65,
                 width: size.width,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                    color: AppColors.descriptionColor,
-                    width: 2,
-                  ),
+                  borderRadius: BorderRadius.circular(999),
+                  // border: Border.all(
+                  //   color: AppColors.descriptionColor,
+                  //   width: 1,
+                  // ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black
+                          .withOpacity(0.2), // Color de la sombra con opacidad
+                      spreadRadius: 1, // Extensión de la sombra
+                      blurRadius: 8, // Desenfoque de la sombra
+                      offset:
+                          Offset(0, 4), // Desplazamiento de la sombra (x, y)
+                    ),
+                  ],
                 ),
+                // child: Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: List.generate(navList.length, (index) {
+                //     final icon = navList[index];
+                //     return IconButton(
+                //       splashColor: Colors.amber,
+                //       color: AppColors.onPrimary,
+                //       onPressed: () {
+                //         selectedPage(index);
+                //       },
+                //       icon: Icon(
+                //         size: 28,
+                //         icon,
+                //         color: pageIndex == index
+                //             ? AppColors.onPrimary
+                //             : AppColors.descriptionColor,
+                //       ),
+                //     );
+                //   }),
+                // ),
+
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: List.generate(navList.length, (index) {
                     final icon = navList[index];
-                    return IconButton(
-                      splashColor: Colors.amber,
-                      color: AppColors.onPrimary,
-                      onPressed: () {
+                    final label = navLabels[
+                        index]; // Lista de nombres correspondientes a cada ícono
+
+                    return GestureDetector(
+                      onTap: () {
                         selectedPage(index);
                       },
-                      icon: Icon(
-                        size: 28,
-                        icon,
-                        color: pageIndex == index
-                            ? AppColors.onPrimary
-                            : AppColors.descriptionColor,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            icon,
+                            size: 28,
+                            color: pageIndex == index
+                                ? AppColors.onPrimary
+                                : AppColors.descriptionColor,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            label,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: pageIndex == index
+                                  ? AppColors.onPrimary
+                                  : AppColors.descriptionColor,
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   }),
@@ -126,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Positioned(
               right: 16,
-              bottom: (kToolbarHeight * 0.5) + (size.height * 0.08),
+              bottom: (kToolbarHeight * 0.7) + (size.height * 0.08),
               child: Container(
                   height: 60,
                   width: 60,
@@ -152,10 +200,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
 const List<IconData> navList = [
   Iconsax.home,
-  Iconsax.favorite_chart,
+  Iconsax.heart,
   Iconsax.game,
-  Iconsax.security,
-  Iconsax.user,
+  Iconsax.ticket,
+  Iconsax.setting_2,
 ];
 const List<Widget> pageList = [
   HomePage(),
@@ -163,4 +211,11 @@ const List<Widget> pageList = [
   GamePage(),
   CouponPage(),
   ProfilePage(),
+];
+const List<String> navLabels = [
+  'Inicio',
+  'Favoritos',
+  'Juegos',
+  'Cupones',
+  'Ajustes',
 ];

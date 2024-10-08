@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 
 class SliverAppbarProductWidget extends StatelessWidget {
@@ -27,8 +28,8 @@ class SliverAppbarProductWidget extends StatelessWidget {
                 color: AppColors.arrowbacButtonColor,
                 borderRadius: BorderRadius.circular(10)),
             child: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black54,
+              Iconsax.arrow_left_2, //Icons.arrow_back_ios,
+              color: AppColors.blacknew, //black54
             ),
           ),
         ),

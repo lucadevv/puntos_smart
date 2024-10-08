@@ -80,6 +80,12 @@ flutter:
     - family: Display
       fonts:
         - asset: assets/fonts/display/display.ttf
+    - family: Bungee
+      fonts:
+        - asset: assets/fonts/Bungee-Regular.ttf
+    - family: Onest
+      fonts:
+        - asset: assets/fonts/Onest-VariableFont_wght.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

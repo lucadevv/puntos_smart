@@ -42,11 +42,11 @@ class SliverAppbarCouponWidget extends StatelessWidget {
               height: 50,
               width: 50,
               decoration: BoxDecoration(
-                  color: AppColors.arrowbacButtonColor,
+                  color: AppColors.greyligth,//arrowbacButtonColor
                   borderRadius: BorderRadius.circular(10)),
               child: const Icon(
                 Icons.share_rounded,
-                color: Colors.black54,
+                color: AppColors.blacknew,//black54
               ),
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
+import 'package:iconsax/iconsax.dart';
 
 class CustomButtonArrowBack extends StatelessWidget {
   const CustomButtonArrowBack({
@@ -18,11 +19,11 @@ class CustomButtonArrowBack extends StatelessWidget {
         height: 50,
         width: 50,
         decoration: BoxDecoration(
-            color: AppColors.arrowbacButtonColor,
-            borderRadius: BorderRadius.circular(10)),
+            color: AppColors.greyligth,
+            borderRadius: BorderRadius.circular(12)),
         child: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.black54,
+          Iconsax.arrow_left_2,
+          color: AppColors.blacknew, //greymedium
         ),
       ),
     );

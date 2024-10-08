@@ -9,7 +9,7 @@ class DetailStoreWidget extends StatelessWidget {
     this.makePhoneTap,
   });
 
-  final String iconImage;
+  final IconData iconImage;
   final String title;
   final VoidCallback? makePhoneTap;
 
@@ -20,12 +20,16 @@ class DetailStoreWidget extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.greyligth,
             borderRadius: BorderRadius.circular(5),
           ),
           child: Padding(
             padding: const EdgeInsets.all(4.0),
-            child: Image.asset(iconImage),
+            child: Icon(
+              iconImage,
+              color: AppColors.blacknew,
+              size: 15.0,
+            ),
           ),
         ),
         const SizedBox(width: 8),
@@ -35,7 +39,7 @@ class DetailStoreWidget extends StatelessWidget {
           child: Text(
             title,
             style: textTheme.bodySmall!.copyWith(
-              color: Colors.black54,
+              color: AppColors.blacknew,
             ),
           ),
         ),
