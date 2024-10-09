@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:puntos_smart_user/app/api/network/api_client.dart';
-import 'package:puntos_smart_user/app/core/common/end_points.dart';
+import 'package:puntos_smart_user/app/core/constants/end_points.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_code_request_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_number_request_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/send_code_response_model.dart';

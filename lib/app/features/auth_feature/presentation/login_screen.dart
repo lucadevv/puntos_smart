@@ -357,51 +357,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               image: AppImages.apple,
                             ),
                             const SizedBox(height: 15),
-
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //   children: [
-                            //     Container(
-                            //       height: 2,
-                            //       width: size.width * 0.2,
-                            //       decoration: BoxDecoration(
-                            //         color: AppColors.surface,
-                            //         borderRadius: BorderRadius.circular(10),
-                            //       ),
-                            //     ),
-                            //     Text(
-                            //       AppText.loginWith,
-                            //       style: textTheme.labelMedium!.copyWith(
-                            //         color: AppColors.surface,
-                            //         fontWeight: FontWeight.w500,
-                            //       ),
-                            //     ),
-                            //     Container(
-                            //       height: 2,
-                            //       width: size.width * 0.2,
-                            //       decoration: BoxDecoration(
-                            //         color: AppColors.surface,
-                            //         borderRadius: BorderRadius.circular(10),
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.center,
-                            //   children: [
-                            //     SocialWidget(
-                            //       image: AppImages.google,
-                            //       ontap: () {},
-                            //     ),
-                            //     const SizedBox(width: 32),
-                            //     SocialWidget(
-                            //       image: AppImages.apple,
-                            //       ontap: () {},
-                            //     ),
-                            //   ],
-                            // ),
-
-                            // no tienes cuenta
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
