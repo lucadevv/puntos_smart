@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:geocoding/geocoding.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:flutter_typeahead/flutter_typeahead.dart';
+// import 'package:geocoding/geocoding.dart';
 import 'package:puntos_smart_user/app/core/bloc/location/location_bloc.dart';
 import 'package:puntos_smart_user/app/core/bloc/location/location_event.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
@@ -13,21 +13,21 @@ class AddAddressPage extends StatelessWidget {
   const AddAddressPage({super.key});
 
   // Esta función obtiene sugerencias de direcciones usando Geocoding.
-  Future<List<String>> _getAddressSuggestions(String query) async {
-    if (query.isEmpty) return [];
+  // Future<List<String>> _getAddressSuggestions(String query) async {
+  //   if (query.isEmpty) return [];
 
-    try {
-      List<Location> locations = await locationFromAddress(query);
-      // Para cada ubicación, obtenemos la dirección completa
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-          locations.first.latitude, locations.first.longitude);
-      return placemarks
-          .map((placemark) => "${placemark.street}, ${placemark.locality}")
-          .toList();
-    } catch (e) {
-      return ["No se encontraron resultados"];
-    }
-  }
+  //   try {
+  //     List<Location> locations = await locationFromAddress(query);
+  //     // Para cada ubicación, obtenemos la dirección completa
+  //     List<Placemark> placemarks = await placemarkFromCoordinates(
+  //         locations.first.latitude, locations.first.longitude);
+  //     return placemarks
+  //         .map((placemark) => "${placemark.street}, ${placemark.locality}")
+  //         .toList();
+  //   } catch (e) {
+  //     return ["No se encontraron resultados"];
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -159,24 +159,24 @@ class AddAddressPage extends StatelessWidget {
     final lat = context.read<LocationBloc>().state.selectedLatitude ?? 0.0;
     final log = context.read<LocationBloc>().state.selectedLongitude ?? 0.0;
 
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.7,
-          child: GoogleMap(
-            initialCameraPosition: CameraPosition(
-              target: LatLng(lat, log),
-              zoom: 14.0,
-            ),
-            onTap: (LatLng selectedLocation) {
-              context.read<LocationBloc>().add(SelectLocationOnMap(
-                  selectedLocation.latitude, selectedLocation.longitude));
-              Navigator.of(context).pop();
-            },
-          ),
-        );
-      },
-    );
+    // showModalBottomSheet(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return SizedBox(
+    //       height: MediaQuery.of(context).size.height * 0.7,
+    //       child: GoogleMap(
+    //         initialCameraPosition: CameraPosition(
+    //           target: LatLng(lat, log),
+    //           zoom: 14.0,
+    //         ),
+    //         onTap: (LatLng selectedLocation) {
+    //           context.read<LocationBloc>().add(SelectLocationOnMap(
+    //               selectedLocation.latitude, selectedLocation.longitude));
+    //           Navigator.of(context).pop();
+    //         },
+    //       ),
+    //     );
+    //   },
+    // );
   }
 }

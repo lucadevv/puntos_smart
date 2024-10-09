@@ -2,7 +2,7 @@ name: puntos_smart_user
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.4 <4.0.0'
+  sdk: ">=3.4.4 <4.0.0"
 dependencies:
   country_flags: ^3.0.0
   cupertino_icons: ^1.0.6
@@ -41,6 +41,8 @@ dependencies:
   sms_autofill: ^2.4.0
   text_marquee: ^0.0.2
   url_launcher: ^6.3.0
+  qr_flutter: ^4.1.0
+  barcode_widget: ^2.0.4
 dev_dependencies:
   flutter_lints: ^3.0.0
   flutter_test:
@@ -50,7 +52,6 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

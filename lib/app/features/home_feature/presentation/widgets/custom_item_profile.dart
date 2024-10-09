@@ -4,16 +4,19 @@ import 'package:puntos_smart_user/app/core/widgets/custom_ontap.dart';
 class CustomItemProfile extends StatelessWidget {
   const CustomItemProfile({
     super.key,
-    required this.image,
+    //required this.image,
     required this.title,
     required this.widget,
+    
     this.onTap,
+    required this.icon,
   });
 
-  final String image;
+  //final String image;
   final String title;
   final Widget widget;
   final VoidCallback? onTap;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +33,11 @@ class CustomItemProfile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
-                Image.asset(
-                  image,
-                  scale: 1.1,
-                ),
+                // Image.asset(
+                //   image,
+                //   scale: 1.1,
+                // ),
+                Icon(icon),
                 const SizedBox(width: 16),
                 Text(
                   title,

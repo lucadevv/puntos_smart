@@ -35,9 +35,9 @@ class SliverProfilesItems extends StatelessWidget {
                             context.push(NameRoutes.addressScreen);
                           } else if (index == 2) {
                             context.push(NameRoutes.personalPreferencesScreen);
-                          } else if (index == 3) {
+                          } /*else if (index == 3) {
                             context.push(NameRoutes.favoritesScreen);
-                          }
+                          }*/
                         },
                         child: Container(
                           height: 80,

@@ -15,7 +15,8 @@ class SlvierSopporterListProfile extends StatelessWidget {
       itemBuilder: (context, index) {
         final item = smartSupportList[index];
         return CustomItemProfile(
-          image: item.image,
+          //image: item.image,
+          icon: item.icon,
           title: item.title,
           widget: item.widget,
           onTap: () {},

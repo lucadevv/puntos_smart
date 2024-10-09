@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
-
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:puntos_smart_user/app/features/coupon_feature/presentation/painters/coupon_painter_v.dart';
-
+import 'package:barcode_widget/barcode_widget.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class CouponPainterVerticalWidget extends StatelessWidget {
@@ -17,6 +17,7 @@ class CouponPainterVerticalWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: () {
         context.pop();
@@ -103,53 +104,94 @@ class CouponPainterVerticalWidget extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         Container(
-                          height: 57,
+                          height: 150,
                           alignment: Alignment.center,
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: AppColors.primary,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Text(
-                            '4534FD43',
-                            style: textTheme.displaySmall!.copyWith(
-                              color: Colors.primaries[index],
-                              fontFamily: 'poppins',
-                              letterSpacing: 5,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          //aca codigo qr
+                          // child: Text(
+                          //   '4534FD43',
+                          //   style: textTheme.displaySmall!.copyWith(
+                          //     color: Colors.primaries[index],
+                          //     fontFamily: 'poppins',
+                          //     letterSpacing: 5,
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          // ),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 8),
+                              Expanded(
+                                flex: 5,
+                                child: /*QrImageView(
+                                  data: '12413',
+                                  version: QrVersions.auto,
+                                  size: double
+                                      .infinity, // Ocupa el tamaño máximo dentro de Expanded
+                                  backgroundColor: Colors.white,
+                                ),*/
+
+                                    BarcodeWidget(
+                                  barcode: Barcode
+                                      .code128(), // Barcode type and settings
+                                  data: '4534FD43', // Content
+                                  width: 200,
+                                  //height: 10,
+                                  drawText: false,
+                                ),
+                              ),
+                              const SizedBox(height: 3),
+                              Expanded(
+                                flex: 3, // 30% del espacio para el texto
+                                child: Center(
+                                  child: Text(
+                                    '4534FD43',
+                                    style: textTheme.displaySmall!.copyWith(
+                                      // fontSize: 32,
+                                      color: Colors.primaries[index],
+                                      fontFamily: 'poppins',
+                                      letterSpacing: 5,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         const SizedBox(height: 12),
-                        // SizedBox(
-                        //   height: 150,
-                        //   child: SingleChildScrollView(
-                        //     child: Text(
-                        //       terminos,
-                        //       style: textTheme.labelSmall!.copyWith(
-                        //         fontSize: 12,
-                        //         fontWeight: FontWeight.w500,
-                        //         //fontFamily: 'display',
-                        //         color: AppColors.primary,
-                        //         overflow: TextOverflow.ellipsis,
-                        //       ),
-                        //       maxLines: 12,
-                        //       textAlign: TextAlign.justify,
-                        //     ),
-                        //   ),
-                        // ),
-                        Text(
-                          terminos,
-                          style: textTheme.labelSmall!.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            //fontFamily: 'display',
-                            color: AppColors.primary,
-                            overflow: TextOverflow.ellipsis,
+                        SizedBox(
+                          height: 150,
+                          child: SingleChildScrollView(
+                            child: Text(
+                              terminos,
+                              style: textTheme.labelSmall!.copyWith(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                //fontFamily: 'display',
+                                color: AppColors.primary,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              maxLines: 20,
+                              textAlign: TextAlign.justify,
+                            ),
                           ),
-                          maxLines: 12,
-                          textAlign: TextAlign.justify,
                         ),
+                        // Text(
+                        //   terminos,
+                        //   style: textTheme.labelSmall!.copyWith(
+                        //     fontSize: 12,
+                        //     fontWeight: FontWeight.w500,
+                        //     //fontFamily: 'display',
+                        //     color: AppColors.primary,
+                        //     overflow: TextOverflow.ellipsis,
+                        //   ),
+                        //   maxLines: 12,
+                        //   textAlign: TextAlign.justify,
+                        // ),
                         const SizedBox(height: 12),
                         Row(
                           children: [

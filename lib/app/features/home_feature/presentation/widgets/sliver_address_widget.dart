@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
@@ -16,7 +17,8 @@ class SliverBoxAdressProfile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 12),
         child: CustomItemProfile(
-          image: AppImages.maps,
+          //image: AppImages.maps,
+          icon: Iconsax.map,
           title: AppText.adresses,
           widget: const Icon(
             Icons.navigate_next,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/auth_bloc/auth_bloc.dart';
@@ -24,7 +25,11 @@ class SliverButtonLogoutProfile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(AppImages.close),
+            //Image.asset(AppImages.close),
+            const Icon(
+              Iconsax.logout,
+              color: Colors.red,
+            ),
             TextButton(
               onPressed: () {
                 context.read<AuthBloc>().add(SignOutRequested());
