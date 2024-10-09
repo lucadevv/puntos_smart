@@ -38,7 +38,8 @@ class SliverAppbarWidget extends StatelessWidget {
                       .withOpacity(0.2), // Color de la sombra con opacidad
                   spreadRadius: 1, // Extensión de la sombra
                   blurRadius: 8, // Desenfoque de la sombra
-                  offset: Offset(0, 4), // Desplazamiento de la sombra (x, y)
+                  offset:
+                      const Offset(0, 4), // Desplazamiento de la sombra (x, y)
                 ),
               ],
             ),
@@ -48,7 +49,7 @@ class SliverAppbarWidget extends StatelessWidget {
               },
               icon: const Icon(
                 Iconsax.arrow_left_2,
-                  color: AppColors.blacknew, //Colors.black54,
+                color: AppColors.blacknew, //Colors.black54,
               ),
             ),
           ),
@@ -61,17 +62,19 @@ class SliverAppbarWidget extends StatelessWidget {
             height: 50,
             width: 50,
             decoration: BoxDecoration(
-                color: AppColors.primary, //arrowbacButtonColor
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
+              color: AppColors.primary, //arrowbacButtonColor
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
                 BoxShadow(
                   color: Colors.black
                       .withOpacity(0.2), // Color de la sombra con opacidad
                   spreadRadius: 1, // Extensión de la sombra
                   blurRadius: 8, // Desenfoque de la sombra
-                  offset: Offset(0, 4), // Desplazamiento de la sombra (x, y)
+                  offset:
+                      const Offset(0, 4), // Desplazamiento de la sombra (x, y)
                 ),
-              ],),
+              ],
+            ),
             child: const Icon(
               Icons.share_rounded,
               color: AppColors.blacknew,

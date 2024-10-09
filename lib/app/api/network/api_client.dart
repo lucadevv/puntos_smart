@@ -36,6 +36,9 @@ class ApiClient {
       },
     ));
   }
+  void updateBaseUrl(String newBaseUrl) {
+    _dio.options.baseUrl = newBaseUrl;
+  }
 
   // Método GET
   Future<Response> getData(

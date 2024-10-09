@@ -102,7 +102,7 @@ class CustomTextFormFielWidget extends StatelessWidget {
             : null,
         decoration: InputDecoration(
           border: InputBorder.none, // Desactiva el subrayado
- 
+
           //
           prefixText: isPhone == true ? "+51 " : null,
           prefixStyle: textTheme.titleSmall!
@@ -140,7 +140,7 @@ class CustomTextFormFielWidget extends StatelessWidget {
               isSearch == true ? AppColors.greyligth : Colors.transparent,
 
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
             borderSide: BorderSide(
               //color: AppColors.textfield,
               color: isSearch == true
@@ -150,7 +150,7 @@ class CustomTextFormFielWidget extends StatelessWidget {
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
             borderSide: BorderSide(
               //color: AppColors.onPrimary,
               color:

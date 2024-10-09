@@ -3,8 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_answer_widget.dart';
 
-import '../../../../core/theme/app_colors.dart';
-
 class WinPointsModuleWidget extends StatelessWidget {
   const WinPointsModuleWidget({
     super.key,

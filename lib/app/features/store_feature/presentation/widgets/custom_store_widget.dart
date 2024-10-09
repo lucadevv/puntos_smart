@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'package:permission_handler/permission_handler.dart';
-import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_image_logo_store_widget.dart';
 import 'package:puntos_smart_user/app/core/widgets/detail_store_widget.dart';
@@ -54,7 +53,8 @@ class CustomStoreWidget extends StatelessWidget {
                     .withOpacity(0.2), // Color de la sombra con opacidad
                 spreadRadius: 1, // Extensión de la sombra
                 blurRadius: 8, // Desenfoque de la sombra
-                offset: Offset(0, 4), // Desplazamiento de la sombra (x, y)
+                offset:
+                    const Offset(0, 4), // Desplazamiento de la sombra (x, y)
               ),
             ],
           ),

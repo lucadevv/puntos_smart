@@ -11,13 +11,16 @@ class SliverSearchWidget extends StatelessWidget {
     required bool showBackIcon,
     required this.safeAreaTop,
     required FocusNode focusNode,
+    this.searchController,
+    this.onChanged,
   })  : _showBackIcon = showBackIcon,
         _focusNode = focusNode;
 
   final bool _showBackIcon;
   final double safeAreaTop;
   final FocusNode _focusNode;
-
+  final TextEditingController? searchController;
+  final Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return SliverPersistentHeader(
@@ -70,12 +73,14 @@ class SliverSearchWidget extends StatelessWidget {
                   curve: Curves.easeInOut, // Suavizar la transición del padding
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: CustomTextFormFielWidget(
+                    controller: searchController,
                     unFocus: _focusNode,
                     hintText: 'Buscar',
                     iconDataPrefix: const Icon(
                       Iconsax.search_normal,
                       color: AppColors.greymedium,
                     ),
+                    onChanged: onChanged,
                     isSearch: true,
                   ),
                 ),

@@ -225,7 +225,7 @@ class _StoreScreenState extends State<StoreScreen> {
                                           0.2), // Color de la sombra con opacidad
                                       spreadRadius: 1, // Extensión de la sombra
                                       blurRadius: 8, // Desenfoque de la sombra
-                                      offset: Offset(0,
+                                      offset: const Offset(0,
                                           4), // Desplazamiento de la sombra (x, y)
                                     ),
                                   ],

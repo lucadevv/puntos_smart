@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
@@ -8,13 +7,9 @@ import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/sign_in_entity.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/repositories/auth_repository.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/sigin_bloc/sign_in_bloc.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/presentation/cubit/cubit/send_number_cubit.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/widgets/custom_button_widget.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/presentation/widgets/social_widget.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/widgets/customt_extformfield_widget.dart';
-
 import 'widgets/custom_button_widget_social.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -405,7 +400,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             //     ),
                             //   ],
                             // ),
-                            
+
                             // no tienes cuenta
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,

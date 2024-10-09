@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
-import 'package:puntos_smart_user/app/features/home_feature/presentation/pages/profile_page.dart';
+
 import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/custom_item_profile.dart';
 
 class SliverBoxAdressProfile extends StatelessWidget {

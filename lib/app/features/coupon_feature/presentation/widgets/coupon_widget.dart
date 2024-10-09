@@ -92,7 +92,7 @@ class CouponWidget extends StatelessWidget {
                       width: double
                           .infinity, // Ocupa todo el espacio disponible (30% del ancho)
                       height: 80,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape
                             .circle, // Hace que el contenedor sea circular
                         image: DecorationImage(

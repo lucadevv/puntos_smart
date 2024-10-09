@@ -27,3 +27,11 @@ class SelectLocationOnMap extends LocationEvent {
   @override
   List<Object?> get props => [latitude, longitude];
 }
+
+class SelectedLocationEvent extends LocationEvent {
+  final String placeId;
+
+  const SelectedLocationEvent({required this.placeId});
+  @override
+  List<Object?> get props => [placeId];
+}

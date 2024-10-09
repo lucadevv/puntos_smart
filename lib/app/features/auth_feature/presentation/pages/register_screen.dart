@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
-import 'package:puntos_smart_user/app/core/physics/custom_scroll_physics.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 
 import 'package:puntos_smart_user/app/core/widgets/custom_arrow_back.dart';

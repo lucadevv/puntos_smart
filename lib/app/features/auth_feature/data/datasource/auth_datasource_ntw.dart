@@ -71,7 +71,6 @@ class AuthDatasourceNtw {
 
   Future<SendCodeResponseModel> sendCode(
       {required SendCodeRequestModel model}) async {
-    print("_____${model.code}");
     try {
       final response = await _apiClient.postData(
         EndPoints.sendCodeVerify,

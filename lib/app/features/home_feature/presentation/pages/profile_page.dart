@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
-import 'package:puntos_smart_user/app/core/extension/custom_extension.dart';
-import 'package:puntos_smart_user/app/core/widgets/custom_ontap.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/auth_bloc/auth_bloc.dart';
-import 'package:puntos_smart_user/app/features/home_feature/domain/profile/profile_model_item.dart';
 import 'package:puntos_smart_user/app/features/home_feature/presentation/slivers/sliver_complete_profile.dart';
-import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_address_widget.dart';
 import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_button_logout_profile.dart';
 import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_header_widget.dart';
 import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets/sliver_point_list_widget.dart';

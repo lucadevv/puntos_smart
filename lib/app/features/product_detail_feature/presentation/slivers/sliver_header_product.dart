@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
-import 'package:puntos_smart_user/app/core/widgets/custom_punctation_widget.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/slivers/persisten_header_delegate.dart';
 
 class SliverHeaderWidget extends StatelessWidget {

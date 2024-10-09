@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
-import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:puntos_smart_user/app/features/coupon_feature/presentation/widgets/coupon_widget.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/slivers/sliver_search_widget.dart';
