@@ -4,6 +4,8 @@ import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 
 import 'package:puntos_smart_user/app/features/coupon_feature/presentation/painters/coupon_painter_v.dart';
 
+import '../../../../core/theme/app_colors.dart';
+
 class CouponPainterVerticalWidget extends StatelessWidget {
   const CouponPainterVerticalWidget({
     super.key,
@@ -23,8 +25,8 @@ class CouponPainterVerticalWidget extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           Container(
-            height: size.height * 0.7,
-            width: size.width * 0.7,
+            height: size.height * 0.9,
+            width: size.width * 0.8,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: Colors.white,
@@ -40,16 +42,16 @@ class CouponPainterVerticalWidget extends StatelessWidget {
           ),
           CustomPaint(
             size: Size(
-              size.width * 0.7 - 20,
-              size.height * 0.7 - 20,
+              size.width * 0.8 - 20,
+              size.height * 0.9 - 20,
             ),
             painter: CouponPainterV(
               color: Colors.primaries[index].withOpacity(0.7),
             ),
           ),
           SizedBox(
-            height: size.height * 0.7 - 20,
-            width: size.width * 0.7 - 20,
+            height: size.height * 0.9 - 20,
+            width: size.width * 0.8 - 20,
             child: Column(
               children: [
                 Expanded(
@@ -62,18 +64,18 @@ class CouponPainterVerticalWidget extends StatelessWidget {
                           TextSpan(
                             text: '35 % \n', // Parte del texto con un estilo
                             style: textTheme.displayMedium!.copyWith(
-                              color: Colors.black87,
+                              color: AppColors.primary,
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'display',
+                              fontFamily: 'poppins',
                             ),
                           ),
                           TextSpan(
                             text: 'Descuento', // Parte del texto con un estilo
                             style: textTheme.displayMedium!.copyWith(
-                              color: Colors.black54,
+                              color: AppColors.primary,
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
-                              fontFamily: 'display',
+                              //fontFamily: 'poppins',
                             ),
                           ),
                         ],
@@ -91,9 +93,11 @@ class CouponPainterVerticalWidget extends StatelessWidget {
                         Text(
                           'Descuento en la compra de la segunda hamburguesa', // Parte del texto con un estilo
                           style: textTheme.displaySmall!.copyWith(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'display',
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 20,
+                            height: 1.1,
+                            //fontFamily: 'display',
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -103,40 +107,59 @@ class CouponPainterVerticalWidget extends StatelessWidget {
                           alignment: Alignment.center,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: AppColors.primary,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(
                             '4534FD43',
                             style: textTheme.displaySmall!.copyWith(
                               color: Colors.primaries[index],
-                              fontFamily: 'display',
-                              letterSpacing: 8,
+                              fontFamily: 'poppins',
+                              letterSpacing: 5,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 12),
+                        // SizedBox(
+                        //   height: 150,
+                        //   child: SingleChildScrollView(
+                        //     child: Text(
+                        //       terminos,
+                        //       style: textTheme.labelSmall!.copyWith(
+                        //         fontSize: 12,
+                        //         fontWeight: FontWeight.w500,
+                        //         //fontFamily: 'display',
+                        //         color: AppColors.primary,
+                        //         overflow: TextOverflow.ellipsis,
+                        //       ),
+                        //       maxLines: 12,
+                        //       textAlign: TextAlign.justify,
+                        //     ),
+                        //   ),
+                        // ),
                         Text(
                           terminos,
                           style: textTheme.labelSmall!.copyWith(
-                            fontSize: 8,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'display',
-                            color: Colors.black54,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            //fontFamily: 'display',
+                            color: AppColors.primary,
                             overflow: TextOverflow.ellipsis,
                           ),
                           maxLines: 12,
+                          textAlign: TextAlign.justify,
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 12),
                         Row(
                           children: [
                             Text(
                               '45 PS',
                               style: textTheme.displaySmall!.copyWith(
                                 fontWeight: FontWeight.bold,
-                                fontFamily: 'display',
-                                color: Colors.black87,
+                                fontFamily: 'poppins',
+                                color: AppColors.primary,
+                                //fontSize: 32,
                               ),
                             ),
                             const Spacer(),
@@ -149,7 +172,7 @@ class CouponPainterVerticalWidget extends StatelessWidget {
                                 },
                                 child: Container(
                                   height: 50,
-                                  width: 150,
+                                  width: 110,
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 12),
                                   alignment: Alignment.center,
@@ -158,11 +181,12 @@ class CouponPainterVerticalWidget extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
-                                    'COMPRAR',
+                                    'Comprar',
                                     style: textTheme.displaySmall!.copyWith(
                                       color: Colors.primaries[index],
-                                      fontFamily: 'display',
-                                      fontWeight: FontWeight.bold,
+                                      //fontFamily: 'display',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w900,
                                     ),
                                   ),
                                 ),
