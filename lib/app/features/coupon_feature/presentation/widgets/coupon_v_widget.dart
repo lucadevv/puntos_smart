@@ -1,9 +1,8 @@
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:puntos_smart_user/app/features/coupon_feature/presentation/painters/coupon_painter_v.dart';
-import 'package:barcode_widget/barcode_widget.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class CouponPainterVerticalWidget extends StatelessWidget {
