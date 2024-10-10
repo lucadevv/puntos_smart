@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:puntos_smart_user/app/api/network/api_client.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/data/model/response/location_detail_model.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/data/model/response/place_autocomplete_model_response.dart';
@@ -52,11 +53,8 @@ class LocationDatasourceNtw {
 void printFormattedJson(Map<String, dynamic> json) {
   JsonEncoder encoder = const JsonEncoder.withIndent('  ');
   String prettyPrint = encoder.convert(json);
-
-  // Divide el JSON formateado en líneas
   List<String> lines = prettyPrint.split('\n');
-
   for (String line in lines) {
-    print(line); // Imprime cada línea individualmente
+    debugPrint(line);
   }
 }
