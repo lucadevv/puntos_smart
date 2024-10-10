@@ -35,8 +35,8 @@ class _RateStoreScreenState extends State<RateStoreScreen> {
         backgroundColor: Colors.transparent,
         body: Center(
           child: Container(
-            height: size.height * 0.7,
-            width: size.width * 0.7,
+            height: size.height * 0.9,
+            width: size.width * 0.8,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
@@ -57,10 +57,11 @@ class _RateStoreScreenState extends State<RateStoreScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Califica a MarcDonals',
+                        'Califica a MarcDonals \n tienda',
                         style: textTheme.headlineSmall!.copyWith(
-                          color: Colors.black87,
+                          color: AppColors.blacknew,
                           fontWeight: FontWeight.w700,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         maxLines: 2,
                         textAlign: TextAlign.center,
@@ -101,6 +102,12 @@ class _RateStoreScreenState extends State<RateStoreScreen> {
                         child: Text(
                           qualityRatings[valueSlider
                               .round()], // Mostrar el texto según el valor del slider
+                          style: textTheme.headlineSmall!.copyWith(
+                            color: AppColors.blacknew,
+                            fontWeight: FontWeight.w700,
+                            overflow: TextOverflow.ellipsis,
+                            // fontSize: 18,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 16),

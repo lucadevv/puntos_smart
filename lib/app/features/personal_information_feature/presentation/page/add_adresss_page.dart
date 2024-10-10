@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/bloc/location/location_bloc.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/bloc/location/location_event.dart';
+
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:flutter_typeahead/flutter_typeahead.dart';
+// import 'package:geocoding/geocoding.dart';
+
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/slivers/sliver_search_widget.dart';
 
