@@ -46,6 +46,7 @@ class AppText {
   static const smartNew = 'Noticias smart';
   static const highlightsSmart = 'Destacados smart';
   static const seeMore = 'Ver más';
+  static const hide = 'Ocultar';
   static const myFavorities = 'Mis Favoritos';
   static const myCouponSmart = 'Mis Cupones Smart';
   static const categories = 'Categorias';
@@ -90,4 +91,6 @@ class AppText {
   static const emptyProductsSubtitle =
       'Agrega los products que mas te gusta y encuéntralos más rápido aquí';
   static const newAddress = "Nueva dirección";
+  static const myCurrentLocation = "Mi ubicación actual";
+  static const selectOnMap = "Seleccionar en Mapa";
 }

@@ -22,19 +22,24 @@ class ModuleScreen extends StatelessWidget {
           const SliverAppbarHomePage(),
           const SliverSubtitleWidget(),
           const SliverBannersHomeWidget(),
-          const SliverSubtitleWidget(subTitle: AppText.categories),
-          const CategoryModuleWidget(),
+          const SliverSubtitleWidget(subTitle: AppText.categories, index: 2),
+          const CategoryModuleWidget(indexAnimtaion: 3),
           SliverSubtitleWidget(
             subTitle: AppText.winPoints,
             subTitle2: AppText.seeMore,
+            index: 2,
             onTap2: () {
               context.push(NameRoutes.answerWinScreen);
             },
           ),
-          const WinPointsModuleWidget(),
-          const SliverSubtitleWidget(subTitle: AppText.smartTrends),
+          const WinPointsModuleWidget(indexAnimation: 6),
+          const SliverSubtitleWidget(
+            subTitle: AppText.smartTrends,
+            index: 3,
+          ),
           const SmartTrendsModuleWidget(),
           SliverSubtitleWidget(
+            index: 4,
             subTitle: AppText.newStores,
             subTitle2: AppText.seeMore,
             onTap2: () {

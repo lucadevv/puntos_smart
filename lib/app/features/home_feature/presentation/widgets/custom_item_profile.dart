@@ -7,7 +7,6 @@ class CustomItemProfile extends StatelessWidget {
     //required this.image,
     required this.title,
     required this.widget,
-    
     this.onTap,
     required this.icon,
   });
@@ -33,10 +32,6 @@ class CustomItemProfile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
-                // Image.asset(
-                //   image,
-                //   scale: 1.1,
-                // ),
                 Icon(icon),
                 const SizedBox(width: 16),
                 Text(

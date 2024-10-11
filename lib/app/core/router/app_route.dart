@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
-import 'package:puntos_smart_user/app/features/answer_win_detail_feature/presentation/answern_win_detailk_screen.dart';
+import 'package:puntos_smart_user/app/features/answer_win_detail_feature/presentation/answern_win_detailt_screen.dart';
 import 'package:puntos_smart_user/app/features/answer_win_feature/presentation/answer_win_screen.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/login_screen.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/pages/otp_screen.dart';

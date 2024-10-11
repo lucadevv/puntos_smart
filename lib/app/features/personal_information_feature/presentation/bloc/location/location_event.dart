@@ -19,13 +19,13 @@ class SearchLocationByText extends LocationEvent {
 }
 
 class SelectLocationOnMap extends LocationEvent {
-  final double latitude;
-  final double longitude;
+  // final double latitude;
+  // final double longitude;
 
-  const SelectLocationOnMap(this.latitude, this.longitude);
+  // const SelectLocationOnMap(this.latitude, this.longitude);
 
-  @override
-  List<Object?> get props => [latitude, longitude];
+  // @override
+  // List<Object?> get props => [latitude, longitude];
 }
 
 class SelectedLocationEvent extends LocationEvent {

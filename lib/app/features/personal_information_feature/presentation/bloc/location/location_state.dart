@@ -2,16 +2,17 @@ part of 'location_bloc.dart';
 
 class LocationState extends Equatable {
   final LocationStatus status;
-
   final List<PlaceAutocompleteEntity> placeAutoCompleteList;
   final LocationSearchStatus locationSearchStatus;
   final PlaceAutocompleteEntity locationModel;
+  final LocationOnMapStatus locationOnMapStatus;
 
   const LocationState({
     required this.status,
     required this.placeAutoCompleteList,
     required this.locationSearchStatus,
     required this.locationModel,
+    required this.locationOnMapStatus,
   });
 
   LocationState copyWith({
@@ -19,6 +20,7 @@ class LocationState extends Equatable {
     List<PlaceAutocompleteEntity>? placeAutoCompleteList,
     LocationSearchStatus? locationSearchStatus,
     PlaceAutocompleteEntity? locationModel,
+    LocationOnMapStatus? locationOnMapStatus,
   }) {
     return LocationState(
       status: status ?? this.status,
@@ -26,6 +28,7 @@ class LocationState extends Equatable {
           placeAutoCompleteList ?? this.placeAutoCompleteList,
       locationSearchStatus: locationSearchStatus ?? this.locationSearchStatus,
       locationModel: locationModel ?? this.locationModel,
+      locationOnMapStatus: locationOnMapStatus ?? this.locationOnMapStatus,
     );
   }
 
@@ -35,6 +38,7 @@ class LocationState extends Equatable {
       placeAutoCompleteList: const [],
       locationSearchStatus: LocationSearchStatus.initial,
       locationModel: PlaceAutocompleteEntity.empty(),
+      locationOnMapStatus: LocationOnMapStatus.initial,
     );
   }
 
@@ -46,3 +50,5 @@ class LocationState extends Equatable {
 enum LocationStatus { initial, loading, success, error }
 
 enum LocationSearchStatus { initial, loading, success, error }
+
+enum LocationOnMapStatus { initial, loading, success, error }

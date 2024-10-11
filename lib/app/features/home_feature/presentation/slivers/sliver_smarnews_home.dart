@@ -4,7 +4,10 @@ import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets
 class SliverSmartNewHomeWidget extends StatelessWidget {
   const SliverSmartNewHomeWidget({
     super.key,
+    this.index = 1,
   });
+
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +20,11 @@ class SliverSmartNewHomeWidget extends StatelessWidget {
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: 5,
-          itemBuilder: (context, index) {
+          shrinkWrap: true,
+          itemBuilder: (context, idx) {
             return ItemSmartContainer(
-              index: index,
+              index: idx,
+              indexAnimation: index,
             );
           },
         ),

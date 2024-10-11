@@ -14,7 +14,6 @@ class SliverBoxPointsListProfile extends StatelessWidget {
       itemBuilder: (context, index) {
         final item = poinstAndSubscription[index];
         return CustomItemProfile(
-          //image: item.image,
           icon: item.icon,
           title: item.title,
           widget: item.widget,

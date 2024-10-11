@@ -113,33 +113,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                // child: Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   children: List.generate(navList.length, (index) {
-                //     final icon = navList[index];
-                //     return IconButton(
-                //       splashColor: Colors.amber,
-                //       color: AppColors.onPrimary,
-                //       onPressed: () {
-                //         selectedPage(index);
-                //       },
-                //       icon: Icon(
-                //         size: 28,
-                //         icon,
-                //         color: pageIndex == index
-                //             ? AppColors.onPrimary
-                //             : AppColors.descriptionColor,
-                //       ),
-                //     );
-                //   }),
-                // ),
-
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: List.generate(navList.length, (index) {
                     final icon = navList[index];
-                    final label = navLabels[
-                        index]; // Lista de nombres correspondientes a cada ícono
+                    final label = navLabels[index];
 
                     return GestureDetector(
                       onTap: () {

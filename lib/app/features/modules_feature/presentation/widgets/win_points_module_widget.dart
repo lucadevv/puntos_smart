@@ -6,34 +6,33 @@ import 'package:puntos_smart_user/app/core/widgets/custom_answer_widget.dart';
 class WinPointsModuleWidget extends StatelessWidget {
   const WinPointsModuleWidget({
     super.key,
+    this.indexAnimation = 1,
   });
+
+  final int? indexAnimation;
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
-        // decoration: BoxDecoration(
-        //   border: Border.all(
-        //     color: AppColors.greyligth,
-        //     width: 1,
-        //   ),
-        // ),
-        //color: Colors.amber,
-        height: 260, //250
+        height: 260,
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        //padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: ListView.builder(
           itemCount: 5,
+          shrinkWrap: true,
           scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
+          itemBuilder: (context, idx) {
             return Padding(
               padding: const EdgeInsets.only(right: 12),
               child: InkWell(
                 onTap: () {
-                  context.push('${NameRoutes.answerWinDetailScreen}/$index');
+                  context.push('${NameRoutes.answerWinDetailScreen}/$idx');
                 },
-                child: const CustomItemAnswerWidget(),
+                child: CustomItemAnswerWidget(
+                  index: idx,
+                  indexAnimation: indexAnimation,
+                ),
               ),
             );
           },

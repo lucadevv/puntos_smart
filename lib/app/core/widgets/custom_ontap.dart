@@ -11,16 +11,14 @@ class CustomOnTap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          splashColor: AppColors.onPrimary.withOpacity(0.2),
-          overlayColor: WidgetStateProperty.all(
-            AppColors.onPrimary.withOpacity(0.2),
-          ),
-          onTap: onTap,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        splashColor: AppColors.onPrimary.withOpacity(0.2),
+        overlayColor: WidgetStateProperty.all(
+          AppColors.onPrimary.withOpacity(0.2),
         ),
+        onTap: onTap,
       ),
     );
   }

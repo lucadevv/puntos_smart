@@ -6,27 +6,31 @@ import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets
 class SliverModulesHomeWidget extends StatelessWidget {
   const SliverModulesHomeWidget({
     super.key,
+    required this.isMore,
+    this.index = 1,
   });
+
+  final bool isMore;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       sliver: SliverGrid.builder(
-        itemCount: 6,
+        itemCount: isMore ? 9 : 6,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
+          crossAxisSpacing: 15,
         ),
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
+        itemBuilder: (context, idx) {
+          return ItemModuleWidget(
+            index: idx,
+            indexAnimation: index,
+            ontap: () {
               context.push(NameRoutes.moduleScreen);
             },
-            child: ItemModuleWidget(
-              index: index,
-            ),
           );
         },
       ),

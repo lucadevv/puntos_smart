@@ -1,4 +1,4 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/data/model/response/location_detail_model.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/data/model/response/place_autocomplete_model_response.dart';
 

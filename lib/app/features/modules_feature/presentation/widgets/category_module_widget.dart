@@ -6,7 +6,9 @@ import 'package:puntos_smart_user/app/features/home_feature/presentation/widgets
 class CategoryModuleWidget extends StatelessWidget {
   const CategoryModuleWidget({
     super.key,
+    this.indexAnimtaion = 1,
   });
+  final int? indexAnimtaion;
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +18,14 @@ class CategoryModuleWidget extends StatelessWidget {
         width: double.infinity,
         margin: const EdgeInsets.only(left: 16),
         child: ListView.builder(
-          itemCount: 10,
+          itemCount: 5,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.only(right: 12),
               child: ItemModuleWidget(
                 index: index,
+                indexAnimation: indexAnimtaion,
                 ontap: () {
                   context.push(NameRoutes.productsScreen);
                 },

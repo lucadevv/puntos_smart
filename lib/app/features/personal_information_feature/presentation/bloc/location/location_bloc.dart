@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:latlong2/latlong.dart';
+
 import 'package:puntos_smart_user/app/features/personal_information_feature/domain/entities/place_autocomplete_entity.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/domain/repository/location_repository.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/domain/results/location_detail_result.dart';
@@ -97,14 +98,40 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
   Future<void> _onSelectLocationOnMap(
       SelectLocationOnMap event, Emitter<LocationState> emit) async {
-    final model = PlaceAutocompleteEntity(
-        description: "",
-        placeId: "",
-        latLng: LatLng(event.latitude, event.longitude));
-    emit(state.copyWith(
-      status: LocationStatus.success,
-      locationModel: model,
-    ));
+    emit(state.copyWith(locationOnMapStatus: LocationOnMapStatus.loading));
+    final hasPermission = await _handleLocationPermission();
+    if (!hasPermission) {
+      emit(state.copyWith(
+        status: LocationStatus.error,
+      ));
+      return;
+    }
+
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          locationSettings: const LocationSettings(
+        accuracy: LocationAccuracy.high,
+      ));
+
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      final address = placemarks.isNotEmpty
+          ? "${placemarks.first.street}, ${placemarks.first.locality},${placemarks.first.postalCode}, ${placemarks.first.country}"
+          : "Unknown location";
+      final model = PlaceAutocompleteEntity(
+          description: address,
+          placeId: "",
+          latLng: LatLng(position.latitude, position.longitude));
+      emit(state.copyWith(
+        locationOnMapStatus: LocationOnMapStatus.success,
+        locationModel: model,
+      ));
+    } catch (e) {
+      emit(state.copyWith(locationOnMapStatus: LocationOnMapStatus.error));
+    }
   }
 
   Future<bool> _handleLocationPermission() async {

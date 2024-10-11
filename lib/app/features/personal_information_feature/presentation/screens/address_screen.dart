@@ -31,15 +31,6 @@ class AddressScreen extends StatelessWidget {
                   SliverAppBar(
                     pinned: true,
                     backgroundColor: Colors.white,
-                    // leading: InkWell(
-                    //   onTap: () {
-                    //     context.pop();
-                    //   },
-                    //   child: const Icon(
-                    //     Icons.arrow_back_ios_new,
-                    //     color: Colors.black54,
-                    //   ),
-                    // ),
                     leadingWidth: 70,
                     leading: const Padding(
                       padding: EdgeInsets.only(left: 16, bottom: 4),
