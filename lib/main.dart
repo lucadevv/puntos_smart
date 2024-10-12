@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
+import 'package:puntos_smart_user/app/api/local_notification_services/local_notification_services.dart';
 import 'package:puntos_smart_user/app/api/services_token/token_storage_services.dart';
+import 'package:puntos_smart_user/app/core/bloc/local_notification_bloc.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/domain/repository/location_repository.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/bloc/location/location_bloc.dart';
 import 'package:puntos_smart_user/app/core/router/app_route.dart';
@@ -12,17 +15,27 @@ import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/si
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/cubit/cubit/send_number_cubit.dart';
 import 'package:puntos_smart_user/app/injection.dart';
 
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final notificationService =
+      LocalNotificationServices(flutterLocalNotificationsPlugin);
+  await notificationService.initialize();
   const baseUrl = String.fromEnvironment('base_url');
   const baseUrlAutocomplete =
       String.fromEnvironment('base_url_place_autcomplete');
   setUpInyection(baseUrl: baseUrl, baseUrlAutocomplete: baseUrlAutocomplete);
-  runApp(const MyApp());
+  runApp(MyApp(
+    localNotificationServices: notificationService,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp(
+      {super.key, required LocalNotificationServices localNotificationServices})
+      : _localNotificationServices = localNotificationServices;
+  final LocalNotificationServices _localNotificationServices;
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -46,8 +59,16 @@ class MyApp extends StatelessWidget {
           ),
         ),
         BlocProvider(
+          lazy: false,
+          create: (context) => LocalNotificationBloc(
+              localNotificationServices: _localNotificationServices)
+            ..add(RequestNotificationPermissions()),
+        ),
+        BlocProvider(
           create: (context) => SendNumberCubit(
             authRepository: GetIt.instance<AuthRepository>(),
+            localNotificationBloc:
+                BlocProvider.of<LocalNotificationBloc>(context),
           ),
           lazy: false,
         ),

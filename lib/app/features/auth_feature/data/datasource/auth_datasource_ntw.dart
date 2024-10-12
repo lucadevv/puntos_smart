@@ -4,8 +4,8 @@ import 'package:puntos_smart_user/app/api/network/api_client.dart';
 import 'package:puntos_smart_user/app/core/constants/end_points.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_code_request_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_number_request_model.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/send_code_response_model.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/send_number_response_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/verify_codeotp_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/verify_number_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/sig_up_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/sing_in_mode.dart';
 
@@ -43,15 +43,16 @@ class AuthDatasourceNtw {
     }
   }
 
-  Future<SendNumberResponseModel> sendNumber(
+  Future<VerifyNumberModel> verifyNumber(
       {required SendNumberRequestModel model}) async {
     try {
       final response = await _apiClient.postData(
-        EndPoints.sendNumber,
+        EndPoints.verifyNumber,
         data: model.toJson(),
       );
+
       if (response.statusCode == 200) {
-        return SendNumberResponseModel.fromJson(response.data);
+        return VerifyNumberModel.fromJson(response.data);
       } else {
         throw DioException(
           requestOptions: response.requestOptions,
@@ -69,7 +70,7 @@ class AuthDatasourceNtw {
     }
   }
 
-  Future<SendCodeResponseModel> sendCode(
+  Future<VerifyCodeOtpModel> verifyCode(
       {required SendCodeRequestModel model}) async {
     try {
       final response = await _apiClient.postData(
@@ -78,7 +79,7 @@ class AuthDatasourceNtw {
       );
 
       if (response.statusCode == 200) {
-        return SendCodeResponseModel.fromJson(response.data);
+        return VerifyCodeOtpModel.fromJson(response.data);
       } else {
         throw DioException(
           requestOptions: response.requestOptions,

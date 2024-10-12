@@ -2,18 +2,25 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/send_code_entity.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/send_number_entity.dart';
+import 'package:puntos_smart_user/app/core/bloc/local_notification_bloc.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/send_codeotp_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/verify_codeotp_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/verify_number_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/send_number_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/repositories/auth_repository.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/result/send_code_result.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/result/send_number_result.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/result/verify_codeotp_result.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/result/verify_number_result.dart';
 
 part 'send_number_state.dart';
 
 class SendNumberCubit extends Cubit<SendNumberState> {
   final AuthRepository _authRepository;
-  SendNumberCubit({required AuthRepository authRepository})
+  final LocalNotificationBloc _localNotificationBloc;
+  SendNumberCubit(
+      {required AuthRepository authRepository,
+      required LocalNotificationBloc localNotificationBloc})
       : _authRepository = authRepository,
+        _localNotificationBloc = localNotificationBloc,
         super(SendNumberState.initial());
 
   Future<void> requestNumber() async {
@@ -21,16 +28,27 @@ class SendNumberCubit extends Cubit<SendNumberState> {
     try {
       final phoneNumber = state.phoneNumber;
       final numberText = "+51${phoneNumber.toString()}";
-      final sendNumberEntity =
-          SendNumberEntity(sendData: numberText, type: "phone");
-      final result =
-          await _authRepository.sendNumber(sendNumberEntity: sendNumberEntity);
-      if (result is SendNumberSuccess) {
+      final sendNumberEntity = SendNumberEntity(phone: numberText);
+      final result = await _authRepository.verifyNumber(
+          sendNumberEntity: sendNumberEntity);
+
+      if (result is VerifyNumberSuccess) {
         emit(state.copyWith(
           phoneNumber: phoneNumber,
+          verifyNumberEntity: result.verifyNumberEntity,
           sendNumberStatus: SendNumberStatus.success,
         ));
-      } else if (result is SendNumberFailure) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final otpCode = result.verifyNumberEntity.data.otpcode.toString();
+          Future.delayed(const Duration(seconds: 1)).then((_) {
+            _localNotificationBloc.add(SendLocalNotification(
+              id: "23",
+              title: "Verificación OTP",
+              body: otpCode,
+            ));
+          });
+        });
+      } else if (result is VerifyNumberFailure) {
         _handleSendNumberFailure(result.sendNumberFailureStatus);
       }
     } catch (e) {
@@ -50,18 +68,18 @@ class SendNumberCubit extends Cubit<SendNumberState> {
       final numberFour = state.numberFour;
       final code = "$numberOne$numberTwo$numberThree$numberFour";
 
-      final sendCodeRequestEntity =
-          SendCodeRequestEntity(number: numberText, code: code);
-      final result = await _authRepository.sendCode(
-          sendCodeRequestEntity: sendCodeRequestEntity);
-      if (result is SendCodeSucces) {
+      final sendCodetEntity = SendCodeOtpEntity(phone: numberText, code: code);
+      final result =
+          await _authRepository.verifyCode(sendCodeOtpEntity: sendCodetEntity);
+      if (result is VerifyCodeOtpSucces) {
         emit(state.copyWith(
           phoneNumber: phoneNumber,
           codeVerifiaction: code,
+          verifyCodeOtpEntity: result.verifyCodeOtpEntity,
           sendCodeStatus: SendCodeStatus.success,
         ));
-      } else if (result is SendCodeFailure) {
-        _handleSenCodeFailure(result.sendCodeFailureStatus);
+      } else if (result is VerifyCodeOtpFailure) {
+        _handleSenCodeFailure(result.verifyCodeOtpFailureStatus);
       }
     } catch (e) {
       debugPrint(
@@ -105,21 +123,29 @@ class SendNumberCubit extends Cubit<SendNumberState> {
     ));
   }
 
-  void _handleSenCodeFailure(SendCodeFailureStatus result) {
+  Future<void> resetStateInitial() async {
+    emit(SendNumberState.initial());
+  }
+
+  void _handleSenCodeFailure(VerifyCodeOtpFailureStatus result) {
     switch (result) {
-      case SendCodeFailureStatus.network:
-        emit(state.copyWith(sendNumberStatus: SendNumberStatus.network));
+      case VerifyCodeOtpFailureStatus.network:
+        emit(state.copyWith(sendCodeStatus: SendCodeStatus.network));
         break;
-      case SendCodeFailureStatus.server:
+      case VerifyCodeOtpFailureStatus.server:
+        emit(state.copyWith(sendCodeStatus: SendCodeStatus.server));
         break;
-      case SendCodeFailureStatus.invalidCode:
-        emit(state.copyWith(sendNumberStatus: SendNumberStatus.invalidData));
+      case VerifyCodeOtpFailureStatus.invalidCode:
+        emit(state.copyWith(sendCodeStatus: SendCodeStatus.invalidCode));
         break;
-      case SendCodeFailureStatus.unknown:
-        emit(state.copyWith(sendNumberStatus: SendNumberStatus.unknown));
+      case VerifyCodeOtpFailureStatus.expiredCode:
+        emit(state.copyWith(sendCodeStatus: SendCodeStatus.expiredCode));
+        break;
+      case VerifyCodeOtpFailureStatus.alredyVerified:
+        emit(state.copyWith(sendCodeStatus: SendCodeStatus.alredyVerified));
         break;
       default:
-        emit(state.copyWith(sendNumberStatus: SendNumberStatus.unknown));
+        emit(state.copyWith(sendCodeStatus: SendCodeStatus.unknown));
         break;
     }
   }
@@ -135,22 +161,14 @@ class SendNumberCubit extends Cubit<SendNumberState> {
       case SendNumberFailureStatus.server:
         emit(state.copyWith(sendNumberStatus: SendNumberStatus.server));
         break;
-      case SendNumberFailureStatus.phoneNumberExist:
-        emit(state.copyWith(
-            sendNumberStatus: SendNumberStatus.phoneNumberExist));
-        break;
-      case SendNumberFailureStatus.activeCodeExpiration:
-        emit(state.copyWith(
-            sendNumberStatus: SendNumberStatus.activeCodeExpiration));
-        break;
+
       case SendNumberFailureStatus.invalidNumber:
         emit(state.copyWith(sendNumberStatus: SendNumberStatus.invalidNumber));
         break;
-      case SendNumberFailureStatus.invalidData:
-        emit(state.copyWith(sendNumberStatus: SendNumberStatus.invalidData));
-        break;
-      case SendNumberFailureStatus.unknown:
-        emit(state.copyWith(sendNumberStatus: SendNumberStatus.unknown));
+
+      case SendNumberFailureStatus.waitingVerification:
+        emit(state.copyWith(
+            sendNumberStatus: SendNumberStatus.waitingVerification));
         break;
       default:
         emit(state.copyWith(sendNumberStatus: SendNumberStatus.unknown));

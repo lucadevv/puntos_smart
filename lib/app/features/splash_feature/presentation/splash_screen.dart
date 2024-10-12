@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
@@ -46,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
     navigateToLogin();
   }
 
-  void navigateToLogin() {
+  void navigateToLogin() async {
     Future.delayed(const Duration(
       seconds: 2,
     )).then((_) {

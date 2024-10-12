@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:puntos_smart_user/app/core/bloc/local_notification_bloc.dart';
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
@@ -79,11 +80,22 @@ class SliverAppbarHomePage extends StatelessWidget {
       ),
       leading: Padding(
         padding: const EdgeInsets.only(left: 16),
-        child: Image.asset(
-          AppImages.logoPuntosSmart,
-          width: 10,
-          height: 10,
-          fit: BoxFit.contain,
+        child: InkWell(
+          onTap: () {
+            context.read<LocalNotificationBloc>().add(
+                  const SendLocalNotification(
+                    id: "23",
+                    title: "Verificacion OTP",
+                    body: "2345",
+                  ),
+                );
+          },
+          child: Image.asset(
+            AppImages.logoPuntosSmart,
+            width: 10,
+            height: 10,
+            fit: BoxFit.contain,
+          ),
         ),
       ),
       actions: [

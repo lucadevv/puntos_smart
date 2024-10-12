@@ -7,13 +7,15 @@ import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_number_request_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/sig_up_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/sing_in_mode.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/send_code_entity.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/send_number_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/send_codeotp_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/verify_codeotp_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/verify_number_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/send_number_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/sign_in_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/sign_up_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/repositories/auth_repository.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/result/send_code_result.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/result/send_number_result.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/result/verify_codeotp_result.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/result/verify_number_result.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/result/sign_in_result.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/result/sign_up_result.dart';
 
@@ -77,47 +79,49 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<SendNumberResult> sendNumber(
+  Future<VerifyNumberResult> verifyNumber(
       {required SendNumberEntity sendNumberEntity}) async {
     try {
       final model =
-          SendNumberRequestModel.entityToMode(entity: sendNumberEntity);
-      final response = await _datasourceNtw.sendNumber(model: model);
-      return SendNumberSuccess(
-        status: response.status!,
-        message: response.message!,
+          SendNumberRequestModel.entityToModel(entity: sendNumberEntity);
+      final response = await _datasourceNtw.verifyNumber(model: model);
+      final verifyNumberEntity =
+          VerifyNumberEntity.modelToEntity(model: response);
+      return VerifyNumberSuccess(
+        verifyNumberEntity: verifyNumberEntity,
       );
     } catch (e) {
       if (e is DioException) {
-        return SendNumberFailure(
+        return VerifyNumberFailure(
           sendNumberFailureStatus: ErrorSendNumberHundler.handleDioError(e),
         );
       } else {
-        return SendNumberFailure(
+        return VerifyNumberFailure(
             sendNumberFailureStatus: SendNumberFailureStatus.unknown);
       }
     }
   }
 
   @override
-  Future<SendCodeResult> sendCode(
-      {required SendCodeRequestEntity sendCodeRequestEntity}) async {
+  Future<VerifyCodeOtpResult> verifyCode(
+      {required SendCodeOtpEntity sendCodeOtpEntity}) async {
     try {
       final model =
-          SendCodeRequestModel.entityToMode(entity: sendCodeRequestEntity);
-      final response = await _datasourceNtw.sendCode(model: model);
-      return SendCodeSucces(
-        status: response.status,
-        message: response.message,
+          SendCodeRequestModel.entityToMode(entity: sendCodeOtpEntity);
+      final response = await _datasourceNtw.verifyCode(model: model);
+
+      return VerifyCodeOtpSucces(
+        verifyCodeOtpEntity: VerifyCodeOtpEntity.modelToEntity(model: response),
       );
     } catch (e) {
       if (e is DioException) {
-        return SendCodeFailure(
-          sendCodeFailureStatus: ErrorSendCodeHundler.handleDioError(e),
+        return VerifyCodeOtpFailure(
+          verifyCodeOtpFailureStatus: ErrorSendCodeHundler.handleDioError(e),
         );
       } else {
-        return SendCodeFailure(
-            sendCodeFailureStatus: SendCodeFailureStatus.unknown);
+        return VerifyCodeOtpFailure(
+          verifyCodeOtpFailureStatus: VerifyCodeOtpFailureStatus.unknown,
+        );
       }
     }
   }

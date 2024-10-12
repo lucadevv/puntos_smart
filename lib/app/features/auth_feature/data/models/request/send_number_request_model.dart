@@ -1,39 +1,30 @@
-import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/send_number_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/send_number_entity.dart';
 
 class SendNumberRequestModel {
-  final String sendData;
-  final String type;
+  final String phone;
 
   SendNumberRequestModel({
-    required this.sendData,
-    required this.type,
+    required this.phone,
   });
 
   SendNumberRequestModel copyWith({
-    String? sendData,
-    String? type,
+    String? phone,
   }) =>
       SendNumberRequestModel(
-        sendData: sendData ?? this.sendData,
-        type: type ?? this.type,
+        phone: phone ?? this.phone,
       );
 
   factory SendNumberRequestModel.fromJson(Map<String, dynamic> json) =>
       SendNumberRequestModel(
-        sendData: json["sendData"],
-        type: json["type"],
+        phone: json["phone"],
       );
 
   Map<String, dynamic> toJson() => {
-        "sendData": sendData,
-        "type": type,
+        "phone": phone,
       };
 
-  factory SendNumberRequestModel.entityToMode(
+  factory SendNumberRequestModel.entityToModel(
       {required SendNumberEntity entity}) {
-    return SendNumberRequestModel(
-      sendData: entity.sendData,
-      type: entity.type,
-    );
+    return SendNumberRequestModel(phone: entity.phone);
   }
 }

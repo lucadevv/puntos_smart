@@ -2,6 +2,7 @@ import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:puntos_smart_user/app/core/bloc/local_notification_bloc.dart';
 
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
@@ -95,6 +96,7 @@ class _RegisterWithNumberScreenState extends State<RegisterWithNumberScreen> {
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
     final sendNumberCubit = context.read<SendNumberCubit>();
+
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -185,30 +187,18 @@ class _RegisterWithNumberScreenState extends State<RegisterWithNumberScreen> {
                                 const SnackBar(content: Text("404")),
                               );
                               break;
-                            case SendNumberStatus.phoneNumberExist:
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text("Numero ya esta registrado")),
-                              );
-                              break;
-                            case SendNumberStatus.activeCodeExpiration:
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content:
-                                        Text("Expiracion de codigo activo")),
-                              );
-                              context.push(NameRoutes.otpScreen);
-                              break;
+
                             case SendNumberStatus.invalidNumber:
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     content: Text("Numero invalido")),
                               );
                               break;
-                            case SendNumberStatus.invalidData:
+
+                            case SendNumberStatus.waitingVerification:
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                    content: Text("Datos invalidos")),
+                                    content: Text(AppText.waitingVerification)),
                               );
                               break;
                             default:

@@ -8,4 +8,7 @@ class AppFailureText {
   static const activeCodeExpiration = 'expiracion de codigo activo';
   static const invalidNumber = 'Invalid To Phone Number:';
   static const unverifiedCode = 'codigo no verificado';
+  static const waitingVerification = "waiting verification";
+  static const expiredCode = "expired";
+  static const alredyVerified = "alredy verified";
 }

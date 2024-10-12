@@ -93,4 +93,6 @@ class AppText {
   static const newAddress = "Nueva dirección";
   static const myCurrentLocation = "Mi ubicación actual";
   static const selectOnMap = "Seleccionar en Mapa";
+  static const waitingVerification =
+      'El número encuentra se encuentra en proceso de verificación.';
 }
