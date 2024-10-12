@@ -133,6 +133,7 @@ class _RegisterWithNumberScreenState extends State<RegisterWithNumberScreen> {
                           color: Colors.black87,
                           fontWeight: FontWeight.w700,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                       Column(
                           children: List.generate(listLabel.length, (index) {

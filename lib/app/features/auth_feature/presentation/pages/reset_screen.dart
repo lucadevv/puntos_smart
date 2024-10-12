@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
@@ -22,6 +23,13 @@ class _ResetScreenState extends State<ResetScreen> {
   final List<bool> _isFocused = [];
   final List<TextEditingController> _controllers = [];
   late ScrollController scrollController;
+
+  bool _isPasswordVisible = true;
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
 
   @override
   void initState() {
@@ -119,6 +127,7 @@ class _ResetScreenState extends State<ResetScreen> {
                     children: [
                       Image.asset(
                         AppImages.resetScreen2,
+                        scale: 1.2,
                       ),
                       Text(
                         AppText.resetPassword,
@@ -134,6 +143,9 @@ class _ResetScreenState extends State<ResetScreen> {
                           fontWeight: FontWeight.normal,
                         ),
                         textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                       Column(
                         children: List.generate(
@@ -151,16 +163,22 @@ class _ResetScreenState extends State<ResetScreen> {
                                 isOtp: false,
                                 controller: controller,
                                 iconDataPrefix: const Icon(
-                                  Icons.private_connectivity,
+                                  Iconsax.check,
                                   color: AppColors.onPrimary,
                                 ),
                                 label: label,
+                                isPassword: _isPasswordVisible,
+                                isPasswordVisible: true,
+                                isTapPrefixIcon: _togglePasswordVisibility,
+                                iconDataSufix: _isPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
                               ),
                             );
                           },
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      // const SizedBox(height: 5),
                       CustomButtonWidget(
                         onTap: () {
                           focusNodeUnFocus();

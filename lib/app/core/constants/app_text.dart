@@ -26,7 +26,7 @@ class AppText {
   static const enterCodeOtp = 'Ingresa tu código OTP';
   static const validate = 'Validar';
 
-  static const resetPassword = 'Resetear Contraseña';
+  static const resetPassword = 'Restablece tu contraseña';
   static const infoResetPassword =
       'Crea una nueva contraseña y confírmala para completar el proceso.';
   static const registerTitle =
