@@ -9,6 +9,7 @@ class CustomTextFormFielWidget extends StatelessWidget {
     this.iconDataPrefix,
     this.unFocus,
     this.label,
+    this.errorText,
     this.isFocused = false,
     this.isOtp = false,
     this.controller,
@@ -24,6 +25,7 @@ class CustomTextFormFielWidget extends StatelessWidget {
 
   final String? hintText;
   final String? label;
+  final String? errorText;
   final Widget? iconDataPrefix;
   final IconData? iconDataSufix;
   final FocusNode? unFocus;
@@ -108,14 +110,23 @@ class CustomTextFormFielWidget extends StatelessWidget {
           prefixStyle: textTheme.titleSmall!
               .copyWith(color: AppColors.greymedium, fontSize: 16.0),
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 15.0).copyWith(right: 5),
+              const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+
           labelText: label,
+          errorText: errorText,
+          errorStyle: textTheme.titleSmall!.copyWith(
+            height: 0.8, // Ajusta la altura del error
+            color: isFocused == true
+                ? AppColors.error
+                : AppColors.error.withOpacity(0.7),
+          ),
           labelStyle: textTheme.titleSmall!.copyWith(
             color:
                 isFocused == true ? AppColors.onPrimary : AppColors.textfield,
             fontWeight: FontWeight.w500,
           ),
           hintText: hintText,
+
           hintStyle: TextStyle(
             color: isFocused == true
                 ? AppColors.onPrimary
@@ -158,6 +169,20 @@ class CustomTextFormFielWidget extends StatelessWidget {
               width: 1,
             ),
           ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(
+              color:
+                  isFocused == true ? AppColors.onPrimary : AppColors.textfield,
+              width: 1,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(
+                color: AppColors.error, // Color de foco cuando hay error
+                width: 1,
+              )),
         ),
       ),
     );

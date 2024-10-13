@@ -11,4 +11,7 @@ class AppFailureText {
   static const waitingVerification = "waiting verification";
   static const expiredCode = "expired";
   static const alredyVerified = "alredy verified";
+  static const userNameExist = "The alias has already been taken.";
+  static const emailExist =
+      "The email has already been taken. (and 1 more error)";
 }

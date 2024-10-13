@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:puntos_smart_user/app/api/services_token/token_storage_services.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/sign_in_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/sign_in_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/repositories/auth_repository.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/result/sign_in_result.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/auth_bloc/auth_bloc.dart';
@@ -24,7 +24,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         _authBloc = authBloc,
         super(SignInState.initial()) {
     on<SignInRequested>(_signInRequestedEvent);
-    on<SignInEmailChanged>(_signInEmailChangedEvent);
+    on<SignInPhoneNumberChanged>(_signInPhoneNumberChanged);
     on<SignInPasswordChanged>(_signInPasswordChangedEvent);
     on<SignInTermsChanged>(_signInTermsChangedEvent);
     on<SaveCredentials>(_saveCredentialsEvent);
@@ -33,12 +33,54 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     on<ClearUserAndPassword>(_clearUserAndPasswordEvent);
   }
 
+  /*
+  ------------------------CHANGED FORM SIGNIN------------------------
+   */
+
+  Future<void> _signInPhoneNumberChanged(
+      SignInPhoneNumberChanged event, Emitter<SignInState> emit) async {
+    emit(state.copyWith(
+      phone: event.number,
+      signInStatus: SignInStatus.initial,
+    ));
+  }
+
+  Future<void> _signInPasswordChangedEvent(
+      SignInPasswordChanged event, Emitter<SignInState> emit) async {
+    emit(state.copyWith(
+      password: event.password,
+      signInStatus: SignInStatus.initial,
+    ));
+  }
+
+  Future<void> _signInTermsChangedEvent(
+      SignInTermsChanged event, Emitter<SignInState> emit) async {
+    emit(state.copyWith(
+      rememberCheck: event.rememberCheck,
+      signInStatus: SignInStatus.initial,
+    ));
+  }
+
+  /*
+  ------------------------REQUEST SIGNIN------------------------
+   */
+
   Future<void> _signInRequestedEvent(
       SignInRequested event, Emitter<SignInState> emit) async {
+    // if (state.password != state.confirmPassword) {
+    //   emit(state.copyWith(signUpStatus: SignUpStatus.passwordNotEqual));
+    //   return;
+    // }
+    // if (!state.phone) {
+    //   emit(state.copyWith(signUpStatus: SignUpStatus.termsNotAccepted));
+    //   return;
+    // }
     emit(state.copyWith(signInStatus: SignInStatus.loading));
+
     try {
-      final result =
-          await _authRepository.signIn(signInEntity: event.signInEntity);
+      final signInEntity =
+          SignInEntity(phone: state.phone, password: state.password);
+      final result = await _authRepository.signIn(signInEntity: signInEntity);
       if (result is SignInSuccess) {
         await _tokenStorageServices.saveToken(result.accessToken);
         if (state.rememberCheck) {
@@ -76,35 +118,15 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     }
   }
 
-  Future<void> _signInEmailChangedEvent(
-      SignInEmailChanged event, Emitter<SignInState> emit) async {
-    emit(state.copyWith(
-      user: event.user,
-      signInStatus: SignInStatus.initial,
-    ));
-  }
-
-  Future<void> _signInPasswordChangedEvent(
-      SignInPasswordChanged event, Emitter<SignInState> emit) async {
-    emit(state.copyWith(
-      password: event.password,
-      signInStatus: SignInStatus.initial,
-    ));
-  }
-
-  Future<void> _signInTermsChangedEvent(
-      SignInTermsChanged event, Emitter<SignInState> emit) async {
-    emit(state.copyWith(
-      rememberCheck: event.rememberCheck,
-      signInStatus: SignInStatus.initial,
-    ));
-  }
+  /*
+  ------------------------TOKEN SERVICES SIGNIN------------------------
+   */
 
   Future<void> _saveCredentialsEvent(
       SaveCredentials event, Emitter<SignInState> emit) async {
-    final user = state.user;
+    final phone = state.phone;
     final password = state.password;
-    await _tokenStorageServices.saveLoginInfo(user, password);
+    await _tokenStorageServices.saveLoginInfo(phone, password);
   }
 
   Future<void> _clearCredentialsEvent(
@@ -119,7 +141,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     if (loginInfo['saved_user'] != null &&
         loginInfo['saved_password'] != null) {
       emit(state.copyWith(
-        user: loginInfo['saved_user']!,
+        phone: loginInfo['saved_user']!,
         password: loginInfo['saved_password']!,
         rememberCheck: true,
       ));
@@ -129,5 +151,19 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   Future<void> _clearUserAndPasswordEvent(
       ClearUserAndPassword event, Emitter<SignInState> emit) async {
     emit(SignInState.initial());
+  }
+
+  /*
+  ------------------------VALIDATIONS SIGN IP------------------------
+   */
+
+  String? _validatePhone(String phone) {
+    if (phone.isEmpty) return 'El nombre de usuario es requerido';
+    return null;
+  }
+
+  String? _validatePassword(String password) {
+    if (password.isEmpty) return 'El nombre de usuario es requerido';
+    return null;
   }
 }

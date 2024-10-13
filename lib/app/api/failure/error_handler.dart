@@ -9,6 +9,11 @@ class ErrorHandler {
     if (statusCode == 400) {
       final errorMessage = error.response?.data['message']?.toString() ?? '';
       return _handleBadRequest(errorMessage);
+    } else if (statusCode == 404) {
+      return SignUpFailureStatus.userRegister;
+    } else if (statusCode == 422) {
+      final errorMessage = error.response?.data['error']?.toString() ?? '';
+      return _handleBadRequest422(errorMessage);
     } else if (statusCode == 500) {
       return SignUpFailureStatus.server;
     } else if (error.type == DioExceptionType.connectionError) {
@@ -19,14 +24,22 @@ class ErrorHandler {
   }
 
   static SignUpFailureStatus _handleBadRequest(String message) {
-    if (message.contains(AppFailureText.invalidEmail)) {
+    if (message.contains(AppFailureText.emailExist)) {
       return SignUpFailureStatus.invalidEmail;
     } else if (message.contains(AppFailureText.emailAlreadyInUse)) {
       return SignUpFailureStatus.emailAlreadyInUse;
     } else if (message.contains(AppFailureText.weakPassword)) {
       return SignUpFailureStatus.weakPassword;
-    } else if (message.contains(AppFailureText.phoneNumberExist)) {
-      return SignUpFailureStatus.phoneNumberExist;
+    } else {
+      return SignUpFailureStatus.invalidData;
+    }
+  }
+
+  static SignUpFailureStatus _handleBadRequest422(String message) {
+    if (message.contains(AppFailureText.userNameExist)) {
+      return SignUpFailureStatus.userExist;
+    } else if (message.contains(AppFailureText.emailExist)) {
+      return SignUpFailureStatus.emailAlreadyInUse;
     } else {
       return SignUpFailureStatus.invalidData;
     }

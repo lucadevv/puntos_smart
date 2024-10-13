@@ -1,15 +1,11 @@
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/sing_up_response_entity.dart';
+
 abstract class SignUpResult {}
 
 class SignUpSuccess extends SignUpResult {
-  final String accessToken;
-  final String message;
-  final String status;
+  final SignUpResponseEntity signUpResponseEntity;
 
-  SignUpSuccess({
-    required this.accessToken,
-    required this.message,
-    required this.status,
-  });
+  SignUpSuccess({required this.signUpResponseEntity});
 }
 
 class SignUpFailure extends SignUpResult {
@@ -23,9 +19,10 @@ enum SignUpFailureStatus {
   server, // Error en el servidor
   emailAlreadyInUse, // El correo ya está registrado
   invalidEmail, //Email invalido
-  phoneNumberExist, //Numero de telefono ya existe
   invalidData, // Datos proporcionados no válidos
   weakPassword, // La contraseña es débil
+  userExist, //usuario o alias existe
+  userRegister, //usuario ya registrado
   termsNotAccepted, // No se aceptaron los términos y condiciones
   unknown, // Error desconocido
 }

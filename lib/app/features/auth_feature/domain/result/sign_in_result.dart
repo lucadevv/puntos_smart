@@ -19,6 +19,7 @@ enum SignInFailureStatus {
   network, // Error de red
   notFound, // Error 404 o similar
   server, // Error de servidor (500)
+
   unAuthorized, // Credenciales incorrectas o no autorizado
   unknown // Error desconocido
 }

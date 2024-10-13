@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -21,7 +22,6 @@ class LocalNotificationServices {
       requestSoundPermission: true,
       onDidReceiveLocalNotification:
           (int id, String? title, String? body, String? payload) async {
-        print("Notificación recibida en primer plano: $title");
         // Aquí puedes manejar la lógica cuando se recibe una notificación local en iOS en primer plano.
       },
     );
@@ -39,7 +39,6 @@ class LocalNotificationServices {
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) async {
         // Lógica para manejar la interacción del usuario con la notificación.
-        print("Notificación interactuada: ${notificationResponse.payload}");
       },
     );
 
@@ -47,9 +46,9 @@ class LocalNotificationServices {
     if (await Permission.notification.isDenied) {
       PermissionStatus status = await Permission.notification.request();
       if (status.isGranted) {
-        print("Permiso de notificación concedido.");
+        debugPrint("Android Permiso de notificación concedido.");
       } else {
-        print("Permiso de notificación denegado.");
+        debugPrint("Android Permiso de notificación denegado.");
       }
     }
   }
@@ -91,7 +90,7 @@ class LocalNotificationServices {
     );
 
     // Envío de la notificación
-    print(title);
+
     await flutterLocalNotificationsPlugin.show(
       id,
       title,

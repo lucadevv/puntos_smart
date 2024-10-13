@@ -248,180 +248,180 @@ final List<Store> stores = [
   // Plaza Norte - Independencia
   Store(
     name: 'Tottus Plaza Norte',
-    location: LatLng(-11.9910, -77.0600),
+    location: const LatLng(-11.9910, -77.0600),
     imageUrl: "https://example.com/tottus_plaza_norte.jpg",
   ),
   Store(
     name: 'Ripley Plaza Norte',
-    location: LatLng(-11.9902, -77.0621),
+    location: const LatLng(-11.9902, -77.0621),
     imageUrl: "https://example.com/ripley_plaza_norte.jpg",
   ),
 
   // Comas
   Store(
     name: 'Metro Comas',
-    location: LatLng(-11.9620, -77.0467),
+    location: const LatLng(-11.9620, -77.0467),
     imageUrl: "https://example.com/metro_comas.jpg",
   ),
   Store(
     name: 'Plaza Vea Comas',
-    location: LatLng(-11.9643, -77.0489),
+    location: const LatLng(-11.9643, -77.0489),
     imageUrl: "https://example.com/plazavea_comas.jpg",
   ),
 
   // Callao
   Store(
     name: 'Saga Falabella Callao',
-    location: LatLng(-12.0500, -77.1165),
+    location: const LatLng(-12.0500, -77.1165),
     imageUrl: "https://example.com/falabella_callao.jpg",
   ),
   Store(
     name: 'Ripley Mall Aventura Callao',
-    location: LatLng(-12.0480, -77.1157),
+    location: const LatLng(-12.0480, -77.1157),
     imageUrl: "https://example.com/ripley_callao.jpg",
   ),
 
   // Miraflores
   Store(
     name: 'Tottus Miraflores',
-    location: LatLng(-12.1225, -77.0290),
+    location: const LatLng(-12.1225, -77.0290),
     imageUrl: "https://example.com/tottus_miraflores.jpg",
   ),
   Store(
     name: 'Burger King Miraflores',
-    location: LatLng(-12.1238, -77.0307),
+    location: const LatLng(-12.1238, -77.0307),
     imageUrl: "https://example.com/burgerking_miraflores.jpg",
   ),
 
   // San Isidro
   Store(
     name: 'Wong San Isidro',
-    location: LatLng(-12.1010, -77.0360),
+    location: const LatLng(-12.1010, -77.0360),
     imageUrl: "https://example.com/wong_sanisidro.jpg",
   ),
   Store(
     name: 'Ripley San Isidro',
-    location: LatLng(-12.1002, -77.0375),
+    location: const LatLng(-12.1002, -77.0375),
     imageUrl: "https://example.com/ripley_sanisidro.jpg",
   ),
 
   // Jockey Plaza
   Store(
     name: 'Metro Jockey Plaza',
-    location: LatLng(-12.0885, -76.9755),
+    location: const LatLng(-12.0885, -76.9755),
     imageUrl: "https://example.com/metro_jockeyplaza.jpg",
   ),
   Store(
     name: 'Ripley Jockey Plaza',
-    location: LatLng(-12.0870, -76.9770),
+    location: const LatLng(-12.0870, -76.9770),
     imageUrl: "https://example.com/ripley_jockeyplaza.jpg",
   ),
 
   // Surco
   Store(
     name: 'Wong Surco',
-    location: LatLng(-12.1310, -76.9715),
+    location: const LatLng(-12.1310, -76.9715),
     imageUrl: "https://example.com/wong_surco.jpg",
   ),
   Store(
     name: 'Plaza Vea Surco',
-    location: LatLng(-12.1292, -76.9701),
+    location: const LatLng(-12.1292, -76.9701),
     imageUrl: "https://example.com/plazavea_surco.jpg",
   ),
 
   // San Borja
   Store(
     name: 'Plaza Vea San Borja',
-    location: LatLng(-12.1108, -76.9930),
+    location: const LatLng(-12.1108, -76.9930),
     imageUrl: "https://example.com/plazavea_sanborja.jpg",
   ),
   Store(
     name: 'Tottus San Borja',
-    location: LatLng(-12.1088, -76.9920),
+    location: const LatLng(-12.1088, -76.9920),
     imageUrl: "https://example.com/tottus_sanborja.jpg",
   ),
 
   // San Miguel
   Store(
     name: 'Wong San Miguel',
-    location: LatLng(-12.0762, -77.0895),
+    location: const LatLng(-12.0762, -77.0895),
     imageUrl: "https://example.com/wong_sanmiguel.jpg",
   ),
   Store(
     name: 'Ripley San Miguel',
-    location: LatLng(-12.0750, -77.0880),
+    location: const LatLng(-12.0750, -77.0880),
     imageUrl: "https://example.com/ripley_sanmiguel.jpg",
   ),
 
   // Ate
   Store(
     name: 'Metro Ate',
-    location: LatLng(-12.0475, -76.9425),
+    location: const LatLng(-12.0475, -76.9425),
     imageUrl: "https://example.com/metro_ate.jpg",
   ),
   Store(
     name: 'Plaza Vea Ate',
-    location: LatLng(-12.0460, -76.9430),
+    location: const LatLng(-12.0460, -76.9430),
     imageUrl: "https://example.com/plazavea_ate.jpg",
   ),
 
   // La Molina
   Store(
     name: 'Wong La Molina',
-    location: LatLng(-12.0890, -76.9502),
+    location: const LatLng(-12.0890, -76.9502),
     imageUrl: "https://example.com/wong_lamolina.jpg",
   ),
   Store(
     name: 'Plaza Vea La Molina',
-    location: LatLng(-12.0885, -76.9515),
+    location: const LatLng(-12.0885, -76.9515),
     imageUrl: "https://example.com/plazavea_lamolina.jpg",
   ),
 
   // Chorrillos
   Store(
     name: 'Metro Chorrillos',
-    location: LatLng(-12.1870, -77.0145),
+    location: const LatLng(-12.1870, -77.0145),
     imageUrl: "https://example.com/metro_chorrillos.jpg",
   ),
   Store(
     name: 'Plaza Vea Chorrillos',
-    location: LatLng(-12.1850, -77.0155),
+    location: const LatLng(-12.1850, -77.0155),
     imageUrl: "https://example.com/plazavea_chorrillos.jpg",
   ),
 
   // Lince
   Store(
     name: 'Metro Lince',
-    location: LatLng(-12.0805, -77.0418),
+    location: const LatLng(-12.0805, -77.0418),
     imageUrl: "https://example.com/metro_lince.jpg",
   ),
   Store(
     name: 'Plaza Vea Lince',
-    location: LatLng(-12.0798, -77.0429),
+    location: const LatLng(-12.0798, -77.0429),
     imageUrl: "https://example.com/plazavea_lince.jpg",
   ),
 
   // Jesús María
   Store(
     name: 'Tottus Jesús María',
-    location: LatLng(-12.0865, -77.0485),
+    location: const LatLng(-12.0865, -77.0485),
     imageUrl: "https://example.com/tottus_jesusmaria.jpg",
   ),
   Store(
     name: 'Plaza Vea Jesús María',
-    location: LatLng(-12.0855, -77.0490),
+    location: const LatLng(-12.0855, -77.0490),
     imageUrl: "https://example.com/plazavea_jesusmaria.jpg",
   ),
 
   // Pueblo Libre
   Store(
     name: 'Tottus Pueblo Libre',
-    location: LatLng(-12.0768, -77.0680),
+    location: const LatLng(-12.0768, -77.0680),
     imageUrl: "https://example.com/tottus_pueblolibre.jpg",
   ),
   Store(
     name: 'Plaza Vea Pueblo Libre',
-    location: LatLng(-12.0759, -77.0690),
+    location: const LatLng(-12.0759, -77.0690),
     imageUrl: "https://example.com/plazavea_pueblolibre.jpg",
   ),
 ];

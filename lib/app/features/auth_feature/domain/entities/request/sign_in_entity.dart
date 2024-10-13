@@ -1,14 +1,14 @@
 class SignInEntity {
-  final String email;
+  final String phone;
   final String password;
 
   SignInEntity({
-    required this.email,
+    required this.phone,
     required this.password,
   });
 
   factory SignInEntity.empty() => SignInEntity(
-        email: '',
+        phone: '',
         password: '',
       );
 }

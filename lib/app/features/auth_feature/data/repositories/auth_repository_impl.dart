@@ -5,14 +5,15 @@ import 'package:puntos_smart_user/app/api/failure/error_send_number_hundler.dart
 import 'package:puntos_smart_user/app/features/auth_feature/data/datasource/auth_datasource_ntw.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_code_request_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_number_request_model.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/data/models/sig_up_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/sig_up_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/sing_in_mode.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/send_codeotp_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/sing_up_response_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/verify_codeotp_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/verify_number_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/send_number_entity.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/sign_in_entity.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/sign_up_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/sign_in_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/sign_up_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/repositories/auth_repository.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/result/verify_codeotp_result.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/result/verify_number_result.dart';
@@ -49,7 +50,8 @@ class AuthRepositoryImpl extends AuthRepository {
               signInFailureStatus: SignInFailureStatus.network);
         } else {
           return SignInFailure(
-              signInFailureStatus: SignInFailureStatus.unknown);
+            signInFailureStatus: SignInFailureStatus.unknown,
+          );
         }
       } else {
         return SignInFailure(signInFailureStatus: SignInFailureStatus.unknown);
@@ -60,13 +62,12 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<SignUpResult> signUp({required SignUpEntity signUpEntity}) async {
     try {
-      final model = SignUpModel.entityToModel(signUpEntity);
+      final model = SignUpModel.entityToModel(entity: signUpEntity);
       final response = await _datasourceNtw.sigUp(model: model);
-      final accessToken = response['access_token'].toString();
-      final status = response['status'].toString();
-      final message = response['message'].toString();
+
       return SignUpSuccess(
-          accessToken: accessToken, message: message, status: status);
+          signUpResponseEntity:
+              SignUpResponseEntity.modelToEntity(model: response));
     } catch (e) {
       if (e is DioException) {
         return SignUpFailure(

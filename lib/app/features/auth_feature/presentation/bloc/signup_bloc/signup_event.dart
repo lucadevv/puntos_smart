@@ -8,27 +8,17 @@ sealed class SignupEvent extends Equatable {
 }
 
 class SignUpResquest extends SignupEvent {
-  final SignUpEntity signUpEntity;
-
-  const SignUpResquest({required this.signUpEntity});
+  const SignUpResquest();
   @override
-  List<Object> get props => [signUpEntity];
+  List<Object> get props => [];
 }
 
-class NameChangedSignUp extends SignupEvent {
-  final String name;
+class UserNameChangedSignUp extends SignupEvent {
+  final String userName;
 
-  const NameChangedSignUp({required this.name});
+  const UserNameChangedSignUp({required this.userName});
   @override
-  List<Object> get props => [name];
-}
-
-class LastNameChangedSignUp extends SignupEvent {
-  final String lastName;
-
-  const LastNameChangedSignUp({required this.lastName});
-  @override
-  List<Object> get props => [lastName];
+  List<Object> get props => [userName];
 }
 
 class MailChangedSignUp extends SignupEvent {
@@ -55,12 +45,12 @@ class ConfirmPasswordChangedSignUp extends SignupEvent {
   List<Object> get props => [confirmPassword];
 }
 
-class NumberPhoneChangedSignUp extends SignupEvent {
-  final int numberPhone;
+class ReferCodeChangedSignUp extends SignupEvent {
+  final String? referenceCode;
 
-  const NumberPhoneChangedSignUp({required this.numberPhone});
+  const ReferCodeChangedSignUp(this.referenceCode);
   @override
-  List<Object> get props => [numberPhone];
+  List<Object> get props => [referenceCode ?? ''];
 }
 
 class TermsCondsChangedSignUp extends SignupEvent {

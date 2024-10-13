@@ -265,7 +265,6 @@ class _OtpScreenState extends State<OtpScreen> {
                         listener: (context, state) {
                           switch (state.sendCodeStatus) {
                             case SendCodeStatus.success:
-                              print(state.verifyCodeOtpEntity.uuid);
                               context.push(NameRoutes.registerScreen);
                               break;
                             case SendCodeStatus.invalidCode:

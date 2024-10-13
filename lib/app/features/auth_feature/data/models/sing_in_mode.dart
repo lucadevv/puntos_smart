@@ -1,4 +1,4 @@
-import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/sign_in_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/sign_in_entity.dart';
 
 class SignInModel {
   final String email;
@@ -10,7 +10,7 @@ class SignInModel {
   });
 
   factory SignInModel.entityToModel({required SignInEntity entity}) {
-    return SignInModel(email: entity.email, password: entity.password);
+    return SignInModel(email: entity.phone, password: entity.password);
   }
 
   Map<String, dynamic> toJson() {

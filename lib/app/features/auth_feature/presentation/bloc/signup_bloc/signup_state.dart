@@ -2,75 +2,106 @@ part of 'signup_bloc.dart';
 
 class SignupState extends Equatable {
   final SignUpStatus signUpStatus;
-  final String name;
-  final String lastName;
+  final String userName;
   final String mail;
   final String password;
   final String confirmPassword;
-  final int numberPhone;
+  final String referenceCode;
   final bool termnsAndConditions;
+  //
+  final String? userNameError;
+  final String? mailError;
+  final String? passwordError;
+  final String? confirmPasswordError;
+
   const SignupState({
     required this.signUpStatus,
-    required this.name,
-    required this.lastName,
+    required this.userName,
     required this.mail,
     required this.password,
     required this.confirmPassword,
-    required this.numberPhone,
+    required this.referenceCode,
     required this.termnsAndConditions,
+    this.userNameError,
+    this.mailError,
+    this.passwordError,
+    this.confirmPasswordError,
   });
 
   SignupState copyWith({
     SignUpStatus? signUpStatus,
-    String? name,
-    String? lastName,
+    String? userName,
     String? mail,
     String? password,
     String? confirmPassword,
-    int? numberPhone,
+    String? referenceCode,
     bool? termnsAndConditions,
+    //
+    String? userNameError,
+    String? mailError,
+    String? passwordError,
+    String? confirmPasswordError,
   }) =>
       SignupState(
         signUpStatus: signUpStatus ?? this.signUpStatus,
-        name: name ?? this.name,
-        lastName: lastName ?? this.lastName,
+        userName: userName ?? this.userName,
         mail: mail ?? this.mail,
         password: password ?? this.password,
         confirmPassword: confirmPassword ?? this.confirmPassword,
-        numberPhone: numberPhone ?? this.numberPhone,
         termnsAndConditions: termnsAndConditions ?? this.termnsAndConditions,
+        referenceCode: referenceCode ?? this.referenceCode,
+        userNameError: userNameError ?? this.userNameError,
+        mailError: mailError ?? this.mailError,
+        passwordError: passwordError ?? this.passwordError,
+        confirmPasswordError: confirmPasswordError ?? this.confirmPasswordError,
       );
 
   factory SignupState.initial() {
     return const SignupState(
       signUpStatus: SignUpStatus.initial,
-      name: '',
-      lastName: '',
+      userName: '',
       mail: '',
       password: '',
       confirmPassword: '',
-      numberPhone: 0,
       termnsAndConditions: false,
+      referenceCode: '',
+      userNameError: null,
+      mailError: null,
+      passwordError: null,
+      confirmPasswordError: null,
     );
   }
   @override
   List<Object> get props => [
         signUpStatus,
-        name,
-        lastName,
+        userName,
         mail,
         password,
         confirmPassword,
-        numberPhone,
+        referenceCode,
         termnsAndConditions,
+        userNameError ?? '',
+        mailError ?? '',
+        passwordError ?? '',
+        confirmPasswordError ?? '',
       ];
 }
 
 enum SignUpStatus {
   initial, // Estado inicial antes de cualquier acción
   loading, // Estado mientras se está procesando el inicio de sesión
-  success, // Estado cuando el inicio de sesión fue exitoso
-  failure, // Estado cuando ocurrió un error
-  invalidCredentials, // Estado cuando las credenciales son incorrectas
-  networkError // Estado cuando hay un problema de red
+  success, // Estado cuando el registro fue exitoso
+  network, // Problemas de conexión
+  server, // Error en el servidor
+
+  //
+  passwordNotEqual,
+  termsNotAccepted, // No se aceptaron los términos y condiciones
+  //
+  emailAlreadyInUse, // El correo ya está registrado
+  invalidEmail, //Email invalido
+  weakPassword, // La contraseña es débil
+  userExist, //usuario o alias existe
+  userRegister, //usuario ya registrado
+  unknown, // Error desconocido
 }

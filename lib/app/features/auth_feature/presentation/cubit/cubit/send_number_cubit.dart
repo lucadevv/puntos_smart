@@ -23,70 +23,9 @@ class SendNumberCubit extends Cubit<SendNumberState> {
         _localNotificationBloc = localNotificationBloc,
         super(SendNumberState.initial());
 
-  Future<void> requestNumber() async {
-    emit(state.copyWith(sendNumberStatus: SendNumberStatus.loading));
-    try {
-      final phoneNumber = state.phoneNumber;
-      final numberText = "+51${phoneNumber.toString()}";
-      final sendNumberEntity = SendNumberEntity(phone: numberText);
-      final result = await _authRepository.verifyNumber(
-          sendNumberEntity: sendNumberEntity);
-
-      if (result is VerifyNumberSuccess) {
-        emit(state.copyWith(
-          phoneNumber: phoneNumber,
-          verifyNumberEntity: result.verifyNumberEntity,
-          sendNumberStatus: SendNumberStatus.success,
-        ));
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          final otpCode = result.verifyNumberEntity.data.otpcode.toString();
-          Future.delayed(const Duration(seconds: 1)).then((_) {
-            _localNotificationBloc.add(SendLocalNotification(
-              id: "23",
-              title: "Verificación OTP",
-              body: otpCode,
-            ));
-          });
-        });
-      } else if (result is VerifyNumberFailure) {
-        _handleSendNumberFailure(result.sendNumberFailureStatus);
-      }
-    } catch (e) {
-      debugPrint('-------Error inesperado en el envio de numero $e');
-      emit(state.copyWith(sendNumberStatus: SendNumberStatus.unknown));
-    }
-  }
-
-  Future<void> requestCodeVerification() async {
-    emit(state.copyWith(sendCodeStatus: SendCodeStatus.loading));
-    try {
-      final phoneNumber = state.phoneNumber;
-      final numberText = "+51${phoneNumber.toString()}";
-      final numberOne = state.numberOne;
-      final numberTwo = state.numberTwo;
-      final numberThree = state.numberThree;
-      final numberFour = state.numberFour;
-      final code = "$numberOne$numberTwo$numberThree$numberFour";
-
-      final sendCodetEntity = SendCodeOtpEntity(phone: numberText, code: code);
-      final result =
-          await _authRepository.verifyCode(sendCodeOtpEntity: sendCodetEntity);
-      if (result is VerifyCodeOtpSucces) {
-        emit(state.copyWith(
-          phoneNumber: phoneNumber,
-          codeVerifiaction: code,
-          verifyCodeOtpEntity: result.verifyCodeOtpEntity,
-          sendCodeStatus: SendCodeStatus.success,
-        ));
-      } else if (result is VerifyCodeOtpFailure) {
-        _handleSenCodeFailure(result.verifyCodeOtpFailureStatus);
-      }
-    } catch (e) {
-      debugPrint(
-          '-------Error inesperado en el envio de codigo de verificacion $e');
-      emit(state.copyWith(sendCodeStatus: SendCodeStatus.unknown));
-    }
-  }
+  /*
+  ------------------------CHANGED NUMBER CUBIT------------------------
+   */
 
   Future<void> changedNumber({required String phoneNumber}) async {
     emit(state.copyWith(
@@ -94,6 +33,10 @@ class SendNumberCubit extends Cubit<SendNumberState> {
       sendNumberStatus: SendNumberStatus.initial,
     ));
   }
+
+  /*
+  ------------------------CHANGED NUMBER OTP CUBIT------------------------
+   */
 
   Future<void> changedNumberOne({required String number}) async {
     emit(state.copyWith(
@@ -126,6 +69,95 @@ class SendNumberCubit extends Cubit<SendNumberState> {
   Future<void> resetStateInitial() async {
     emit(SendNumberState.initial());
   }
+  /*
+  ------------------------REQUEST NUMBER CUBIT------------------------
+   */
+
+  Future<void> requestNumber() async {
+    emit(state.copyWith(sendNumberStatus: SendNumberStatus.loading));
+    try {
+      final phoneNumber = state.phoneNumber;
+      final numberText = "+51${phoneNumber.toString()}";
+      final sendNumberEntity = SendNumberEntity(phone: numberText);
+      final result = await _authRepository.verifyNumber(
+          sendNumberEntity: sendNumberEntity);
+
+      if (result is VerifyNumberSuccess) {
+        emit(state.copyWith(
+          phoneNumber: phoneNumber,
+          verifyNumberEntity: result.verifyNumberEntity,
+          sendNumberStatus: SendNumberStatus.success,
+        ));
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final otpCode = result.verifyNumberEntity.data.otpcode.toString();
+          Future.delayed(const Duration(seconds: 1)).then((_) {
+            _localNotificationBloc.add(SendLocalNotification(
+              id: "1",
+              title: "Verificación OTP",
+              body: otpCode,
+            ));
+            emit(state.copyWith(sendNumberStatus: SendNumberStatus.initial));
+          });
+        });
+      } else if (result is VerifyNumberFailure) {
+        _handleSendNumberFailure(result.sendNumberFailureStatus);
+      }
+    } catch (e) {
+      debugPrint('-------Error inesperado en el envio de numero $e');
+      emit(state.copyWith(sendNumberStatus: SendNumberStatus.unknown));
+    }
+  }
+
+  /*
+  ------------------------REQUEST CODE CUBIT------------------------
+   */
+
+  Future<void> requestCodeVerification() async {
+    emit(state.copyWith(sendCodeStatus: SendCodeStatus.loading));
+    try {
+      final phoneNumber = state.phoneNumber;
+      final numberText = "+51${phoneNumber.toString()}";
+      final numberOne = state.numberOne;
+      final numberTwo = state.numberTwo;
+      final numberThree = state.numberThree;
+      final numberFour = state.numberFour;
+      final code = "$numberOne$numberTwo$numberThree$numberFour";
+
+      final sendCodetEntity = SendCodeOtpEntity(phone: numberText, code: code);
+      final result =
+          await _authRepository.verifyCode(sendCodeOtpEntity: sendCodetEntity);
+      if (result is VerifyCodeOtpSucces) {
+        emit(state.copyWith(
+          phoneNumber: phoneNumber,
+          codeVerifiaction: code,
+          verifyCodeOtpEntity: result.verifyCodeOtpEntity,
+          sendCodeStatus: SendCodeStatus.success,
+        ));
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final numerPhone = result.verifyCodeOtpEntity.phone;
+          final password = result.verifyCodeOtpEntity.password.toString();
+          Future.delayed(const Duration(seconds: 1)).then((_) {
+            _localNotificationBloc.add(SendLocalNotification(
+              id: "2",
+              title: "Usuario: $numerPhone",
+              body: "Password $password",
+            ));
+            emit(state.copyWith(sendCodeStatus: SendCodeStatus.initial));
+          });
+        });
+      } else if (result is VerifyCodeOtpFailure) {
+        _handleSenCodeFailure(result.verifyCodeOtpFailureStatus);
+      }
+    } catch (e) {
+      debugPrint(
+          '-------Error inesperado en el envio de codigo de verificacion $e');
+      emit(state.copyWith(sendCodeStatus: SendCodeStatus.unknown));
+    }
+  }
+
+  /*
+  ------------------------CUSTOM FAILURES CUBIT------------------------
+   */
 
   void _handleSenCodeFailure(VerifyCodeOtpFailureStatus result) {
     switch (result) {
