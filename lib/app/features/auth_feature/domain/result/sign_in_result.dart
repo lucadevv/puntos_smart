@@ -1,10 +1,11 @@
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/signin_response_entity.dart';
+
 abstract class SignInResult {}
 
 class SignInSuccess extends SignInResult {
-  final String accessToken;
-  final String status;
+  final SignInResponseEntity signInResponseEntity;
 
-  SignInSuccess({required this.accessToken, required this.status});
+  SignInSuccess({required this.signInResponseEntity});
 }
 
 class SignInFailure extends SignInResult {

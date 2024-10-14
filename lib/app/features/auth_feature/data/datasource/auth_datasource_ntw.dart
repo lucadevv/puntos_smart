@@ -4,11 +4,12 @@ import 'package:puntos_smart_user/app/api/network/api_client.dart';
 import 'package:puntos_smart_user/app/core/constants/end_points.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_code_request_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_number_request_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/signin_response_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/singup_response_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/verify_codeotp_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/verify_number_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/sig_up_model.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/data/models/sing_in_mode.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/sing_in_mode.dart';
 
 class AuthDatasourceNtw {
   final ApiClient _apiClient;
@@ -16,7 +17,7 @@ class AuthDatasourceNtw {
   AuthDatasourceNtw({
     required ApiClient apiClient,
   }) : _apiClient = apiClient;
-  Future<Map<String, dynamic>> sigIn({required SignInModel model}) async {
+  Future<SignInResponseModel> sigIn({required SignInModel model}) async {
     try {
       final response = await _apiClient.postData(
         EndPoints.login,
@@ -24,9 +25,7 @@ class AuthDatasourceNtw {
       );
 
       if (response.statusCode == 200) {
-        final token = response.data['access_token'];
-        final status = response.data['status'];
-        return {'access_token': token, 'status': status};
+        return SignInResponseModel.fromJson(response.data);
       } else {
         throw DioException(
           requestOptions: response.requestOptions,

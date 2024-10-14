@@ -6,7 +6,6 @@ import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/sign_in_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/sigin_bloc/sign_in_bloc.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/widgets/custom_button_widget.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/widgets/customt_extformfield_widget.dart';
@@ -170,14 +169,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                       child:
                                           BlocBuilder<SignInBloc, SignInState>(
                                         buildWhen: (previous, current) {
-                                          if (index == 0) {
-                                            return previous.phone !=
-                                                current.phone;
-                                          } else if (index == 1) {
-                                            return previous.password !=
-                                                current.password;
+                                          switch (index) {
+                                            case 0:
+                                              return previous.phone !=
+                                                      current.phone ||
+                                                  previous.errorPhone !=
+                                                      current.errorPhone;
+                                            case 1:
+                                              return previous.password !=
+                                                  current.password;
+                                            default:
+                                              return false;
                                           }
-                                          return false;
                                         },
                                         builder: (context, state) {
                                           return CustomTextFormFielWidget(
@@ -204,6 +207,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     ? Icons.visibility
                                                     : Icons.visibility_off
                                                 : null,
+                                            errorText: _getErrorText(
+                                                        index, state) ==
+                                                    ""
+                                                ? null
+                                                : _getErrorText(index, state),
                                             onChanged: (value) {
                                               if (index == 0) {
                                                 context.read<SignInBloc>().add(
@@ -377,5 +385,14 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
         ));
+  }
+
+  String? _getErrorText(int index, SignInState state) {
+    switch (index) {
+      case 0:
+        return state.errorPhone;
+      default:
+        return null;
+    }
   }
 }

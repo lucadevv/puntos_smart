@@ -193,6 +193,12 @@ class _RegisterWithNumberScreenState extends State<RegisterWithNumberScreen> {
                                     content: Text("Numero invalido")),
                               );
                               break;
+                            case SendNumberStatus.verifyNumber:
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("Número ya esta registrado")),
+                              );
+                              break;
 
                             case SendNumberStatus.waitingVerification:
                               ScaffoldMessenger.of(context).showSnackBar(

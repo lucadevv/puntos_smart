@@ -24,7 +24,6 @@ class SliverButtonLogoutProfile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //Image.asset(AppImages.close),
             const Icon(
               Iconsax.logout,
               color: Colors.red,

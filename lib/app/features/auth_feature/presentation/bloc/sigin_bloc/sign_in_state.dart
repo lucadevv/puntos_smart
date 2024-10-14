@@ -4,12 +4,14 @@ class SignInState extends Equatable {
   final SignInStatus signInStatus;
   final String phone;
   final String password;
+  final String? errorPhone;
   final bool rememberCheck;
   const SignInState({
     required this.signInStatus,
     required this.phone,
     required this.password,
     required this.rememberCheck,
+    this.errorPhone,
   });
 
   factory SignInState.initial() {
@@ -18,6 +20,7 @@ class SignInState extends Equatable {
       phone: '',
       password: '',
       rememberCheck: false,
+      errorPhone: null,
     );
   }
   SignInState copyWith({
@@ -27,16 +30,19 @@ class SignInState extends Equatable {
     String? phone,
     String? password,
     bool? rememberCheck,
+    String? errorPhone,
   }) =>
       SignInState(
         signInStatus: signInStatus ?? this.signInStatus,
         phone: phone ?? this.phone,
         password: password ?? this.password,
         rememberCheck: rememberCheck ?? this.rememberCheck,
+        errorPhone: errorPhone ?? this.errorPhone,
       );
 
   @override
-  List<Object> get props => [signInStatus, phone, password, rememberCheck];
+  List<Object> get props =>
+      [signInStatus, phone, password, rememberCheck, errorPhone ?? ""];
 }
 
 enum SignInStatus {

@@ -40,9 +40,9 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   Future<void> _signInPhoneNumberChanged(
       SignInPhoneNumberChanged event, Emitter<SignInState> emit) async {
     emit(state.copyWith(
-      phone: event.number,
-      signInStatus: SignInStatus.initial,
-    ));
+        phone: event.number,
+        signInStatus: SignInStatus.initial,
+        errorPhone: _validatePhone(event.number) ?? ""));
   }
 
   Future<void> _signInPasswordChangedEvent(
@@ -67,22 +67,15 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   Future<void> _signInRequestedEvent(
       SignInRequested event, Emitter<SignInState> emit) async {
-    // if (state.password != state.confirmPassword) {
-    //   emit(state.copyWith(signUpStatus: SignUpStatus.passwordNotEqual));
-    //   return;
-    // }
-    // if (!state.phone) {
-    //   emit(state.copyWith(signUpStatus: SignUpStatus.termsNotAccepted));
-    //   return;
-    // }
     emit(state.copyWith(signInStatus: SignInStatus.loading));
 
     try {
       final signInEntity =
-          SignInEntity(phone: state.phone, password: state.password);
+          SignInEntity(phone: "+51${state.phone}", password: state.password);
       final result = await _authRepository.signIn(signInEntity: signInEntity);
       if (result is SignInSuccess) {
-        await _tokenStorageServices.saveToken(result.accessToken);
+        await _tokenStorageServices
+            .saveToken(result.signInResponseEntity.accessToken);
         if (state.rememberCheck) {
           add(SaveCredentials());
         } else {
@@ -159,11 +152,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   String? _validatePhone(String phone) {
     if (phone.isEmpty) return 'El nombre de usuario es requerido';
-    return null;
-  }
-
-  String? _validatePassword(String password) {
-    if (password.isEmpty) return 'El nombre de usuario es requerido';
     return null;
   }
 }

@@ -11,7 +11,6 @@ class SliverBannersHomeWidget extends StatefulWidget {
 }
 
 class _SliverBannersHomeWidgetState extends State<SliverBannersHomeWidget> {
-  double width = 0;
   bool myAnimation = false;
 
   @override

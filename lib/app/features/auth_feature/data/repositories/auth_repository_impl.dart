@@ -6,8 +6,9 @@ import 'package:puntos_smart_user/app/features/auth_feature/data/datasource/auth
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_code_request_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_number_request_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/sig_up_model.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/data/models/sing_in_mode.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/sing_in_mode.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/send_codeotp_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/signin_response_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/sing_up_response_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/verify_codeotp_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/verify_number_entity.dart';
@@ -30,9 +31,9 @@ class AuthRepositoryImpl extends AuthRepository {
     try {
       final model = SignInModel.entityToModel(entity: signInEntity);
       final response = await _datasourceNtw.sigIn(model: model);
-      final accessToken = response['access_token'].toString();
-      final status = response['status'].toString();
-      return SignInSuccess(accessToken: accessToken, status: status);
+      final signInResponseEntity =
+          SignInResponseEntity.modelToEntity(model: response);
+      return SignInSuccess(signInResponseEntity: signInResponseEntity);
     } catch (e) {
       if (e is DioException) {
         if (e.response?.statusCode == 400) {

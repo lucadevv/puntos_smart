@@ -193,9 +193,11 @@ class SendNumberCubit extends Cubit<SendNumberState> {
       case SendNumberFailureStatus.server:
         emit(state.copyWith(sendNumberStatus: SendNumberStatus.server));
         break;
-
       case SendNumberFailureStatus.invalidNumber:
         emit(state.copyWith(sendNumberStatus: SendNumberStatus.invalidNumber));
+        break;
+      case SendNumberFailureStatus.verifyNumber:
+        emit(state.copyWith(sendNumberStatus: SendNumberStatus.verifyNumber));
         break;
 
       case SendNumberFailureStatus.waitingVerification:

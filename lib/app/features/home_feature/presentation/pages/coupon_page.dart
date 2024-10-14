@@ -69,34 +69,6 @@ class CouponPage extends StatelessWidget {
 
               default:
                 return CustomScrollView(
-                  // slivers: [
-                  //   SliverAppBar(
-                  //     pinned: true,
-                  //     automaticallyImplyLeading: false,
-                  //     centerTitle: true,
-                  //     backgroundColor: Colors.white,
-                  //     title: Text(
-                  //       AppText.myCouponSmart,
-                  //       style: textTheme.bodyLarge!.copyWith(
-                  //         color: Colors.black87,
-                  //         fontWeight: FontWeight.w700,
-                  //       ),
-                  //     ),
-                  //   ),
-                  //   SliverFillRemaining(
-                  //     hasScrollBody:
-                  //         false, // Evita que el contenido sea desplazable
-                  //     child: Center(
-                  //       child: Text(
-                  //         "Inicia sesión o registrate para continuar",
-                  //         style: textTheme.headlineLarge!.copyWith(
-                  //           color: Colors.black54,
-                  //         ),
-                  //         textAlign: TextAlign.center,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ],
                   slivers: [
                     SliverAppBar(
                       pinned: true,
@@ -111,28 +83,56 @@ class CouponPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SliverSearchWidget(
-                        showBackIcon: false,
-                        safeAreaTop: 0,
-                        focusNode: FocusNode()),
-                    SliverList.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: GestureDetector(
-                            onTap: () {
-                              context
-                                  .push('${NameRoutes.couponsScreen}/1/$index');
-                            },
-                            child: CouponWidget(
-                              index: index,
-                            ),
+                    SliverFillRemaining(
+                      hasScrollBody:
+                          false, // Evita que el contenido sea desplazable
+                      child: Center(
+                        child: Text(
+                          "Inicia sesión o registrate para continuar",
+                          style: textTheme.headlineLarge!.copyWith(
+                            color: Colors.black54,
                           ),
-                        );
-                      },
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                     ),
                   ],
+                  // slivers: [
+                  //   SliverAppBar(
+                  //     pinned: true,
+                  //     automaticallyImplyLeading: false,
+                  //     centerTitle: true,
+                  //     backgroundColor: Colors.white,
+                  //     title: Text(
+                  //       AppText.myCouponSmart,
+                  //       style: textTheme.bodyLarge!.copyWith(
+                  //         color: Colors.black87,
+                  //         fontWeight: FontWeight.w700,
+                  //       ),
+                  //     ),
+                  //   ),
+                  //   SliverSearchWidget(
+                  //       showBackIcon: false,
+                  //       safeAreaTop: 0,
+                  //       focusNode: FocusNode()),
+                  //   SliverList.builder(
+                  //     itemCount: 10,
+                  //     itemBuilder: (context, index) {
+                  //       return Padding(
+                  //         padding: const EdgeInsets.only(bottom: 12),
+                  //         child: GestureDetector(
+                  //           onTap: () {
+                  //             context
+                  //                 .push('${NameRoutes.couponsScreen}/1/$index');
+                  //           },
+                  //           child: CouponWidget(
+                  //             index: index,
+                  //           ),
+                  //         ),
+                  //       );
+                  //     },
+                  //   ),
+                  // ],
                 );
             }
           },

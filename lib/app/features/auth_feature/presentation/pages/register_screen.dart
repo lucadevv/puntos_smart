@@ -42,8 +42,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late ScrollController scrollController;
 
   // Variables booleanas separadas para cada campo de contraseña
-  bool _isPasswordVisible = false;
-  bool _isConfirmPasswordVisible = false;
+  bool _isPasswordVisible = true;
+  bool _isConfirmPasswordVisible = true;
 
   @override
   void initState() {
