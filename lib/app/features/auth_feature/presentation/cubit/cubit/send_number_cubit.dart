@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:puntos_smart_user/app/core/bloc/local_notification_bloc.dart';
+import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
+
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/send_codeotp_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/forgot_verify_number_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/verify_codeotp_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/response/verify_number_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/send_number_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/repositories/auth_repository.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/result/forgot_verify_number_result.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/result/verify_codeotp_result.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/result/verify_number_result.dart';
 
@@ -107,12 +111,52 @@ class SendNumberCubit extends Cubit<SendNumberState> {
       emit(state.copyWith(sendNumberStatus: SendNumberStatus.unknown));
     }
   }
+/*
+  ------------------------REQUEST FORGOT NUMBER CUBIT------------------------
+   */
+
+  Future<void> forgotRequestNumber() async {
+    emit(state.copyWith(sendNumberStatus: SendNumberStatus.loading));
+    try {
+      final phoneNumber = state.phoneNumber;
+      final numberText = "+51${phoneNumber.toString()}";
+      final sendNumberEntity = SendNumberEntity(phone: numberText);
+
+      final result = await _authRepository.verifyNumberForgot(
+          sendNumberEntity: sendNumberEntity);
+
+      if (result is ForgotVerifyNumberSuccess) {
+        emit(state.copyWith(
+          phoneNumber: phoneNumber,
+          forgotVerifyNumberEntity: result.forgotVerifyNumberEntity,
+          sendNumberStatus: SendNumberStatus.success,
+        ));
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final otpCode = result.forgotVerifyNumberEntity.otpcode.toString();
+          Future.delayed(const Duration(seconds: 1)).then((_) {
+            _localNotificationBloc.add(SendLocalNotification(
+              id: "1",
+              title: "Verificación OTP",
+              body: otpCode,
+            ));
+          });
+        });
+        emit(state.copyWith(sendNumberStatus: SendNumberStatus.initial));
+      } else if (result is ForgotVerifyNumberFailure) {
+        _handleForgotSendNumberFailure(result.forgotVerifyNumberFailureStatus);
+      }
+    } catch (e) {
+      debugPrint(
+          '-------Error inesperado en el envio de numero para recuperar contraseña $e');
+      emit(state.copyWith(sendNumberStatus: SendNumberStatus.unknown));
+    }
+  }
 
   /*
   ------------------------REQUEST CODE CUBIT------------------------
    */
 
-  Future<void> requestCodeVerification() async {
+  Future<void> requestCodeVerification({required String page}) async {
     emit(state.copyWith(sendCodeStatus: SendCodeStatus.loading));
     try {
       final phoneNumber = state.phoneNumber;
@@ -124,8 +168,10 @@ class SendNumberCubit extends Cubit<SendNumberState> {
       final code = "$numberOne$numberTwo$numberThree$numberFour";
 
       final sendCodetEntity = SendCodeOtpEntity(phone: numberText, code: code);
-      final result =
-          await _authRepository.verifyCode(sendCodeOtpEntity: sendCodetEntity);
+      final result = await _authRepository.verifyCode(
+        sendCodeOtpEntity: sendCodetEntity,
+        otpScreen: page,
+      );
       if (result is VerifyCodeOtpSucces) {
         emit(state.copyWith(
           phoneNumber: phoneNumber,
@@ -133,18 +179,20 @@ class SendNumberCubit extends Cubit<SendNumberState> {
           verifyCodeOtpEntity: result.verifyCodeOtpEntity,
           sendCodeStatus: SendCodeStatus.success,
         ));
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          final numerPhone = result.verifyCodeOtpEntity.phone;
-          final password = result.verifyCodeOtpEntity.password.toString();
-          Future.delayed(const Duration(seconds: 1)).then((_) {
-            _localNotificationBloc.add(SendLocalNotification(
-              id: "2",
-              title: "Usuario: $numerPhone",
-              body: "Password $password",
-            ));
-            emit(state.copyWith(sendCodeStatus: SendCodeStatus.initial));
-          });
-        });
+        page == NameRoutes.registerScreen
+            ? WidgetsBinding.instance.addPostFrameCallback((_) {
+                final numerPhone = result.verifyCodeOtpEntity.phone;
+                final password = result.verifyCodeOtpEntity.password.toString();
+                Future.delayed(const Duration(seconds: 1)).then((_) {
+                  _localNotificationBloc.add(SendLocalNotification(
+                    id: "2",
+                    title: "Usuario: $numerPhone",
+                    body: "Password $password",
+                  ));
+                });
+              })
+            : null;
+        emit(state.copyWith(sendCodeStatus: SendCodeStatus.initial));
       } else if (result is VerifyCodeOtpFailure) {
         _handleSenCodeFailure(result.verifyCodeOtpFailureStatus);
       }
@@ -201,6 +249,33 @@ class SendNumberCubit extends Cubit<SendNumberState> {
         break;
 
       case SendNumberFailureStatus.waitingVerification:
+        emit(state.copyWith(
+            sendNumberStatus: SendNumberStatus.waitingVerification));
+        break;
+      default:
+        emit(state.copyWith(sendNumberStatus: SendNumberStatus.unknown));
+        break;
+    }
+  }
+
+  void _handleForgotSendNumberFailure(ForgotVerifyNumberFailureStatus result) {
+    switch (result) {
+      case ForgotVerifyNumberFailureStatus.network:
+        emit(state.copyWith(sendNumberStatus: SendNumberStatus.network));
+        break;
+      case ForgotVerifyNumberFailureStatus.notFound:
+        emit(state.copyWith(sendNumberStatus: SendNumberStatus.notFound));
+        break;
+      case ForgotVerifyNumberFailureStatus.server:
+        emit(state.copyWith(sendNumberStatus: SendNumberStatus.server));
+        break;
+      case ForgotVerifyNumberFailureStatus.userNotFout:
+        emit(state.copyWith(sendNumberStatus: SendNumberStatus.userNotFout));
+        break;
+      case ForgotVerifyNumberFailureStatus.invalidNumber:
+        emit(state.copyWith(sendNumberStatus: SendNumberStatus.invalidNumber));
+        break;
+      case ForgotVerifyNumberFailureStatus.waitingVerification:
         emit(state.copyWith(
             sendNumberStatus: SendNumberStatus.waitingVerification));
         break;

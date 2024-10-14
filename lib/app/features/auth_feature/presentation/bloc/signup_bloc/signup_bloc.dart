@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/sign_up_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/update_password_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/repositories/auth_repository.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/result/sign_up_result.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/result/update_password_result.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/cubit/cubit/send_number_cubit.dart';
 
 part 'signup_event.dart';
@@ -26,6 +28,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<ReferCodeChangedSignUp>(_referCodeChangedSignUp);
     on<TermsCondsChangedSignUp>(_termsCondsChangedSignUpEvent);
     on<SignUpResquest>(_signUpResquestEvent);
+    on<ForgotResquest>(_forgotResquestEvent);
   }
 
   /*
@@ -56,6 +59,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       password: event.password,
       passwordError: _validatePassword(event.password) ?? "",
       signUpStatus: SignUpStatus.initial,
+      resetPasswordStatus: ResetPasswordStatus.initial,
     ));
   }
 
@@ -65,6 +69,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       confirmPassword: event.confirmPassword,
       confirmPasswordError: _validatePassword(event.confirmPassword) ?? "",
       signUpStatus: SignUpStatus.initial,
+      resetPasswordStatus: ResetPasswordStatus.initial,
     ));
   }
 
@@ -136,6 +141,53 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   /*
+  ------------------------REQUEST FORGOT PASSWORD------------------------
+   */
+
+  Future<void> _forgotResquestEvent(
+      ForgotResquest event, Emitter<SignupState> emit) async {
+    if (state.password != state.confirmPassword) {
+      emit(state.copyWith(
+          resetPasswordStatus: ResetPasswordStatus.passwordNotEqual));
+      return;
+    }
+
+    final uuid = _sendNumberCubit.state.verifyCodeOtpEntity.uuid;
+
+    if (uuid.isNotEmpty) {
+      emit(
+        state.copyWith(resetPasswordStatus: ResetPasswordStatus.loading),
+      );
+      try {
+        final updatePasswordEntity = UpdatePasswordEntity(
+          uuid: uuid,
+          password: state.password,
+          confirmPassword: state.confirmPassword,
+        );
+        final response = await _authRepository.updatePassword(
+            updatePasswordEntity: updatePasswordEntity);
+        if (response is UpdatePasswordSuccess) {
+          emit(
+            state.copyWith(resetPasswordStatus: ResetPasswordStatus.success),
+          );
+          emit(SignupState.initial());
+        } else if (response is UpdatePasswordFailure) {
+          __handleUpdatePassowrdFailure(
+              response.updatePasswordFailureStatus, emit);
+        }
+      } catch (e) {
+        emit(
+          state.copyWith(signUpStatus: SignUpStatus.unknown),
+        );
+      }
+    } else {
+      emit(
+        state.copyWith(signUpStatus: SignUpStatus.userRegister),
+      );
+    }
+  }
+
+  /*
   ------------------------VALIDATIONS SIGN UP------------------------
    */
 
@@ -190,6 +242,34 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         break;
       default:
         emit(state.copyWith(signUpStatus: SignUpStatus.unknown));
+        break;
+    }
+  }
+
+  void __handleUpdatePassowrdFailure(
+    UpdatePasswordFailureStatus updatePasswordFailureStatus,
+    Emitter<SignupState> emit,
+  ) {
+    switch (updatePasswordFailureStatus) {
+      case UpdatePasswordFailureStatus.network:
+        emit(state.copyWith(resetPasswordStatus: ResetPasswordStatus.network));
+        break;
+      case UpdatePasswordFailureStatus.server:
+        emit(state.copyWith(resetPasswordStatus: ResetPasswordStatus.server));
+        break;
+      case UpdatePasswordFailureStatus.userNotFound:
+        emit(state.copyWith(
+            resetPasswordStatus: ResetPasswordStatus.userNotFound));
+        break;
+      case UpdatePasswordFailureStatus.passwordNotEqual:
+        emit(state.copyWith(resetPasswordStatus: ResetPasswordStatus.server));
+        break;
+      case UpdatePasswordFailureStatus.weakPassword:
+        emit(state.copyWith(resetPasswordStatus: ResetPasswordStatus.server));
+        break;
+
+      default:
+        emit(state.copyWith(resetPasswordStatus: ResetPasswordStatus.unknown));
         break;
     }
   }

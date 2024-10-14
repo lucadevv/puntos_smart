@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:puntos_smart_user/app/api/local_notification_services/local_notification_services.dart';
 import 'package:puntos_smart_user/app/api/services_token/token_storage_services.dart';
 import 'package:puntos_smart_user/app/core/bloc/local_notification_bloc.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/signup_bloc/signup_bloc.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/domain/repository/location_repository.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/bloc/location/location_bloc.dart';
 import 'package:puntos_smart_user/app/core/router/app_route.dart';
@@ -72,6 +73,12 @@ class MyApp extends StatelessWidget {
           ),
           lazy: false,
         ),
+        BlocProvider(
+          create: (context) => SignupBloc(
+            authRepository: GetIt.instance<AuthRepository>(),
+            sendNumberCubit: BlocProvider.of<SendNumberCubit>(context),
+          ),
+        )
       ],
       child: MaterialApp.router(
         routerConfig: appRoute,

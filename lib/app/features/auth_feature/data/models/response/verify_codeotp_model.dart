@@ -2,7 +2,7 @@ class VerifyCodeOtpModel {
   final String status;
   final String phone;
   final String otpcode;
-  final int password;
+  final int? password; // Hacemos password opcional
   final String uuid;
   final String message;
 
@@ -10,7 +10,7 @@ class VerifyCodeOtpModel {
     required this.status,
     required this.phone,
     required this.otpcode,
-    required this.password,
+    this.password, // Es opcional
     required this.uuid,
     required this.message,
   });
@@ -19,7 +19,7 @@ class VerifyCodeOtpModel {
     String? status,
     String? phone,
     String? otpcode,
-    int? password,
+    int? password, // Es opcional
     String? uuid,
     String? message,
   }) =>
@@ -32,12 +32,15 @@ class VerifyCodeOtpModel {
         message: message ?? this.message,
       );
 
+  // Ajustamos para que password sea opcional y se maneje como null si no existe
   factory VerifyCodeOtpModel.fromJson(Map<String, dynamic> json) =>
       VerifyCodeOtpModel(
         status: json["status"],
         phone: json["phone"],
         otpcode: json["otpcode"],
-        password: json["password"],
+        password: json["password"] != null
+            ? json["password"] as int?
+            : null, // Si no existe, asigna null
         uuid: json["uuid"],
         message: json["message"],
       );
@@ -46,7 +49,7 @@ class VerifyCodeOtpModel {
         "status": status,
         "phone": phone,
         "otpcode": otpcode,
-        "password": password,
+        "password": password, // Puede ser null en el JSON
         "uuid": uuid,
         "message": message,
       };

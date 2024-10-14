@@ -2,11 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<!-- Permisos de ubicación para iOS -->
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Necesitamos tu ubicación para mostrar contenido relevante cerca de ti.</string>
+	<string>Necesitamos acceso a tu ubicación para mostrarte resultados cercanos.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Necesitamos tu ubicación para mostrar contenido relevante cerca de ti.</string>
-	
+	<string>Necesitamos acceso a tu ubicación incluso cuando la app está en segundo plano para brindarte mejores servicios.</string>
+
 	
 	<key>UIBackgroundModes</key>
 	<array>

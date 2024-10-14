@@ -2,6 +2,7 @@ part of 'signup_bloc.dart';
 
 class SignupState extends Equatable {
   final SignUpStatus signUpStatus;
+  final ResetPasswordStatus resetPasswordStatus;
   final String userName;
   final String mail;
   final String password;
@@ -16,6 +17,7 @@ class SignupState extends Equatable {
 
   const SignupState({
     required this.signUpStatus,
+    required this.resetPasswordStatus,
     required this.userName,
     required this.mail,
     required this.password,
@@ -30,6 +32,7 @@ class SignupState extends Equatable {
 
   SignupState copyWith({
     SignUpStatus? signUpStatus,
+    ResetPasswordStatus? resetPasswordStatus,
     String? userName,
     String? mail,
     String? password,
@@ -54,6 +57,7 @@ class SignupState extends Equatable {
         mailError: mailError ?? this.mailError,
         passwordError: passwordError ?? this.passwordError,
         confirmPasswordError: confirmPasswordError ?? this.confirmPasswordError,
+        resetPasswordStatus: resetPasswordStatus ?? this.resetPasswordStatus,
       );
 
   factory SignupState.initial() {
@@ -69,6 +73,7 @@ class SignupState extends Equatable {
       mailError: null,
       passwordError: null,
       confirmPasswordError: null,
+      resetPasswordStatus: ResetPasswordStatus.initial,
     );
   }
   @override
@@ -84,6 +89,7 @@ class SignupState extends Equatable {
         mailError ?? '',
         passwordError ?? '',
         confirmPasswordError ?? '',
+        resetPasswordStatus,
       ];
 }
 
@@ -103,5 +109,20 @@ enum SignUpStatus {
   weakPassword, // La contraseña es débil
   userExist, //usuario o alias existe
   userRegister, //usuario ya registrado
+  unknown, // Error desconocido
+}
+
+enum ResetPasswordStatus {
+  initial, // Estado inicial antes de cualquier acción
+  loading, // Estado mientras se está procesando el inicio de sesión
+  success, // Estado cuando el registro fue exitoso
+  network, // Problemas de conexión
+  server, // Error en el servidor
+
+  //
+  userNotFound,
+  passwordNotEqual,
+  //
+  weakPassword, // La contraseña es débil
   unknown, // Error desconocido
 }

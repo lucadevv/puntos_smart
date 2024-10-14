@@ -7,6 +7,7 @@ class SendNumberState extends Equatable {
   final SendCodeStatus sendCodeStatus;
   final VerifyNumberEntity verifyNumberEntity;
   final VerifyCodeOtpEntity verifyCodeOtpEntity;
+  final ForgotVerifyNumberEntity forgotVerifyNumberEntity;
   final String numberOne;
   final String numberTwo;
   final String numberThree;
@@ -23,6 +24,7 @@ class SendNumberState extends Equatable {
     required this.codeVerifiaction,
     required this.verifyNumberEntity,
     required this.verifyCodeOtpEntity,
+    required this.forgotVerifyNumberEntity,
   });
 
   SendNumberState copyWith({
@@ -37,6 +39,7 @@ class SendNumberState extends Equatable {
     String? codeVerifiaction,
     VerifyNumberEntity? verifyNumberEntity,
     VerifyCodeOtpEntity? verifyCodeOtpEntity,
+    ForgotVerifyNumberEntity? forgotVerifyNumberEntity,
   }) =>
       SendNumberState(
         phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -49,6 +52,8 @@ class SendNumberState extends Equatable {
         codeVerifiaction: codeVerifiaction ?? this.codeVerifiaction,
         verifyNumberEntity: verifyNumberEntity ?? this.verifyNumberEntity,
         verifyCodeOtpEntity: verifyCodeOtpEntity ?? this.verifyCodeOtpEntity,
+        forgotVerifyNumberEntity:
+            forgotVerifyNumberEntity ?? this.forgotVerifyNumberEntity,
       );
   factory SendNumberState.initial() => SendNumberState(
         phoneNumber: '',
@@ -61,6 +66,7 @@ class SendNumberState extends Equatable {
         codeVerifiaction: '',
         verifyNumberEntity: VerifyNumberEntity.empty(),
         verifyCodeOtpEntity: VerifyCodeOtpEntity.empty(),
+        forgotVerifyNumberEntity: ForgotVerifyNumberEntity.empty(),
       );
 
   @override
@@ -74,7 +80,8 @@ class SendNumberState extends Equatable {
         sendCodeStatus,
         codeVerifiaction,
         verifyNumberEntity,
-        verifyCodeOtpEntity
+        verifyCodeOtpEntity,
+        forgotVerifyNumberEntity
       ];
 }
 
@@ -87,6 +94,7 @@ enum SendNumberStatus {
   server, // Error de servidor (500)
   verifyNumber, // Numero ya existe
   invalidNumber, //numero invalido
+  userNotFout,
   waitingVerification, //El número encuentra se encuentra en proceso de verificación.
   unknown // Error desconocido
 }

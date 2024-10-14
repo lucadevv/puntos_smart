@@ -13,6 +13,12 @@ class SignUpResquest extends SignupEvent {
   List<Object> get props => [];
 }
 
+class ForgotResquest extends SignupEvent {
+  const ForgotResquest();
+  @override
+  List<Object> get props => [];
+}
+
 class UserNameChangedSignUp extends SignupEvent {
   final String userName;
 

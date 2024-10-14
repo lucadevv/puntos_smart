@@ -4,7 +4,7 @@ class VerifyCodeOtpEntity {
   final String status;
   final String phone;
   final String otpcode;
-  final int password;
+  final int? password; // Hacemos password opcional
   final String uuid;
   final String message;
 
@@ -12,7 +12,7 @@ class VerifyCodeOtpEntity {
     required this.status,
     required this.phone,
     required this.otpcode,
-    required this.password,
+    this.password, // Es opcional
     required this.uuid,
     required this.message,
   });
@@ -21,7 +21,7 @@ class VerifyCodeOtpEntity {
     String? status,
     String? phone,
     String? otpcode,
-    int? password,
+    int? password, // Es opcional en copyWith también
     String? uuid,
     String? message,
   }) =>
@@ -34,12 +34,15 @@ class VerifyCodeOtpEntity {
         message: message ?? this.message,
       );
 
+  // Ajuste en fromJson para que password sea opcional
   factory VerifyCodeOtpEntity.fromJson(Map<String, dynamic> json) =>
       VerifyCodeOtpEntity(
         status: json["status"],
         phone: json["phone"],
         otpcode: json["otpcode"],
-        password: json["password"],
+        password: json["password"] != null
+            ? json["password"] as int?
+            : null, // Maneja si password es null o no existe
         uuid: json["uuid"],
         message: json["message"],
       );
@@ -48,7 +51,7 @@ class VerifyCodeOtpEntity {
         "status": status,
         "phone": phone,
         "otpcode": otpcode,
-        "password": password,
+        "password": password, // Puede ser null en el JSON
         "uuid": uuid,
         "message": message,
       };
@@ -64,11 +67,12 @@ class VerifyCodeOtpEntity {
       message: model.message,
     );
   }
+
   factory VerifyCodeOtpEntity.empty() => VerifyCodeOtpEntity(
         status: "",
         phone: "",
         otpcode: "",
-        password: -1,
+        password: null, // Puede ser null cuando está vacío
         uuid: "",
         message: "",
       );

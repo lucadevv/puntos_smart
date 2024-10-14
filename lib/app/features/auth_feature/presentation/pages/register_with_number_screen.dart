@@ -173,7 +173,7 @@ class _RegisterWithNumberScreenState extends State<RegisterWithNumberScreen> {
                         listener: (context, state) {
                           switch (state.sendNumberStatus) {
                             case SendNumberStatus.success:
-                              context.push(NameRoutes.otpScreen);
+                              context.push("${NameRoutes.otpScreen}/${1}");
                               break;
                             case SendNumberStatus.server:
                               ScaffoldMessenger.of(context).showSnackBar(

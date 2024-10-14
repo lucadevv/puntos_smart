@@ -52,8 +52,11 @@ final appRoute = GoRouter(
       builder: (context, state) => const LoginScreen(),
     ),
     GoRoute(
-      path: NameRoutes.otpScreen,
-      builder: (context, state) => const OtpScreen(),
+      path: "${NameRoutes.otpScreen}/:idPage",
+      builder: (context, state) {
+        final idPage = int.parse(state.pathParameters['idPage']!);
+        return OtpScreen(idPage: idPage);
+      },
     ),
     GoRoute(
       path: NameRoutes.resetScreen,

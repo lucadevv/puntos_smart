@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'package:puntos_smart_user/app/features/personal_information_feature/domain/entities/place_autocomplete_entity.dart';
 import 'package:puntos_smart_user/app/features/personal_information_feature/domain/repository/location_repository.dart';
@@ -29,6 +30,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       GetCurrentLocation event, Emitter<LocationState> emit) async {
     emit(state.copyWith(status: LocationStatus.loading));
     final hasPermission = await _handleLocationPermission();
+
     if (!hasPermission) {
       emit(state.copyWith(
         status: LocationStatus.error,
@@ -59,7 +61,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         locationModel: model,
       ));
     } catch (e) {
-      emit(state.copyWith(status: LocationStatus.error));
+      emit(state.copyWith(
+        status: LocationStatus.error,
+      ));
     }
   }
 
@@ -135,15 +139,21 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   }
 
   Future<bool> _handleLocationPermission() async {
-    LocationPermission permission = await Geolocator.checkPermission();
+    var status = await Permission.locationWhenInUse.status;
 
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return false; // Si el usuario sigue negando los permisos
+    if (status.isGranted) {
+      return true;
+    } else if (status.isDenied ||
+        status.isPermanentlyDenied ||
+        status.isRestricted) {
+      if (status.isPermanentlyDenied) {
+        await openAppSettings();
+        return false; // No puedes continuar sin permisos
+      } else {
+        status = await Permission.locationWhenInUse.request();
+        return status.isGranted;
       }
     }
-
-    return true; // Permisos concedidos
+    return false;
   }
 }

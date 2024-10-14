@@ -14,7 +14,8 @@ import 'package:puntos_smart_user/app/features/store_feature/presentation/widget
 import 'package:sms_autofill/sms_autofill.dart';
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({super.key});
+  final int idPage;
+  const OtpScreen({super.key, required this.idPage});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -36,10 +37,22 @@ class _OtpScreenState extends State<OtpScreen> {
     focusNodeListners();
     _listenForCode();
     Future.delayed(const Duration(seconds: 3)).then((_) {
-      final code =
-          context.read<SendNumberCubit>().state.verifyNumberEntity.data.otpcode;
-
-      populateOtpFields(code.toString());
+      if (widget.idPage == 1) {
+        final code = context
+            .read<SendNumberCubit>()
+            .state
+            .verifyNumberEntity
+            .data
+            .otpcode;
+        populateOtpFields(code.toString());
+      } else if (widget.idPage == 2) {
+        final forgotCode = context
+            .read<SendNumberCubit>()
+            .state
+            .forgotVerifyNumberEntity
+            .otpcode;
+        populateOtpFields(forgotCode.toString());
+      }
     });
   }
 
@@ -265,7 +278,9 @@ class _OtpScreenState extends State<OtpScreen> {
                         listener: (context, state) {
                           switch (state.sendCodeStatus) {
                             case SendCodeStatus.success:
-                              context.push(NameRoutes.registerScreen);
+                              widget.idPage == 1
+                                  ? context.push(NameRoutes.registerScreen)
+                                  : context.push(NameRoutes.resetScreen);
                               break;
                             case SendCodeStatus.invalidCode:
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -310,9 +325,14 @@ class _OtpScreenState extends State<OtpScreen> {
                               return CustomButtonWidget(
                                 onTap: () {
                                   focusNodeUnFocus();
+                                  final page = widget.idPage == 1
+                                      ? NameRoutes.registerScreen
+                                      : NameRoutes.resetScreen;
                                   context
                                       .read<SendNumberCubit>()
-                                      .requestCodeVerification();
+                                      .requestCodeVerification(
+                                        page: page,
+                                      );
                                 },
                                 title: AppText.validate,
                                 width: size.width,
