@@ -7,6 +7,7 @@ import 'package:puntos_smart_user/app/features/store_feature/presentation/widget
 import 'package:shimmer/shimmer.dart';
 
 import '../../../core/widgets/skeleton.dart';
+import '../../coupon_feature/presentation/painters/coupon_painter.dart';
 
 class StoresScreen extends StatefulWidget {
   const StoresScreen({super.key});
@@ -66,7 +67,7 @@ class _StoresScreenState extends State<StoresScreen> {
             SliverSearchWidget(
                 showBackIcon: false, safeAreaTop: 0, focusNode: FocusNode()),
 
-            // SliverToBoxAdapter(child: tiendas_skeleton()),
+            //SliverToBoxAdapter(child: coupon_skeleton()),
 
             // Si está cargando, mostrar el skeleton
             _isLoading
@@ -151,6 +152,123 @@ class tiendas_skeleton extends StatelessWidget {
                   radius: 8.0,
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class items_skeleton extends StatelessWidget {
+  const items_skeleton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 250,
+      decoration: const BoxDecoration(
+        color: AppColors.greyligth,
+        borderRadius: BorderRadius.all(Radius.circular(12.5)),
+      ),
+      margin: EdgeInsets.symmetric(horizontal: 16.0),
+      //padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 163, //163
+            child: Stack(
+              children: [
+                Card_Skeleton(
+                  height: 163,
+                )
+              ],
+            ),
+          ),
+          const Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Skeleton(
+                  height: 55,
+                  width: 55,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Skeleton(
+                        height: 16,
+                        width: double.infinity,
+                        radius: 8.0,
+                      ),
+                      const SizedBox(height: 5),
+                      Skeleton(
+                        height: 12,
+                        width: 250,
+                        radius: 8.0,
+                      ),
+                      const SizedBox(height: 5),
+                      Skeleton(
+                        height: 12,
+                        width: 200,
+                        radius: 8.0,
+                      ),
+                      const SizedBox(height: 5),
+                      Skeleton(
+                        height: 12,
+                        width: 150,
+                        radius: 8.0,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class coupon_skeleton extends StatelessWidget {
+  const coupon_skeleton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 170,
+      margin: const EdgeInsets.only(bottom: 16, top: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            height: 170,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: AppColors.greyligth,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: CustomPaint(
+                size: const Size(double.infinity, 150),
+                painter: CouponPainter(
+                  color: Colors.grey[
+                      300]!, // Usa un color base, pero el shimmer lo resaltará
+                ),
+              ),
             ),
           ),
         ],
