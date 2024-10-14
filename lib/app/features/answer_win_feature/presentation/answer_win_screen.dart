@@ -5,9 +5,28 @@ import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_arrow_back.dart';
+import 'package:puntos_smart_user/app/core/widgets/skeleton.dart';
 
-class AnswerWinScreen extends StatelessWidget {
+class AnswerWinScreen extends StatefulWidget /*StatelessWidget*/ {
   const AnswerWinScreen({super.key});
+
+  @override
+  _AnswerWinScreen createState() => _AnswerWinScreen();
+}
+
+class _AnswerWinScreen extends State<AnswerWinScreen> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // Simula la carga durante 2 segundos
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false; // Después de 2 segundos, dejamos de cargar
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,85 +80,98 @@ class AnswerWinScreen extends StatelessWidget {
               ],
             ),
             SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              sliver: SliverGrid.builder(
-                itemCount: 5,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                    childAspectRatio: 1 / 1.3),
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      context
-                          .push('${NameRoutes.answerWinDetailScreen}/$index');
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 12), //8
-                      decoration: BoxDecoration(
-                        color: AppColors
-                            .primary, //AppColors.surface.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.greynew.withOpacity(
-                                0.2), // Color de la sombra con opacidad
-                            spreadRadius: 1, // Extensión de la sombra
-                            blurRadius: 8, // Desenfoque de la sombra
-                            offset: const Offset(
-                                0, 4), // Desplazamiento de la sombra (x, y)
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Container(
-                            height: 110,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              sliver: _isLoading
+                  ? SliverGrid.builder(
+                      itemCount: 9,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 12,
+                              crossAxisSpacing: 12,
+                              childAspectRatio: 1 / 1.3),
+                      itemBuilder: (context, index) {
+                        return encuestas_skeleton();
+                      })
+                  : SliverGrid.builder(
+                      itemCount: 9,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 12,
+                              crossAxisSpacing: 12,
+                              childAspectRatio: 1 / 1.3),
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            context.push(
+                                '${NameRoutes.answerWinDetailScreen}/$index');
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 12), //8
                             decoration: BoxDecoration(
-                              border: Border.all(
-                                color: AppColors.greyligth,
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
+                              color: AppColors
+                                  .primary, //AppColors.surface.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.greynew.withOpacity(
+                                      0.2), // Color de la sombra con opacidad
+                                  spreadRadius: 1, // Extensión de la sombra
+                                  blurRadius: 8, // Desenfoque de la sombra
+                                  offset: const Offset(0,
+                                      4), // Desplazamiento de la sombra (x, y)
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Container(
+                                  height: 110,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: AppColors.greyligth,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                const Spacer(),
+                                Text(
+                                  'Hamburguesas',
+                                  style: textTheme.bodySmall!.copyWith(
+                                    color: AppColors.greymedium,
+                                  ),
+                                  maxLines: 1,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Titulo de la Encuesta, maximo tres lineas y longitud',
+                                  style: textTheme.bodySmall!.copyWith(
+                                    color: AppColors.greynew,
+                                    fontWeight: FontWeight.w700,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  maxLines: 2,
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'Gana 20 PS',
+                                  style: textTheme.bodySmall!.copyWith(
+                                    color: AppColors.greymedium,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.end,
+                                  maxLines: 1,
+                                ),
+                              ],
                             ),
                           ),
-                          const Spacer(),
-                          Text(
-                            'Hamburguesas',
-                            style: textTheme.bodySmall!.copyWith(
-                              color: AppColors.blacknew,
-                            ),
-                            maxLines: 1,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Titulo de la Encuesta, maximo tres lineas y longitud',
-                            style: textTheme.bodySmall!.copyWith(
-                              color: AppColors.blacknew,
-                              fontWeight: FontWeight.w700,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            maxLines: 2,
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            'Gana 20 PS',
-                            style: textTheme.bodySmall!.copyWith(
-                              color: AppColors.blacknew,
-                              fontWeight: FontWeight.w700,
-                            ),
-                            textAlign: TextAlign.end,
-                            maxLines: 1,
-                          ),
-                        ],
-                      ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             )
           ],
         ),

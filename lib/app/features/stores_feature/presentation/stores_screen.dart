@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
-import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_arrow_back.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/slivers/sliver_search_widget.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/widgets/custom_store_widget.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../core/widgets/skeleton.dart';
-import '../../coupon_feature/presentation/painters/coupon_painter.dart';
 
 class StoresScreen extends StatefulWidget {
   const StoresScreen({super.key});
@@ -67,12 +64,12 @@ class _StoresScreenState extends State<StoresScreen> {
             SliverSearchWidget(
                 showBackIcon: false, safeAreaTop: 0, focusNode: FocusNode()),
 
-            //SliverToBoxAdapter(child: coupon_skeleton()),
+            //SliverToBoxAdapter(child: encuestas_skeleton()),
 
             // Si está cargando, mostrar el skeleton
             _isLoading
                 ? SliverList.builder(
-                    itemCount: 5, // Número de skeletons a mostrar
+                    itemCount: 10, // Número de skeletons a mostrar
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 12),
@@ -93,185 +90,6 @@ class _StoresScreenState extends State<StoresScreen> {
                   ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class tiendas_skeleton extends StatelessWidget {
-  const tiendas_skeleton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.greyligth,
-        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-      ),
-      margin: EdgeInsets.symmetric(horizontal: 16.0),
-      padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
-      child: const Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // Cuadrado de 80x80 para simular una imagen o avatar
-          Skeleton(
-            height: 80,
-            width: 80,
-            radius: 12.0, // Bordes redondeados en el cuadrado
-          ),
-          SizedBox(width: 10), // Espacio entre el cuadrado y los textos
-
-          // Column para simular las líneas de texto
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Skeleton(
-                  height: 16,
-                  width: double.infinity, // Línea larga
-                  radius: 8.0,
-                ),
-                SizedBox(height: 8),
-                Skeleton(
-                  height: 16,
-                  width: 200, // Línea más corta
-                  radius: 8.0,
-                ),
-                SizedBox(height: 8),
-                Skeleton(
-                  height: 16,
-                  width: 150, // Línea más corta
-                  radius: 8.0,
-                ),
-                SizedBox(height: 8),
-                Skeleton(
-                  height: 16,
-                  width: 100, // Línea más corta
-                  radius: 8.0,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class items_skeleton extends StatelessWidget {
-  const items_skeleton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 250,
-      decoration: const BoxDecoration(
-        color: AppColors.greyligth,
-        borderRadius: BorderRadius.all(Radius.circular(12.5)),
-      ),
-      margin: EdgeInsets.symmetric(horizontal: 16.0),
-      //padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 163, //163
-            child: Stack(
-              children: [
-                Card_Skeleton(
-                  height: 163,
-                )
-              ],
-            ),
-          ),
-          const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Skeleton(
-                  height: 55,
-                  width: 55,
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Skeleton(
-                        height: 16,
-                        width: double.infinity,
-                        radius: 8.0,
-                      ),
-                      const SizedBox(height: 5),
-                      Skeleton(
-                        height: 12,
-                        width: 250,
-                        radius: 8.0,
-                      ),
-                      const SizedBox(height: 5),
-                      Skeleton(
-                        height: 12,
-                        width: 200,
-                        radius: 8.0,
-                      ),
-                      const SizedBox(height: 5),
-                      Skeleton(
-                        height: 12,
-                        width: 150,
-                        radius: 8.0,
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class coupon_skeleton extends StatelessWidget {
-  const coupon_skeleton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 170,
-      margin: const EdgeInsets.only(bottom: 16, top: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            height: 170,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: AppColors.greyligth,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Shimmer.fromColors(
-              baseColor: Colors.grey[300]!,
-              highlightColor: Colors.grey[100]!,
-              child: CustomPaint(
-                size: const Size(double.infinity, 150),
-                painter: CouponPainter(
-                  color: Colors.grey[
-                      300]!, // Usa un color base, pero el shimmer lo resaltará
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

@@ -3,12 +3,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
+import 'package:puntos_smart_user/app/core/widgets/skeleton.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:puntos_smart_user/app/features/coupon_feature/presentation/widgets/coupon_widget.dart';
 import 'package:puntos_smart_user/app/features/store_feature/presentation/slivers/sliver_search_widget.dart';
 
-class CouponPage extends StatelessWidget {
+class CouponPage extends StatefulWidget /*StatelessWidget*/ {
   const CouponPage({super.key});
+
+  @override
+  _CouponPage createState() => _CouponPage();
+}
+
+class _CouponPage extends State<CouponPage> {
+  bool _isLoading = true; // Controla el estado de la carga
+
+  @override
+  void initState() {
+    super.initState();
+    // Simula la carga durante 2 segundos
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false; // Después de 2 segundos, dejamos de cargar
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,23 +66,33 @@ class CouponPage extends StatelessWidget {
                         showBackIcon: false,
                         safeAreaTop: 0,
                         focusNode: FocusNode()),
-                    SliverList.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: GestureDetector(
-                            onTap: () {
-                              context
-                                  .push('${NameRoutes.couponsScreen}/1/$index');
+                    _isLoading
+                        ? SliverList.builder(
+                            itemCount: 10,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: coupon_skeleton(),
+                              );
                             },
-                            child: CouponWidget(
-                              index: index,
-                            ),
+                          )
+                        : SliverList.builder(
+                            itemCount: 10,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context.push(
+                                        '${NameRoutes.couponsScreen}/1/$index');
+                                  },
+                                  child: CouponWidget(
+                                    index: index,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    )
                   ],
                 );
 
@@ -115,22 +144,43 @@ class CouponPage extends StatelessWidget {
                         showBackIcon: false,
                         safeAreaTop: 0,
                         focusNode: FocusNode()),
-                    SliverList.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: GestureDetector(
-                            onTap: () {
-                              context
-                                  .push('${NameRoutes.couponsScreen}/1/$index');
+                    _isLoading
+                        ? SliverList.builder(
+                            itemCount: 10,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context.push(
+                                        '${NameRoutes.couponsScreen}/1/$index');
+                                  },
+                                  child: coupon_skeleton(),
+                                ),
+                              );
                             },
-                            child: CouponWidget(
-                              index: index,
-                            ),
+                          )
+                        : SliverList.builder(
+                            itemCount: 10,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context.push(
+                                        '${NameRoutes.couponsScreen}/1/$index');
+                                  },
+                                  child: CouponWidget(
+                                    index: index,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 200,
+                      ),
                     ),
                   ],
                 );

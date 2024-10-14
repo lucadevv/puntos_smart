@@ -14,6 +14,7 @@ class CustomCardProductWidget extends StatelessWidget {
   final bool? isDiscound;
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final textTheme = Theme.of(context).textTheme;
     return InkWell(
       onTap: () {
@@ -65,21 +66,27 @@ class CustomCardProductWidget extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 10),
                         child: Container(
                           height: 40,
-                          width: 150,
+                          width: screenWidth * 0.65,
                           decoration: BoxDecoration(
                             color: AppColors.blacknew,
                             borderRadius: BorderRadius.circular(999),
                           ),
                           alignment: Alignment.center,
-                          child: Text(
-                            'Hay descuento',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelMedium!
-                                .copyWith(
-                                  color: Colors.white, // Color del texto
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0),
+                            child: Text(
+                              'Hay descuento, algo de texto, prueba algo mas, mas texto ',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(
+                                    color: Colors.white, // Color del texto
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ),
                       ),

@@ -8,7 +8,7 @@ import 'package:puntos_smart_user/app/core/widgets/detail_store_widget.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_punctation_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class CustomStoreWidget extends StatelessWidget {
+class CustomStoreWidget extends StatefulWidget /*StatelessWidget*/ {
   final int index;
   final VoidCallback? navigateStoreLogo;
   final VoidCallback? navigateStoresTitle;
@@ -35,6 +35,12 @@ class CustomStoreWidget extends StatelessWidget {
     }
   }
 
+  @override
+  State<CustomStoreWidget> createState() => _CustomStoreWidget();
+}
+
+class _CustomStoreWidget extends State<CustomStoreWidget> {
+  bool isHeartSelected = false; // Para determinar el estado del icono favoritos
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -63,7 +69,7 @@ class CustomStoreWidget extends StatelessWidget {
               CustomImageLogoStoreWidget(
                 height: 80,
                 width: 80,
-                onTapLogo: navigateStoreLogo,
+                onTapLogo: widget.navigateStoreLogo,
               ),
               const SizedBox(width: 12),
               Column(
@@ -71,7 +77,7 @@ class CustomStoreWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
-                    onTap: navigateStoresTitle,
+                    onTap: widget.navigateStoresTitle,
                     child: Text(
                       'MacDonal\'s',
                       style: textTheme.titleMedium!.copyWith(
@@ -91,7 +97,7 @@ class CustomStoreWidget extends StatelessWidget {
                     iconImage: Iconsax.call,
                     title: '+51 984 34 23 43',
                     makePhoneTap: () {
-                      _makePhoneCall('984342343');
+                      widget._makePhoneCall('984342343');
                     },
                   ),
                   const SizedBox(height: 2),
@@ -125,35 +131,33 @@ class CustomStoreWidget extends StatelessWidget {
           ),
         ),
 
-        //
         Positioned(
-            top: 3, // 0
-            right: 18, //15
+          top: 3,
+          right: 18,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                // Cambia el estado cada vez que se hace clic
+                isHeartSelected = !isHeartSelected;
+              });
+            },
             child: Container(
               height: 45,
               width: 45,
               decoration: const BoxDecoration(
                 color: Colors.transparent,
                 borderRadius: BorderRadius.only(topRight: Radius.circular(15)),
-                // border: const Border(
-                //   top: BorderSide(
-                //     color: AppColors.greyligth,
-                //     width: 2.0,
-                //   ),
-                //   right: BorderSide(
-                //     color: AppColors.greyligth,
-                //     width: 2.0,
-                //   ),
-                //   left: BorderSide.none,
-                //   bottom: BorderSide.none,
-                // ),
               ),
-              child: const Icon(
-                Iconsax.heart4, // 4 y 5
+              child: Icon(
+                isHeartSelected
+                    ? Iconsax.heart5
+                    : Iconsax.heart4, // Cambia entre los iconos
                 size: 24,
                 color: AppColors.blacknew,
               ),
-            )),
+            ),
+          ),
+        ),
       ],
     );
   }

@@ -106,4 +106,4 @@ class SliverHeaderWidget extends StatelessWidget {
 }
 
 const String productDescription =
-    '¿Qué es lo que hace al Big Mac único? Quizás sean las dos hamburguesas de pura carne con la salsa secreta especial y el queso derretido, el toque de cebolla y el crocante del pepino. Bueno, en realidad quizás sea solo que es el más alto...';
+    '¿Qué es lo que hace al Big Mac único? Quizás sean las dos hamburguesas de pura carne con la salsa secreta especial y el queso derretido, el toque de cebolla y el crocante del pepino. Bueno, en realidad quizás sea solo que es el más alto... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';

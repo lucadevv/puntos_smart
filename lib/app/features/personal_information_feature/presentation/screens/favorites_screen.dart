@@ -61,15 +61,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   SliverAppBar(
                     pinned: true,
                     backgroundColor: Colors.white,
-                    // leading: InkWell(
-                    //   onTap: () {
-                    //     context.pop();
-                    //   },
-                    //   child: const Icon(
-                    //     Icons.arrow_back_ios_new,
-                    //     color: Colors.black54,
-                    //   ),
-                    // ),
                     leadingWidth: 70,
                     leading: const Padding(
                       padding: EdgeInsets.only(left: 16, bottom: 4),
@@ -85,19 +76,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  // SliverToBoxAdapter(
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.symmetric(
-                  //         horizontal: 16, vertical: 12),
-                  //     child: Text(
-                  //       AppText.myFavorities,
-                  //       style: textTheme.titleLarge!.copyWith(
-                  //         color: Colors.black87,
-                  //         fontWeight: FontWeight.w600,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   SliverToBoxAdapter(
                     child: SizedBox(
                       height: 50,
@@ -247,6 +225,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         ),
       ),
     );
+  
   }
 }
 
