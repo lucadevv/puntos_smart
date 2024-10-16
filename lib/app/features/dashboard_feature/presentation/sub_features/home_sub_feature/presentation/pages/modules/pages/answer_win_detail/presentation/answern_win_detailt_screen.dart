@@ -51,253 +51,274 @@ class AnswerWinDetailScreenState extends State<AnswerWinDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final goRouterState = GoRouterState.of(context);
+    final extra = goRouterState.extra;
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      body: CustomScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            automaticallyImplyLeading: false,
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            title: Text(
-              AppText.answer,
-              style: textTheme.bodyLarge!.copyWith(
-                color: Colors.black87,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            leadingWidth: 70,
-            leading: const Padding(
-              padding: EdgeInsets.only(left: 16, bottom: 4),
-              child: CustomButtonArrowBack(),
-            ),
-          ),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: SizedBox(
-              width: size.width,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // Categoría de la pregunta
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 500),
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: SlideTransition(
-                            position: Tween<Offset>(
-                              begin: const Offset(0.0, 1.0),
-                              end: Offset.zero,
-                            ).animate(animation),
-                            child: child,
-                          ),
-                        );
-                      },
-                      child: Text(
-                        surveys[currentQuestionIndex].category,
-                        // key: ValueKey<String>(
-                        // surveys[currentQuestionIndex].category),
-                        style: textTheme.titleSmall!.copyWith(
-                          color: AppColors.descriptionColor,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    // Título de la encuesta
-
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 400),
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: SlideTransition(
-                            position: Tween<Offset>(
-                              begin: const Offset(
-                                  1.0, 0.0), // Desliza desde la derecha
-                              end: Offset.zero,
-                            ).animate(CurvedAnimation(
-                              parent: animation,
-                              curve:
-                                  Curves.easeInOut, // Efecto elástico al entrar
-                            )),
-                            child: child,
-                          ),
-                        );
-                      },
-                      child: Text(
-                        surveys[currentQuestionIndex].title,
-                        key: ValueKey<String>(
-                            surveys[currentQuestionIndex].title),
-                        style: textTheme.titleLarge!.copyWith(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 12),
-                    // Barra de progreso para las preguntas
-                    Row(
-                      children: List.generate(surveys.length, (index) {
-                        return Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: LinearProgressIndicator(
-                              borderRadius: BorderRadius.circular(10),
-                              color: index <= currentQuestionIndex
-                                  ? AppColors.onPrimary
-                                  : Colors.grey, // Cambiar color según progreso
-                              value: progressValues[
-                                  index], // Progreso de la pregunta
-                              minHeight: 5,
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                    const SizedBox(height: 32),
-                    Text(
-                      'Pregunta ${currentQuestionIndex + 1}',
-                      style: textTheme.labelMedium!.copyWith(
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 600),
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: SlideTransition(
-                            position: Tween<Offset>(
-                              begin: const Offset(
-                                  1.0, 0.0), // Desliza desde la derecha
-                              end: Offset.zero,
-                            ).animate(CurvedAnimation(
-                              parent: animation,
-                              curve:
-                                  Curves.easeInOut, // Efecto elástico al entrar
-                            )),
-                            child: child,
-                          ),
-                        );
-                      },
-                      child: Text(
-                        surveys[currentQuestionIndex].question,
-                        key: ValueKey<String>(
-                            surveys[currentQuestionIndex].question),
-                        style: textTheme.titleLarge!.copyWith(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 32),
-                    // Lista de respuestas posibles
-                    Column(
-                      children: List.generate(
-                          surveys[currentQuestionIndex].possibleAnswers.length,
-                          (index) {
-                        final item = surveys[currentQuestionIndex]
-                            .possibleAnswers[index];
-                        final isSelected = selectedAnswers.contains(index);
-                        return GestureDetector(
-                          onTap: () => toggleAnswer(index),
-                          child: AnimatedSwitcher(
-                            duration:
-                                Duration(milliseconds: 600 + (index * 200)),
-                            transitionBuilder:
-                                (Widget child, Animation<double> animation) {
-                              return FadeTransition(
-                                opacity: animation,
-                                child: SlideTransition(
-                                  position: Tween<Offset>(
-                                    begin: const Offset(
-                                        1.0, 0.0), // Desliza desde la derecha
-                                    end: Offset.zero,
-                                  ).animate(CurvedAnimation(
-                                    parent: animation,
-                                    curve: Curves
-                                        .easeInOut, // Efecto elástico al entrar
-                                  )),
-                                  child: child,
-                                ),
-                              );
-                            },
-                            child: Container(
-                              key: ValueKey<String>(item),
-                              height: 50,
-                              width: 296,
-                              alignment: Alignment.centerLeft,
-                              margin: const EdgeInsets.only(bottom: 12),
-                              padding: const EdgeInsets.only(left: 16),
-                              decoration: BoxDecoration(
-                                color: isSelected
-                                    ? AppColors.onPrimary
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: isSelected
-                                      ? AppColors.onPrimary
-                                      : Colors.grey,
-                                ),
-                              ),
-                              child: Text(
-                                item,
-                                style: textTheme.titleMedium!.copyWith(
-                                  color: isSelected
-                                      ? Colors.white
-                                      : Colors.black87,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                    const Spacer(),
-
-                    SafeArea(
-                      left: false,
-                      top: false,
-                      right: false,
-                      bottom: true,
-                      child: CustomButtonWidget(
-                          onTap: isButtonEnabled
-                              ? () {
-                                  if (currentQuestionIndex ==
-                                      surveys.length - 1) {
-                                    context.go(NameRoutes.dashboardScreen);
-                                  } else {
-                                    submitAnswer();
-                                  }
-                                }
-                              : null,
-                          title: currentQuestionIndex != surveys.length - 1
-                              ? 'Continuar'
-                              : 'Finalizar',
-                          width: size.width),
-                    )
-                  ],
+    return PopScope(
+      onPopInvoked: (didPop) {
+        context.go("${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}");
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (extra != null && extra is Map && extra['fromAnswerWin'] == true) {
+            context.go(
+                "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.answerWinScreen}");
+          } else if (extra != null &&
+              extra is Map &&
+              extra['fromModule'] == true) {
+            context.go("${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}");
+          } else {
+            context.go("${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}");
+          }
+        });
+      },
+      child: Scaffold(
+        body: CustomScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              automaticallyImplyLeading: false,
+              centerTitle: true,
+              backgroundColor: Colors.white,
+              title: Text(
+                AppText.answer,
+                style: textTheme.bodyLarge!.copyWith(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
+              leadingWidth: 70,
+              leading: const Padding(
+                padding: EdgeInsets.only(left: 16, bottom: 4),
+                child: CustomButtonArrowBack(),
+              ),
             ),
-          )
-        ],
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: SizedBox(
+                width: size.width,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Categoría de la pregunta
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 500),
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(0.0, 1.0),
+                                end: Offset.zero,
+                              ).animate(animation),
+                              child: child,
+                            ),
+                          );
+                        },
+                        child: Text(
+                          surveys[currentQuestionIndex].category,
+                          // key: ValueKey<String>(
+                          // surveys[currentQuestionIndex].category),
+                          style: textTheme.titleSmall!.copyWith(
+                            color: AppColors.descriptionColor,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      // Título de la encuesta
+
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 400),
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(
+                                    1.0, 0.0), // Desliza desde la derecha
+                                end: Offset.zero,
+                              ).animate(CurvedAnimation(
+                                parent: animation,
+                                curve: Curves
+                                    .easeInOut, // Efecto elástico al entrar
+                              )),
+                              child: child,
+                            ),
+                          );
+                        },
+                        child: Text(
+                          surveys[currentQuestionIndex].title,
+                          key: ValueKey<String>(
+                              surveys[currentQuestionIndex].title),
+                          style: textTheme.titleLarge!.copyWith(
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 12),
+                      // Barra de progreso para las preguntas
+                      Row(
+                        children: List.generate(surveys.length, (index) {
+                          return Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: LinearProgressIndicator(
+                                borderRadius: BorderRadius.circular(10),
+                                color: index <= currentQuestionIndex
+                                    ? AppColors.onPrimary
+                                    : Colors
+                                        .grey, // Cambiar color según progreso
+                                value: progressValues[
+                                    index], // Progreso de la pregunta
+                                minHeight: 5,
+                              ),
+                            ),
+                          );
+                        }),
+                      ),
+                      const SizedBox(height: 32),
+                      Text(
+                        'Pregunta ${currentQuestionIndex + 1}',
+                        style: textTheme.labelMedium!.copyWith(
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 600),
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(
+                                    1.0, 0.0), // Desliza desde la derecha
+                                end: Offset.zero,
+                              ).animate(CurvedAnimation(
+                                parent: animation,
+                                curve: Curves
+                                    .easeInOut, // Efecto elástico al entrar
+                              )),
+                              child: child,
+                            ),
+                          );
+                        },
+                        child: Text(
+                          surveys[currentQuestionIndex].question,
+                          key: ValueKey<String>(
+                              surveys[currentQuestionIndex].question),
+                          style: textTheme.titleLarge!.copyWith(
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 32),
+                      // Lista de respuestas posibles
+                      Column(
+                        children: List.generate(
+                            surveys[currentQuestionIndex]
+                                .possibleAnswers
+                                .length, (index) {
+                          final item = surveys[currentQuestionIndex]
+                              .possibleAnswers[index];
+                          final isSelected = selectedAnswers.contains(index);
+                          return GestureDetector(
+                            onTap: () => toggleAnswer(index),
+                            child: AnimatedSwitcher(
+                              duration:
+                                  Duration(milliseconds: 600 + (index * 200)),
+                              transitionBuilder:
+                                  (Widget child, Animation<double> animation) {
+                                return FadeTransition(
+                                  opacity: animation,
+                                  child: SlideTransition(
+                                    position: Tween<Offset>(
+                                      begin: const Offset(
+                                          1.0, 0.0), // Desliza desde la derecha
+                                      end: Offset.zero,
+                                    ).animate(CurvedAnimation(
+                                      parent: animation,
+                                      curve: Curves
+                                          .easeInOut, // Efecto elástico al entrar
+                                    )),
+                                    child: child,
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                key: ValueKey<String>(item),
+                                height: 50,
+                                width: 296,
+                                alignment: Alignment.centerLeft,
+                                margin: const EdgeInsets.only(bottom: 12),
+                                padding: const EdgeInsets.only(left: 16),
+                                decoration: BoxDecoration(
+                                  color: isSelected
+                                      ? AppColors.onPrimary
+                                      : Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: isSelected
+                                        ? AppColors.onPrimary
+                                        : Colors.grey,
+                                  ),
+                                ),
+                                child: Text(
+                                  item,
+                                  style: textTheme.titleMedium!.copyWith(
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.black87,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                      ),
+                      const Spacer(),
+
+                      SafeArea(
+                        left: false,
+                        top: false,
+                        right: false,
+                        bottom: true,
+                        child: CustomButtonWidget(
+                            onTap: isButtonEnabled
+                                ? () {
+                                    if (currentQuestionIndex ==
+                                        surveys.length - 1) {
+                                      context.go(NameRoutes.dashboardScreen);
+                                    } else {
+                                      submitAnswer();
+                                    }
+                                  }
+                                : null,
+                            title: currentQuestionIndex != surveys.length - 1
+                                ? 'Continuar'
+                                : 'Finalizar',
+                            width: size.width),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

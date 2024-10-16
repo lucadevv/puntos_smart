@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:puntos_smart_user/app/core/widgets/custom_ontap.dart';
@@ -8,11 +9,15 @@ class ItemModuleWidget extends StatefulWidget {
     required this.index,
     this.ontap,
     this.indexAnimation = 1,
+    required this.isLoading,
+    this.image,
   });
 
   final int index;
   final VoidCallback? ontap;
   final int? indexAnimation;
+  final bool isLoading;
+  final String? image;
 
   @override
   State<ItemModuleWidget> createState() => _ItemModuleWidgetState();
@@ -50,9 +55,22 @@ class _ItemModuleWidgetState extends State<ItemModuleWidget> {
               height: 110,
               width: 110,
               decoration: BoxDecoration(
-                color: Colors.primaries[widget.index],
+                color: widget.isLoading ? Colors.grey : Colors.transparent,
                 borderRadius: BorderRadius.circular(15),
               ),
+              child: !widget.isLoading && widget.image != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.image!,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
             ),
             ClipRRect(
               borderRadius: BorderRadius.circular(15),

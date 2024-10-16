@@ -48,7 +48,8 @@ class ModuleScreen extends StatelessWidget {
               subTitle: AppText.newStores,
               subTitle2: AppText.seeMore,
               onTap2: () {
-                context.push(NameRoutes.storesScreen);
+                context.push(
+                    "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.storesScreen}");
               },
             ),
             const NewStoresModuleWidget(),

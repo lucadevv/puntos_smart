@@ -55,6 +55,9 @@ class _DashboardState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final currentRoute = GoRouterState.of(context).uri.toString();
+    final hideNavbar = currentRoute.contains(NameRoutes.moduleScreen);
+
     return Scaffold(
       body: SizedBox(
         height: size.height,
@@ -62,84 +65,90 @@ class _DashboardState extends State<DashboardScreen> {
         child: Stack(
           children: [
             widget.child,
-            Positioned(
-              bottom: kToolbarHeight * 0.5,
-              left: 0,
-              right: 0,
-              child: Container(
-                padding: const EdgeInsets.all(5.0),
-                height: 65,
-                width: size.width,
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(999),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black
-                          .withOpacity(0.2), // Color de la sombra con opacidad
-                      spreadRadius: 1, // Extensión de la sombra
-                      blurRadius: 8, // Desenfoque de la sombra
-                      offset: const Offset(
-                          0, 4), // Desplazamiento de la sombra (x, y)
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: List.generate(navList.length, (index) {
-                    final icon = navList[index];
-                    final label = navLabels[index];
+            Visibility(
+              visible: !hideNavbar,
+              child: Positioned(
+                bottom: kToolbarHeight * 0.5,
+                left: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(5.0),
+                  height: 65,
+                  width: size.width,
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(999),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(
+                            0.2), // Color de la sombra con opacidad
+                        spreadRadius: 1, // Extensión de la sombra
+                        blurRadius: 8, // Desenfoque de la sombra
+                        offset: const Offset(
+                            0, 4), // Desplazamiento de la sombra (x, y)
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: List.generate(navList.length, (index) {
+                      final icon = navList[index];
+                      final label = navLabels[index];
 
-                    return GestureDetector(
-                      onTap: () {
-                        selectedPage(index);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            icon,
-                            size: 28,
-                            color: pageIndex == index
-                                ? AppColors.onPrimary
-                                : AppColors.descriptionColor,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            label,
-                            style: TextStyle(
-                              fontSize: 12,
+                      return GestureDetector(
+                        onTap: () {
+                          selectedPage(index);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              icon,
+                              size: 28,
                               color: pageIndex == index
                                   ? AppColors.onPrimary
                                   : AppColors.descriptionColor,
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
+                            const SizedBox(height: 4),
+                            Text(
+                              label,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: pageIndex == index
+                                    ? AppColors.onPrimary
+                                    : AppColors.descriptionColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+                  ),
                 ),
               ),
             ),
-            Positioned(
-              right: 16,
-              bottom: (kToolbarHeight * 0.7) + (size.height * 0.08),
-              child: Container(
-                  height: 60,
-                  width: 60,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.floatingButton,
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Iconsax.message,
-                      color: Colors.white,
-                      size: 35,
+            Visibility(
+              visible: !hideNavbar,
+              child: Positioned(
+                right: 16,
+                bottom: (kToolbarHeight * 0.7) + (size.height * 0.08),
+                child: Container(
+                    height: 60,
+                    width: 60,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.floatingButton,
                     ),
-                  )),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Iconsax.message,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+                    )),
+              ),
             )
           ],
         ),

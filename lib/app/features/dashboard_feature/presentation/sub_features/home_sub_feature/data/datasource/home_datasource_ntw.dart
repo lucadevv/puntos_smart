@@ -11,7 +11,32 @@ class HomeDatasourceNtw {
   Future<BannerResponseDbModel> getAllBanners() async {
     try {
       final response = await _apiClient.getData(
-        EndPoints.banners,
+        EndPoints.bannersNoLogin,
+      );
+
+      if (response.statusCode == 200) {
+        return BannerResponseDbModel.fromJson(response.data);
+      } else {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          type: DioExceptionType.badResponse,
+        );
+      }
+    } catch (e) {
+      if (e is DioException) {
+        rethrow;
+      } else {
+        debugPrint('Error durante la acctualizacion de contraseña: $e');
+        throw Exception('Error durante la acctualizacion de contraseña');
+      }
+    }
+  }
+
+  Future<BannerResponseDbModel> getAllModulesNoLogin() async {
+    try {
+      final response = await _apiClient.getData(
+        EndPoints.modulesNoLogin,
       );
 
       if (response.statusCode == 200) {

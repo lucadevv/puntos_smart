@@ -5,8 +5,8 @@ import 'package:puntos_smart_user/app/core/widgets/custom_arrow_back.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_carrd_product.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/store_detail/presentation/slivers/sliver_search_widget.dart';
 
-class ProductsScreen extends StatelessWidget {
-  const ProductsScreen({super.key});
+class CateogryScreen extends StatelessWidget {
+  const CateogryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +16,7 @@ class ProductsScreen extends StatelessWidget {
         FocusScopeNode currentFocus = FocusScope.of(context);
         if (!currentFocus.hasPrimaryFocus &&
             currentFocus.focusedChild != null) {
-          currentFocus
-              .unfocus(); // Si quieres liberar el foco, puedes usar esta línea
+          currentFocus.unfocus();
         }
       },
       child: PopScope(
@@ -55,6 +54,12 @@ class ProductsScreen extends StatelessWidget {
                         .copyWith(bottom: 12),
                     child: CustomCardProductWidget(
                       index: index,
+                      onTap: () {
+                        context.push(
+                          "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.categorysScreen}/${NameRoutes.productDetailScreen}/$index",
+                          extra: {'fromCategory': true},
+                        );
+                      },
                     ),
                   );
                 },

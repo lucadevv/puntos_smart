@@ -40,11 +40,11 @@ dependencies:
   go_router: ^14.2.8
   iconsax: ^0.0.8
   latlong2: ^0.9.1
+  marquee_list: ^1.0.0
   permission_handler: ^11.3.1
   qr_flutter: ^4.1.0
   shared_preferences: ^2.3.2
   sms_autofill: ^2.4.0
-  text_marquee: ^0.0.2
   url_launcher: ^6.3.0
   uuid: ^4.5.1
   visibility_detector: ^0.4.0+2

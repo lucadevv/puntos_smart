@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_image_logo_store_widget.dart';
 
@@ -9,25 +7,21 @@ class CustomCardProductWidget extends StatelessWidget {
     super.key,
     required this.index,
     this.isDiscound = true,
+    this.onTap,
   });
   final int index;
+  final VoidCallback? onTap;
   final bool? isDiscound;
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return InkWell(
-      onTap: () {
-        context.push('${NameRoutes.productDetailScreen}/$index');
-      },
+      onTap: onTap,
       child: Container(
         height: 250, //250
         decoration: BoxDecoration(
           color: AppColors.primary,
           borderRadius: BorderRadius.circular(15),
-          // border: Border.all(
-          //   color: AppColors.textfield,
-          //   width: 2,
-          // ),
           boxShadow: [
             BoxShadow(
               color: AppColors.greynew

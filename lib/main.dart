@@ -82,12 +82,13 @@ class MyApp extends StatelessWidget {
           ),
         ),
         BlocProvider(
-            lazy: false,
-            create: (context) => HomeBloc(
-                  homeRepository: GetIt.instance<HomeRepository>(),
-                )..add(
-                    GetAllBannersEvent(),
-                  ))
+          lazy: false,
+          create: (context) => HomeBloc(
+            homeRepository: GetIt.instance<HomeRepository>(),
+          )
+            ..add(GetAllModuleNoLoginEvent())
+            ..add(GetAllBannersEvent()),
+        )
       ],
       child: MaterialApp.router(
         routerConfig: appRoute,

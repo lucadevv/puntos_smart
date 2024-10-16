@@ -58,7 +58,7 @@ class _SliverBannersHomeWidgetState extends State<SliverBannersHomeWidget> {
                         margin: const EdgeInsets.only(right: 12),
                         decoration: BoxDecoration(
                           color: AppColors.descriptionColor,
-                          borderRadius: BorderRadius.circular(25),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     );
@@ -86,10 +86,10 @@ class _SliverBannersHomeWidgetState extends State<SliverBannersHomeWidget> {
                         width: 260,
                         margin: const EdgeInsets.only(right: 12),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(25),
+                          borderRadius: BorderRadius.circular(12),
                           child: CachedNetworkImage(
                             imageUrl: item.imagen1,
                             fit: BoxFit.cover,

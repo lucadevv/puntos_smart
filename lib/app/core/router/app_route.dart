@@ -25,10 +25,10 @@ import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/su
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/pages/favorites_page/favorites_screen.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/pages/personal_preferences_page/personal_preferences_screen.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/product_detail/presentation/product_detail_screen.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/products/presentation/products_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/category/presentation/category_screen.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/rate_store_feature/presentation/rate_store_screen.dart';
 import 'package:puntos_smart_user/app/features/splash_feature/presentation/splash_screen.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/store_detail/presentation/store_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/store_detail/presentation/store_detail_screen.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/stores/presentation/stores_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -38,7 +38,6 @@ final GlobalKey<NavigatorState> _shellNavigatorKey =
 final appRoute = GoRouter(
   initialLocation: NameRoutes.splash,
   navigatorKey: _rootNavigatorKey,
-  observers: [CustomNavigatorObserver()],
   redirect: (context, state) {
     debugPrint('Ruta actual: ${state.uri.toString()}');
 
@@ -98,12 +97,65 @@ final appRoute = GoRouter(
               builder: (context, state) => const ModuleScreen(),
               routes: [
                 GoRoute(
-                  path: NameRoutes.productsScreen,
-                  builder: (context, state) => const ProductsScreen(),
+                  path: NameRoutes.categorysScreen,
+                  builder: (context, state) => const CateogryScreen(),
+                  routes: [
+                    GoRoute(
+                      path: '${NameRoutes.productDetailScreen}/:idProduct',
+                      builder: (context, state) {
+                        final id = state.pathParameters['idProduct'];
+                        return ProductDetailScreen(id: id!);
+                      },
+                    ),
+                  ],
                 ),
                 GoRoute(
                   path: NameRoutes.answerWinScreen,
                   builder: (context, state) => const AnswerWinScreen(),
+                  routes: [
+                    GoRoute(
+                      path: '${NameRoutes.answerWinDetailScreen}/:idAnswer',
+                      builder: (context, state) {
+                        final idAnswer =
+                            int.parse(state.pathParameters['idAnswer']!);
+                        return AnswerWinDetailScreen(
+                          idAnswer: idAnswer,
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  path: NameRoutes.storesScreen,
+                  builder: (context, state) => const StoresScreen(),
+                  routes: [
+                    GoRoute(
+                      path: '${NameRoutes.storeDetailScreen}/:idStore',
+                      builder: (context, state) {
+                        final id = int.parse(state.pathParameters['idStore']!);
+                        return StoreDetailScreen(index: id);
+                      },
+                      routes: [
+                        GoRoute(
+                          path: '${NameRoutes.productDetailScreen}/:idProduct',
+                          builder: (context, state) {
+                            final id = state.pathParameters['idProduct'];
+                            return ProductDetailScreen(id: id!);
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+/*
+--------------------------MODULE SCREEN-------------------
+*/
+                GoRoute(
+                  path: '${NameRoutes.storeDetailScreen}/:idStore',
+                  builder: (context, state) {
+                    final id = int.parse(state.pathParameters['idStore']!);
+                    return StoreDetailScreen(index: id);
+                  },
                 ),
                 GoRoute(
                   path: '${NameRoutes.answerWinDetailScreen}/:idAnswer',
@@ -113,17 +165,6 @@ final appRoute = GoRouter(
                     return AnswerWinDetailScreen(
                       idAnswer: idAnswer,
                     );
-                  },
-                ),
-                GoRoute(
-                  path: NameRoutes.storesScreen,
-                  builder: (context, state) => const StoresScreen(),
-                ),
-                GoRoute(
-                  path: '${NameRoutes.storeScreen}/:idStore',
-                  builder: (context, state) {
-                    final id = int.parse(state.pathParameters['idStore']!);
-                    return StoreScreen(index: id);
                   },
                 ),
                 GoRoute(
@@ -273,28 +314,3 @@ final appRoute = GoRouter(
     ),
   ],
 );
-
-class CustomNavigatorObserver extends NavigatorObserver {
-  @override
-  void didPop(Route route, Route? previousRoute) {
-    super.didPop(route, previousRoute);
-
-    // Capturamos la ruta de la que regresamos
-    debugPrint('------Ruta anterior: ${route.settings.name ?? 'Sin nombre'}');
-
-    // Capturamos la ruta a la que se regresa (la ruta previa)
-    if (previousRoute != null) {
-      debugPrint(
-          '------Regresaste a la ruta: ${previousRoute.settings.name ?? 'Sin nombre'}');
-    } else {
-      debugPrint('------No hay ruta anterior');
-    }
-  }
-
-  @override
-  void didPush(Route route, Route? previousRoute) {
-    super.didPush(route, previousRoute);
-    debugPrint(
-        '-------Se navegó a la ruta: ${route.settings.name ?? 'Sin nombre'}');
-  }
-}

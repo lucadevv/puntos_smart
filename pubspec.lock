@@ -552,6 +552,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  marquee_list:
+    dependency: "direct main"
+    description:
+      name: marquee_list
+      sha256: "786ee8764d9f9f8683519f0221eac6d09c7f2a6309d98df848b53135151192f3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   matcher:
     dependency: transitive
     description:
@@ -981,14 +989,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.0"
-  text_marquee:
-    dependency: "direct main"
-    description:
-      name: text_marquee
-      sha256: "56dfa74b847a6acbf033fcfca88a0dcbc68134d4154f1bc9e68f8f75e196dc25"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.2"
   timezone:
     dependency: transitive
     description:

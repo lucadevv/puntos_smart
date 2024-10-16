@@ -28,8 +28,9 @@ class CategoryModuleWidget extends StatelessWidget {
                 indexAnimation: indexAnimtaion,
                 ontap: () {
                   context.push(
-                      "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.productsScreen}");
+                      "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.categorysScreen}");
                 },
+                isLoading: true,
               ),
             );
           },
