@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_arrow_back.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_carrd_product.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/store_detail/presentation/slivers/sliver_search_widget.dart';
@@ -20,7 +22,7 @@ class ProductsScreen extends StatelessWidget {
       },
       child: PopScope(
         onPopInvoked: (didPop) {
-          print('Se presionó el botón de retroceso');
+          context.go("${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}");
         },
         child: Scaffold(
           body: CustomScrollView(

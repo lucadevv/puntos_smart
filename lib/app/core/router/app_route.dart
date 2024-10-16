@@ -31,19 +31,16 @@ import 'package:puntos_smart_user/app/features/splash_feature/presentation/splas
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/store_detail/presentation/store_screen.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/stores/presentation/stores_screen.dart';
 
+final GlobalKey<NavigatorState> _rootNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'Root');
+final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'Shell');
 final appRoute = GoRouter(
   initialLocation: NameRoutes.splash,
-  // observers: [CustomNavigatorObserver()],
+  navigatorKey: _rootNavigatorKey,
+  observers: [CustomNavigatorObserver()],
   redirect: (context, state) {
     debugPrint('Ruta actual: ${state.uri.toString()}');
-    // if (authBloc.authStateStatus == AuthStateStatus.authUnauthenticated &&
-    //     state.name != NameRoutes.homeScreen) {
-    //   return NameRoutes.login;
-    // }
-    // if (authBloc.authStateStatus == AuthStateStatus.authAuthenticated &&
-    //     state.name == NameRoutes.login) {
-    //   return NameRoutes.login;
-    // }
 
     return null;
   },
@@ -82,13 +79,14 @@ final appRoute = GoRouter(
       ],
     ),
     ShellRoute(
+      navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) => DashboardScreen(child: child),
       routes: [
         GoRoute(
           path: NameRoutes.homeScreen,
           pageBuilder: (context, state) => CustomTransitionPage<void>(
-            // key: state.pageKey,
-            // name: state.fullPath,
+            key: state.pageKey,
+            name: state.fullPath,
             child: const HomeScreen(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>
@@ -97,14 +95,6 @@ final appRoute = GoRouter(
           routes: [
             GoRoute(
               path: NameRoutes.moduleScreen,
-              // pageBuilder: (context, state) => CustomTransitionPage<void>(
-              //   // key: state.pageKey,
-              //   // name: state.fullPath,
-              //   child: const ModuleScreen(),
-              //   transitionsBuilder:
-              //       (context, animation, secondaryAnimation, child) =>
-              //           FadeTransition(opacity: animation, child: child),
-              // ),
               builder: (context, state) => const ModuleScreen(),
               routes: [
                 GoRoute(
@@ -288,13 +278,23 @@ class CustomNavigatorObserver extends NavigatorObserver {
   @override
   void didPop(Route route, Route? previousRoute) {
     super.didPop(route, previousRoute);
-    debugPrint('------Ruta anterior: ${previousRoute?.settings.name}');
-    debugPrint('------Ruta actual: ${route.settings.name}');
+
+    // Capturamos la ruta de la que regresamos
+    debugPrint('------Ruta anterior: ${route.settings.name ?? 'Sin nombre'}');
+
+    // Capturamos la ruta a la que se regresa (la ruta previa)
+    if (previousRoute != null) {
+      debugPrint(
+          '------Regresaste a la ruta: ${previousRoute.settings.name ?? 'Sin nombre'}');
+    } else {
+      debugPrint('------No hay ruta anterior');
+    }
   }
 
   @override
   void didPush(Route route, Route? previousRoute) {
     super.didPush(route, previousRoute);
-    debugPrint('-------Se navegó a la ruta: ${route.settings.name}');
+    debugPrint(
+        '-------Se navegó a la ruta: ${route.settings.name ?? 'Sin nombre'}');
   }
 }
