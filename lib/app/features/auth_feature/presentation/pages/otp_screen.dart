@@ -10,7 +10,7 @@ import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_arrow_back.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/cubit/cubit/send_number_cubit.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/widgets/custom_button_widget.dart';
-import 'package:puntos_smart_user/app/features/store_feature/presentation/widgets/customt_extformfield_widget.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/store_detail/presentation/widgets/customt_extformfield_widget.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 class OtpScreen extends StatefulWidget {
