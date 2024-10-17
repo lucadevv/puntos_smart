@@ -42,10 +42,9 @@ class _SliverBannersHomeWidgetState extends State<SliverBannersHomeWidget> {
           final bannerList = state.bannerList;
           switch (state.bannersStatus) {
             case BannersStatus.loading:
-              return Container(
+              return SizedBox(
                 height: 180,
                 width: size.width,
-                padding: const EdgeInsets.only(left: 16),
                 child: CarouselSlider.builder(
                   itemCount: 3,
                   itemBuilder:
@@ -76,10 +75,9 @@ class _SliverBannersHomeWidgetState extends State<SliverBannersHomeWidget> {
               );
 
             case BannersStatus.success:
-              return Container(
+              return SizedBox(
                 height: 180,
                 width: size.width,
-                padding: const EdgeInsets.only(left: 16),
                 child: CarouselSlider.builder(
                   itemCount: bannerList.length, //bannerList.length,
                   itemBuilder:

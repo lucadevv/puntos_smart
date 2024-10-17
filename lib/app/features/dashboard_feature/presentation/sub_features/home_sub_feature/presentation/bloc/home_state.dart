@@ -56,6 +56,7 @@ class HomeState extends Equatable {
   List<Object> get props => [
         bannersStatus,
         bannerList,
+        moduleNoLoginStatus,
         moduleNoLoginList,
         newsList,
         newsStatus,

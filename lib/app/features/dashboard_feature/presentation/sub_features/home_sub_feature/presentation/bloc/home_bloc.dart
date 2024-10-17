@@ -30,11 +30,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _getAllBannersEvent(
       GetAllBannersEvent event, Emitter<HomeState> emit) async {
     emit(state.copyWith(bannersStatus: BannersStatus.loading));
-
     try {
       final response = await _homeRepository.getAllBanners();
       if (response is BannerSuccess) {
-        await Future.delayed(const Duration(seconds: 5));
+        await Future.delayed(const Duration(seconds: 4));
         emit(state.copyWith(
           bannerList: response.bannerList,
           bannersStatus: BannersStatus.success,
@@ -67,7 +66,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final response = await _homeRepository.getAllModules();
 
       if (response is ModuleNoLoginSuccess) {
-        await Future.delayed(const Duration(seconds: 5));
+        await Future.delayed(const Duration(seconds: 4));
         emit(state.copyWith(
           moduleNoLoginList: response.moduleNoLoginEntity,
           moduleNoLoginStatus: ModuleNoLoginStatus.success,
@@ -98,11 +97,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _getAllNewsEvent(
       GetAllNewsEvent event, Emitter<HomeState> emit) async {
     emit(state.copyWith(newsStatus: NewsStatus.loading));
+
     try {
       final response = await _homeRepository.getAllNews();
 
       if (response is NewsSuccess) {
-        await Future.delayed(const Duration(seconds: 5));
+        await Future.delayed(const Duration(seconds: 4));
         emit(state.copyWith(
           newsList: response.newsList,
           newsStatus: NewsStatus.success,
@@ -122,7 +122,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final response = await _homeRepository.getAllFutures();
 
       if (response is FeaturedSuccess) {
-        await Future.delayed(const Duration(seconds: 5));
+        await Future.delayed(const Duration(seconds: 4));
         emit(state.copyWith(
           featuredList: response.featuredList,
           featuredStatus: FeaturedStatus.success,

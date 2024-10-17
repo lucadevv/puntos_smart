@@ -94,18 +94,41 @@ class _SliverSmartNewHomeWidgetState extends State<SliverSmartNewHomeWidget> {
                         width: 260,
                         margin: const EdgeInsets.only(right: 12),
                         decoration: BoxDecoration(
+                          color: AppColors.highlightShimmer,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: CachedNetworkImage(
-                            imageUrl: item.imagen1,
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator()),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
+                        child: Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: SizedBox(
+                                height: 100,
+                                width: 100,
+                                child: CachedNetworkImage(
+                                  imageUrl: item.imagen1,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator()),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                ),
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Text(item.titulo),
+                                // Text(
+                                //   item.descripcion,
+                                //   maxLines: 4,
+                                //   style: const TextStyle(
+                                //     overflow: TextOverflow.ellipsis,
+                                //     fontSize: 10,
+                                //     color: Colors.black,
+                                //   ),
+                                // ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     );

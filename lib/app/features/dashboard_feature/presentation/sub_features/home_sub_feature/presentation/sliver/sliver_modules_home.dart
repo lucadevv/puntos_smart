@@ -25,7 +25,7 @@ class SliverModulesHomeWidget extends StatelessWidget {
             return SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               sliver: SliverGrid.builder(
-                itemCount: isMore ? 9 : 6,
+                itemCount: !isMore ? 6 : 6,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   mainAxisSpacing: 12,
@@ -45,7 +45,7 @@ class SliverModulesHomeWidget extends StatelessWidget {
             return SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               sliver: SliverGrid.builder(
-                itemCount: isMore ? moduleNologin.length : moduleNologin.length,
+                itemCount: !isMore ? 6 : moduleNologin.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   mainAxisSpacing: 12,
