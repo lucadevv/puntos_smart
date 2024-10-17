@@ -27,6 +27,7 @@ import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/su
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/product_detail/presentation/product_detail_screen.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/category/presentation/category_screen.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/rate_store_feature/presentation/rate_store_screen.dart';
+import 'package:puntos_smart_user/app/features/splash_feature/presentation/location_screen.dart';
 import 'package:puntos_smart_user/app/features/splash_feature/presentation/splash_screen.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/store_detail/presentation/store_detail_screen.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/stores/presentation/stores_screen.dart';
@@ -46,6 +47,10 @@ final appRoute = GoRouter(
     GoRoute(
       path: NameRoutes.splash,
       builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: NameRoutes.location,
+      builder: (context, state) => const LocationScreen(),
     ),
     GoRoute(
       path: NameRoutes.login,

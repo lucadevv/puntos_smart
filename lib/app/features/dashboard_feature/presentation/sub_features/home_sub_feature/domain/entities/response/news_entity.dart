@@ -1,4 +1,4 @@
-import '../../../data/model/response/news_response_db_model.dart';
+import '../../../data/model/response/home/news_response_db_model.dart';
 
 class NewsEntity {
   final int id;

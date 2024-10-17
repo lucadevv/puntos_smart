@@ -10,8 +10,8 @@ import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/su
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/results/module_no_login_result.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/results/news_result.dart';
 
-import '../../domain/entities/response/featured_entity.dart';
-import '../../domain/entities/response/news_entity.dart';
+import '../../../domain/entities/response/featured_entity.dart';
+import '../../../domain/entities/response/news_entity.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

@@ -1,4 +1,4 @@
-import '../../../data/model/response/featured_response_db_model.dart';
+import '../../../data/model/response/home/featured_response_db_model.dart';
 
 class FeaturedEntity {
   final int id;

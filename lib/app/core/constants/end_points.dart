@@ -22,4 +22,8 @@ class EndPoints {
   static const modulesNoLogin = '/api/v1/customers/getCategory';
   static const newsHome = '/api/v1/customers/getNoticias';
   static const featuredHome = "/api/v1/customers/getProductosDestacados";
+/*
+  ------------------------MODULE PAGE---------------------
+   */
+  static const geoPromotions = "/api/v1/customers/findPromotionalProductNear";
 }

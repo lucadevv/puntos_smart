@@ -39,7 +39,7 @@ class ModuleScreen extends StatelessWidget {
             ),
             const WinPointsModuleWidget(indexAnimation: 6),
             const SliverSubtitleWidget(
-              subTitle: AppText.smartTrends,
+              subTitle: AppText.flashPromotions,
               index: 3,
             ),
             const SmartTrendsModuleWidget(),

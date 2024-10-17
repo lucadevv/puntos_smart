@@ -60,13 +60,13 @@ class SliverAppbarHomePage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (BuildContext context) {
-                      return const LocationModal();
-                    },
-                  );
+                  // showModalBottomSheet(
+                  //   context: context,
+                  //   isScrollControlled: true,
+                  //   builder: (BuildContext context) {
+                  //     return const LocationModal();
+                  //   },
+                  // );
                 },
                 child: const Icon(
                   Icons.arrow_drop_down_sharp,

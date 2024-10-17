@@ -1,6 +1,7 @@
 class NameRoutes {
   const NameRoutes._();
   static const splash = '/';
+  static const location = '/location';
   static const login = '/login';
   static const otpScreen = 'otp';
   static const resetScreen = 'reset';

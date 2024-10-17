@@ -1,4 +1,4 @@
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/data/model/response/banner_response_db_model.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/data/model/response/home/banner_response_db_model.dart';
 
 class BannerEntity {
   final int id;

@@ -43,6 +43,9 @@ class AppText {
   static const resetWithNumberSubtitle =
       'Ingresa tu número de celular para recibir un código y restablecerla fácilmente.';
   static const myLocation = 'Mi ubicación';
+  static const activeMyLocation = 'Activar mi ubicación';
+  static const activeLocationDescription =
+      "Utiliza la geolocalización para proveer servicios personalizados. Por favor habilite la ubicación para ver los comercios afiliados cerca de ti.";
   static const modulesSmart = 'Modulos Smart';
   static const smartNew = 'Noticias smart';
   static const highlightsSmart = 'Destacados smart';
@@ -54,6 +57,7 @@ class AppText {
   static const winPoints = 'Ganar Puntos';
   static const smartTrends = 'Tendencias Smart';
   static const newStores = 'Nuevas Tiendas';
+  static const flashPromotions = 'Promociones Flash';
   static const featuredProducts = 'Productos destacados';
   static const storesSmart = 'Tiendas Smart';
   static const answerAndWin = 'Responde y gana';

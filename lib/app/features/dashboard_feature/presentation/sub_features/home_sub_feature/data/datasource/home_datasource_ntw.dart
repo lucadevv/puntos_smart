@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:puntos_smart_user/app/api/network/api_client.dart';
 import 'package:puntos_smart_user/app/core/constants/end_points.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/data/model/response/banner_response_db_model.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/data/model/response/featured_response_db_model.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/data/model/response/news_response_db_model.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/data/model/response/home/banner_response_db_model.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/data/model/response/home/featured_response_db_model.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/data/model/response/home/news_response_db_model.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/data/model/response/module/geo_promotions_response_model.dart';
 
 class HomeDatasourceNtw {
   final ApiClient _apiClient;
@@ -106,6 +108,36 @@ class HomeDatasourceNtw {
       } else {
         debugPrint('Error durante leer  destacados $e');
         throw Exception('Error durante leer destacados');
+      }
+    }
+  }
+
+  Future<List<GeoPromotionsResponseDbModel>> getAllGeoPromotions(
+      {required LatLng latLng}) async {
+    try {
+      final response = await _apiClient.postData(
+        EndPoints.geoPromotions,
+        data: {"latitud": latLng.latitude, "longitud": latLng.longitude},
+      );
+
+      if (response.statusCode == 200) {
+        final list = response.data as List<dynamic>;
+        return list
+            .map((item) => GeoPromotionsResponseDbModel.fromJson(item))
+            .toList();
+      } else {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          type: DioExceptionType.badResponse,
+        );
+      }
+    } catch (e) {
+      if (e is DioException) {
+        rethrow;
+      } else {
+        debugPrint('Error durante leer  promociones localizadas$e');
+        throw Exception('Error durante leer  promociones localizadas');
       }
     }
   }

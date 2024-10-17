@@ -1,6 +1,7 @@
 class AppImages {
   const AppImages._();
   static const location = 'assets/images/location.png';
+  static const locationOne = 'assets/images/location_one.png';
   static const clock = 'assets/images/clock.png';
   static const phone = 'assets/images/phone.png';
   static const coupon = 'assets/images/coupon.png';

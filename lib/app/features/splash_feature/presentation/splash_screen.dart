@@ -51,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen>
       seconds: 2,
     )).then((_) {
       if (mounted) {
-        context.go(NameRoutes.homeScreen);
+        context.go(NameRoutes.location);
       }
     });
   }

@@ -7,7 +7,7 @@ import 'package:puntos_smart_user/app/api/services_token/token_storage_services.
 import 'package:puntos_smart_user/app/core/bloc/local_notification_bloc.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/signup_bloc/signup_bloc.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/repository/home_repository.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/bloc/home_bloc.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/bloc/home_bloc/home_bloc.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/pages/address_page/domain/repository/location_repository.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/pages/address_page/presentation/bloc/location/location_bloc.dart';
 import 'package:puntos_smart_user/app/core/router/app_route.dart';
