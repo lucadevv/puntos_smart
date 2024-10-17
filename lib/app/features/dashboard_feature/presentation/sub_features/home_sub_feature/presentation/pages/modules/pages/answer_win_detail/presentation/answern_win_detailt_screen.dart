@@ -301,7 +301,7 @@ class AnswerWinDetailScreenState extends State<AnswerWinDetailScreen> {
                                 ? () {
                                     if (currentQuestionIndex ==
                                         surveys.length - 1) {
-                                      context.go(NameRoutes.dashboardScreen);
+                                      context.go(NameRoutes.homeScreen);
                                     } else {
                                       submitAnswer();
                                     }

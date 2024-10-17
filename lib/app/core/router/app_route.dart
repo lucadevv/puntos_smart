@@ -40,7 +40,6 @@ final appRoute = GoRouter(
   navigatorKey: _rootNavigatorKey,
   redirect: (context, state) {
     debugPrint('Ruta actual: ${state.uri.toString()}');
-
     return null;
   },
   routes: [

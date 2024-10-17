@@ -260,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: InkWell(
                                     onTap: () {
                                       context.push(
-                                          NameRoutes.resetScreenWithNumber);
+                                          "${NameRoutes.login}/${NameRoutes.resetScreenWithNumber}");
                                     },
                                     splashColor:
                                         AppColors.onPrimary.withOpacity(0.2),
@@ -359,8 +359,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   surfaceTintColor: Colors.amber,
                                   child: InkWell(
                                     onTap: () {
-                                      context
-                                          .push(NameRoutes.registerWithNumber);
+                                      context.push(
+                                          "${NameRoutes.login}/${NameRoutes.registerWithNumber}");
                                     },
                                     splashColor:
                                         AppColors.onPrimary.withOpacity(0.2),

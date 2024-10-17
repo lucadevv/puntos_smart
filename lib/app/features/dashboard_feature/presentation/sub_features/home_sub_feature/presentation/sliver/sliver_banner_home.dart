@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
+import 'package:puntos_smart_user/app/core/widgets/custom_shimer.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/bloc/home_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SliverBannersHomeWidget extends StatefulWidget {
   const SliverBannersHomeWidget({
@@ -53,12 +55,16 @@ class _SliverBannersHomeWidgetState extends State<SliverBannersHomeWidget> {
                       transform: Matrix4.translationValues(
                           myAnimationLoading ? 0 : -560, 0, 0),
                       curve: Curves.easeInOut,
-                      child: Container(
-                        width: 260,
-                        margin: const EdgeInsets.only(right: 12),
-                        decoration: BoxDecoration(
-                          color: AppColors.descriptionColor,
-                          borderRadius: BorderRadius.circular(12),
+                      child: Shimmer.fromColors(
+                        baseColor: AppColors.baseShimmer,
+                        highlightColor: AppColors.highlightShimmer,
+                        child: const Padding(
+                          padding: EdgeInsets.only(right: 12),
+                          child: CustomShimer(
+                            width: 260,
+                            heigh: 180,
+                            borderRadius: 16,
+                          ),
                         ),
                       ),
                     );

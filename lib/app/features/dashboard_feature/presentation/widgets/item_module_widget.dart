@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 
 import 'package:puntos_smart_user/app/core/widgets/custom_ontap.dart';
+import 'package:puntos_smart_user/app/core/widgets/custom_shimer.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ItemModuleWidget extends StatefulWidget {
   const ItemModuleWidget({
@@ -44,41 +47,55 @@ class _ItemModuleWidgetState extends State<ItemModuleWidget> {
       duration: Duration(milliseconds: 650 + ((widget.index) * 150)),
       transform: Matrix4.translationValues(myAnimation ? 0 : -550, 0, 0),
       curve: Curves.easeInOut,
-      child: SizedBox(
-        height: 110,
-        width: 110,
-        child: Stack(
-          alignment: Alignment.center,
-          fit: StackFit.expand,
-          children: [
-            Container(
+      child: widget.isLoading
+          ? Shimmer.fromColors(
+              baseColor: AppColors.baseShimmer,
+              highlightColor: AppColors.highlightShimmer,
+              child: const Padding(
+                padding: EdgeInsets.only(right: 12),
+                child: CustomShimer(
+                  width: 110,
+                  heigh: 100,
+                  borderRadius: 16,
+                ),
+              ),
+            )
+          : SizedBox(
               height: 110,
               width: 110,
-              decoration: BoxDecoration(
-                color: widget.isLoading ? Colors.grey : Colors.transparent,
-                borderRadius: BorderRadius.circular(15),
+              child: Stack(
+                alignment: Alignment.center,
+                fit: StackFit.expand,
+                children: [
+                  Container(
+                    height: 110,
+                    width: 110,
+                    decoration: BoxDecoration(
+                      color:
+                          widget.isLoading ? Colors.grey : Colors.transparent,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: !widget.isLoading && widget.image != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: CachedNetworkImage(
+                              imageUrl: widget.image!,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: CustomOnTap(onTap: widget.ontap),
+                  ),
+                ],
               ),
-              child: !widget.isLoading && widget.image != null
-                  ? ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.image!,
-                        fit: BoxFit.cover,
-                        placeholder: (context, url) =>
-                            const Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
-                    )
-                  : const SizedBox.shrink(),
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: CustomOnTap(onTap: widget.ontap),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

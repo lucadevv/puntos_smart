@@ -23,10 +23,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _getAllBannersEvent(
       GetAllBannersEvent event, Emitter<HomeState> emit) async {
     emit(state.copyWith(bannersStatus: BannersStatus.loading));
-    await Future.delayed(const Duration(seconds: 5));
+
     try {
       final response = await _homeRepository.getAllBanners();
       if (response is BannerSuccess) {
+        await Future.delayed(const Duration(seconds: 5));
         emit(state.copyWith(
           bannerList: response.bannerList,
           bannersStatus: BannersStatus.success,
@@ -54,11 +55,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _getAllModuleNoLoginEvent(
       GetAllModuleNoLoginEvent event, Emitter<HomeState> emit) async {
     emit(state.copyWith(moduleNoLoginStatus: ModuleNoLoginStatus.loading));
-    await Future.delayed(const Duration(seconds: 5));
+
     try {
       final response = await _homeRepository.getAllModules();
 
       if (response is ModuleNoLoginSuccess) {
+        await Future.delayed(const Duration(seconds: 5));
         emit(state.copyWith(
           moduleNoLoginList: response.moduleNoLoginEntity,
           moduleNoLoginStatus: ModuleNoLoginStatus.success,

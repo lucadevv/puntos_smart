@@ -8,8 +8,6 @@ class NameRoutes {
   static const registerWithNumber = 'register_number';
   static const registerScreen = 'register_screen';
 
-  static const dashboardScreen = '/dashboard';
-
 /*
      ------------------HOME SCREEN-----------
 */

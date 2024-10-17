@@ -178,7 +178,8 @@ class _ResetWithNumberScreenState extends State<ResetWithNumberScreen> {
                         listener: (context, state) {
                           switch (state.sendNumberStatus) {
                             case SendNumberStatus.success:
-                              context.push("${NameRoutes.otpScreen}/${2}");
+                              context.push(
+                                  "${NameRoutes.login}/${NameRoutes.otpScreen}/${2}");
                               break;
                             case SendNumberStatus.server:
                               ScaffoldMessenger.of(context).showSnackBar(
