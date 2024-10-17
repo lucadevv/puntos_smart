@@ -38,7 +38,7 @@ class BannerEntity {
       BannerEntity(
         id: model.id,
         titulo: model.titulo,
-        imagen1: model.imagen1,
+        imagen1: model.imagen,
       );
 
   static List<BannerEntity> listModelToEntityModel(

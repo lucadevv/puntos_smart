@@ -32,34 +32,34 @@ class BannerResponseDbModel {
 class BannerModel {
   final int id;
   final String titulo;
-  final String imagen1;
+  final String imagen;
 
   BannerModel({
     required this.id,
     required this.titulo,
-    required this.imagen1,
+    required this.imagen,
   });
 
   BannerModel copyWith({
     int? id,
     String? titulo,
-    String? imagen1,
+    String? imagen,
   }) =>
       BannerModel(
         id: id ?? this.id,
         titulo: titulo ?? this.titulo,
-        imagen1: imagen1 ?? this.imagen1,
+        imagen: imagen ?? this.imagen,
       );
 
   factory BannerModel.fromJson(Map<String, dynamic> json) => BannerModel(
         id: json["id"],
         titulo: json["titulo"],
-        imagen1: json["imagen1"],
+        imagen: json["imagen"] ?? json["imagen1"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "titulo": titulo,
-        "imagen1": imagen1,
+        "imagen": imagen,
       };
 }
