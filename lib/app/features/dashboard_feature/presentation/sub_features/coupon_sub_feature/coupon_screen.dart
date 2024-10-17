@@ -7,8 +7,28 @@ import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/au
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/coupon_store/presentation/widgets/coupon_widget.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/store_detail/presentation/slivers/sliver_search_widget.dart';
 
-class MyCouponScreen extends StatelessWidget {
+import '../../../../../core/widgets/skeleton.dart';
+
+class MyCouponScreen extends StatefulWidget {
   const MyCouponScreen({super.key});
+
+  @override
+  _MyCouponScreen createState() => _MyCouponScreen();
+}
+
+class _MyCouponScreen extends State<MyCouponScreen> {
+  bool _isLoading = true; // Controla el estado de la carga
+
+  @override
+  void initState() {
+    super.initState();
+    // Simula la carga durante 2 segundos
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false; // Después de 2 segundos, dejamos de cargar
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,23 +67,51 @@ class MyCouponScreen extends StatelessWidget {
                         showBackIcon: false,
                         safeAreaTop: 0,
                         focusNode: FocusNode()),
-                    SliverList.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: GestureDetector(
-                            onTap: () {
-                              context
-                                  .push('${NameRoutes.couponsScreen}/1/$index');
+                    _isLoading
+                        ? SliverList.builder(
+                            itemCount: 10,
+                            itemBuilder: (context, index) {
+                              return const Padding(
+                                padding: EdgeInsets.only(bottom: 12),
+                                child: coupon_skeleton(),
+                              );
                             },
-                            child: CouponWidget(
-                              index: index,
-                            ),
+                          )
+                        : SliverList.builder(
+                            itemCount: 10,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context.push(
+                                        '${NameRoutes.couponsScreen}/1/$index');
+                                  },
+                                  child: CouponWidget(
+                                    index: index,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    )
+
+                    // SliverList.builder(
+                    //   itemCount: 10,
+                    //   itemBuilder: (context, index) {
+                    //     return Padding(
+                    //       padding: const EdgeInsets.only(bottom: 12),
+                    //       child: GestureDetector(
+                    //         onTap: () {
+                    //           context
+                    //               .push('${NameRoutes.couponsScreen}/1/$index');
+                    //         },
+                    //         child: CouponWidget(
+                    //           index: index,
+                    //         ),
+                    //       ),
+                    //     );
+                    //   },
+                    // )
                   ],
                 );
 

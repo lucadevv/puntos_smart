@@ -77,7 +77,7 @@ class _CustomItemAnswerWidgetState extends State<CustomItemAnswerWidget> {
             Text(
               'Hamburguesas',
               style: textTheme.bodySmall!.copyWith(
-                color: Colors.black54,
+                color: AppColors.greymedium,
               ),
               maxLines: 1,
             ),
@@ -85,7 +85,7 @@ class _CustomItemAnswerWidgetState extends State<CustomItemAnswerWidget> {
             Text(
               'Titulo de la Encuesta, maximo tres lineas y longitud',
               style: textTheme.bodySmall!.copyWith(
-                color: Colors.black54,
+                color: AppColors.greynew,
                 fontWeight: FontWeight.w700,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -95,7 +95,7 @@ class _CustomItemAnswerWidgetState extends State<CustomItemAnswerWidget> {
             Text(
               'Gana 20 PS',
               style: textTheme.bodySmall!.copyWith(
-                color: Colors.black54,
+                color: AppColors.greymedium,
                 fontWeight: FontWeight.w700,
               ),
               textAlign: TextAlign.end,
