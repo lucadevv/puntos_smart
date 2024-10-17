@@ -46,30 +46,32 @@ class _SliverBannersHomeWidgetState extends State<SliverBannersHomeWidget> {
                 height: 180,
                 width: size.width,
                 padding: const EdgeInsets.only(left: 16),
-                child: ListView.builder(
-                  shrinkWrap: true,
+                child: CarouselSlider.builder(
                   itemCount: 3,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, idx) {
+                  itemBuilder:
+                      (BuildContext context, int itemIndex, int pageViewIndex) {
                     return AnimatedContainer(
-                      duration: Duration(milliseconds: 650 + ((idx) * 250)),
+                      duration:
+                          Duration(milliseconds: 650 + ((itemIndex) * 250)),
                       transform: Matrix4.translationValues(
-                          myAnimationLoading ? 0 : -560, 0, 0),
+                          myAnimationSuccess ? 0 : -560, 0, 0),
                       curve: Curves.easeInOut,
                       child: Shimmer.fromColors(
                         baseColor: AppColors.baseShimmer,
                         highlightColor: AppColors.highlightShimmer,
-                        child: const Padding(
-                          padding: EdgeInsets.only(right: 12),
-                          child: CustomShimer(
-                            width: 260,
-                            heigh: 180,
-                            borderRadius: 16,
-                          ),
+                        child: const CustomShimer(
+                          width: double.infinity,
+                          heigh: 180,
+                          borderRadius: 16,
                         ),
                       ),
                     );
                   },
+                  options: CarouselOptions(
+                    viewportFraction: 0.7,
+                    autoPlay: false,
+                    enlargeCenterPage: true,
+                  ),
                 ),
               );
 
@@ -79,65 +81,42 @@ class _SliverBannersHomeWidgetState extends State<SliverBannersHomeWidget> {
                 width: size.width,
                 padding: const EdgeInsets.only(left: 16),
                 child: CarouselSlider.builder(
-                  itemCount: 5, //bannerList.length,
+                  itemCount: bannerList.length, //bannerList.length,
                   itemBuilder:
                       (BuildContext context, int itemIndex, int pageViewIndex) {
-                    return Container(
-                      height: 180,
-                      width: size.width,
-                      margin: EdgeInsets.only(right: 16),
-                      color: Colors.primaries[itemIndex],
+                    final item = bannerList[itemIndex];
+                    return AnimatedContainer(
+                      duration:
+                          Duration(milliseconds: 650 + ((itemIndex) * 250)),
+                      transform: Matrix4.translationValues(
+                          myAnimationSuccess ? 0 : -560, 0, 0),
+                      curve: Curves.easeInOut,
+                      child: Container(
+                        width: size.width,
+                        margin: const EdgeInsets.only(right: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: CachedNetworkImage(
+                            imageUrl: item.imagen1,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                          ),
+                        ),
+                      ),
                     );
                   },
                   options: CarouselOptions(
-                    // height: 180,
-                    // aspectRatio: 16 / 8,
-                    viewportFraction: 1,
-                    // initialPage: 0,
-                    // enableInfiniteScroll: true,
-                    // reverse: false,
+                    viewportFraction: 0.7,
                     autoPlay: true,
-                    // autoPlayInterval: const Duration(seconds: 3),
-                    // autoPlayAnimationDuration:
-                    //     const Duration(milliseconds: 800),
-                    // autoPlayCurve: Curves.fastOutSlowIn,
-                    // enlargeCenterPage: true,
-                    // enlargeFactor: 0.3,
-                    // scrollDirection: Axis.horizontal,
+                    enlargeCenterPage: true,
                   ),
                 ),
-                // child: ListView.builder(
-                //   shrinkWrap: true,
-                //   itemCount: bannerList.length,
-                //   scrollDirection: Axis.horizontal,
-                //   itemBuilder: (context, idx) {
-                //     final item = bannerList[idx];
-                //     return AnimatedContainer(
-                //       duration: Duration(milliseconds: 650 + ((idx) * 250)),
-                //       transform: Matrix4.translationValues(
-                //           myAnimationSuccess ? 0 : -560, 0, 0),
-                //       curve: Curves.easeInOut,
-                //       child: Container(
-                //         width: 260,
-                //         margin: const EdgeInsets.only(right: 12),
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.circular(12),
-                //         ),
-                //         child: ClipRRect(
-                //           borderRadius: BorderRadius.circular(12),
-                //           child: CachedNetworkImage(
-                //             imageUrl: item.imagen1,
-                //             fit: BoxFit.cover,
-                //             placeholder: (context, url) => const Center(
-                //                 child: CircularProgressIndicator()),
-                //             errorWidget: (context, url, error) =>
-                //                 const Icon(Icons.error),
-                //           ),
-                //         ),
-                //       ),
-                //     );
-                //   },
-                // ),
               );
 
             default:

@@ -51,13 +51,10 @@ class _ItemModuleWidgetState extends State<ItemModuleWidget> {
           ? Shimmer.fromColors(
               baseColor: AppColors.baseShimmer,
               highlightColor: AppColors.highlightShimmer,
-              child: const Padding(
-                padding: EdgeInsets.only(right: 12),
-                child: CustomShimer(
-                  width: 110,
-                  heigh: 100,
-                  borderRadius: 16,
-                ),
+              child: const CustomShimer(
+                width: 110,
+                heigh: 100,
+                borderRadius: 16,
               ),
             )
           : SizedBox(

@@ -29,8 +29,8 @@ class HomeDatasourceNtw {
       if (e is DioException) {
         rethrow;
       } else {
-        debugPrint('Error durante la acctualizacion de contraseña: $e');
-        throw Exception('Error durante la acctualizacion de contraseña');
+        debugPrint('Error durante leer los banners:$e');
+        throw Exception('Error durante leer los banners');
       }
     }
   }
