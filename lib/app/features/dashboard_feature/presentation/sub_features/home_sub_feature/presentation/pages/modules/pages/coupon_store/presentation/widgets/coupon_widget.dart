@@ -17,7 +17,7 @@ class CouponWidget extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Container(
       height: 170,
-      margin: const EdgeInsets.only(bottom: 16, top: 8),
+      //margin: const EdgeInsets.only(bottom: 16, top: 8),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Stack(
         alignment: Alignment.center,
@@ -29,12 +29,15 @@ class CouponWidget extends StatelessWidget {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.08),
-                  blurRadius: 2,
-                  spreadRadius: 2,
-                )
+                  color: AppColors.greynew
+                      .withOpacity(0.2), // Color de la sombra con opacidad
+                  spreadRadius: 1, // Extensión de la sombra
+                  blurRadius: 8, // Desenfoque de la sombra
+                  offset:
+                      const Offset(0, 4), // Desplazamiento de la sombra (x, y)
+                ),
               ],
-              border: Border.all(color: Colors.grey.withOpacity(0.4), width: 2),
+              //border: Border.all(color: Colors.grey.withOpacity(0.4), width: 2),
             ),
           ),
           Padding(
