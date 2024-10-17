@@ -35,13 +35,11 @@ class _SliverHighlightsSmartHomeWidgetState
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       sliver: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           final featuredList = state.featuredList;
-          print(state.featuredStatus);
           switch (state.featuredStatus) {
             case FeaturedStatus.loading:
               return SliverList.builder(
@@ -72,7 +70,6 @@ class _SliverHighlightsSmartHomeWidgetState
                 itemCount: featuredList.length,
                 itemBuilder: (context, index) {
                   final item = featuredList[index];
-
                   return AnimatedContainer(
                     duration: Duration(milliseconds: 650 + ((index) * 250)),
                     transform: Matrix4.translationValues(
