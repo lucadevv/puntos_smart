@@ -20,4 +20,6 @@ class EndPoints {
 
   static const bannersNoLogin = '/api/v1/customers/getBanner';
   static const modulesNoLogin = '/api/v1/customers/getCategory';
+  static const newsHome = '/api/v1/customers/getNoticias';
+  static const featuredHome = "/api/v1/customers/getProductosDestacados";
 }

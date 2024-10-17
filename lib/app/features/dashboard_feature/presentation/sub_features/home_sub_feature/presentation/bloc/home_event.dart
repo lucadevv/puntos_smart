@@ -10,3 +10,7 @@ abstract class HomeEvent extends Equatable {
 class GetAllBannersEvent extends HomeEvent {}
 
 class GetAllModuleNoLoginEvent extends HomeEvent {}
+
+class GetAllNewsEvent extends HomeEvent {}
+
+class GetAllFeaturedEvent extends HomeEvent {}

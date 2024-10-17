@@ -87,7 +87,9 @@ class MyApp extends StatelessWidget {
             homeRepository: GetIt.instance<HomeRepository>(),
           )
             ..add(GetAllModuleNoLoginEvent())
-            ..add(GetAllBannersEvent()),
+            ..add(GetAllBannersEvent())
+            ..add(GetAllNewsEvent())
+            ..add(GetAllFeaturedEvent()),
         )
       ],
       child: MaterialApp.router(
