@@ -18,10 +18,16 @@ class NewStoresModuleWidget extends StatelessWidget {
           child: CustomStoreWidget(
             index: index,
             navigateStoreLogo: () {
-              context.push('${NameRoutes.storeScreen}/$index');
+              context.push(
+                "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.storeDetailScreen}/$index",
+                extra: {'fromModule': true},
+              );
             },
             navigateStoresTitle: () {
-              context.push('${NameRoutes.storeScreen}/$index');
+              context.push(
+                "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.storeDetailScreen}/$index",
+                extra: {'fromModule': true},
+              );
             },
           ),
         );

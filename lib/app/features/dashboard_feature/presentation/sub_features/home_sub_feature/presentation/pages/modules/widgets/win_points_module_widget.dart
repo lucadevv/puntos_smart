@@ -27,7 +27,10 @@ class WinPointsModuleWidget extends StatelessWidget {
               padding: const EdgeInsets.only(right: 12),
               child: InkWell(
                 onTap: () {
-                  context.push('${NameRoutes.answerWinDetailScreen}/$idx');
+                  context.push(
+                    '${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.answerWinDetailScreen}/$idx',
+                    extra: {'fromModule': true},
+                  );
                 },
                 child: CustomItemAnswerWidget(
                   index: idx,

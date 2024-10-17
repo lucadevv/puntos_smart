@@ -6,25 +6,23 @@ class NameRoutes {
   static const resetScreen = 'reset';
   static const resetScreenWithNumber = 'reset_number';
   static const registerWithNumber = 'register_number';
-  static const registerScreen = 'register';
-
-  static const dashboardScreen = '/dashboard';
+  static const registerScreen = 'register_screen';
 
 /*
      ------------------HOME SCREEN-----------
 */
   static const homeScreen = "/home_screen";
 
-  static const moduleScreen = 'moduleScreen';
-  static const productsScreen = 'products';
+  static const moduleScreen = 'module_screen';
+  static const categorysScreen = 'category_screen';
 
   static const answerWinScreen = 'answer_win_screen';
   static const answerWinDetailScreen = 'answer_win_detail_screen';
 
-  static const storeScreen = 'store_screen';
+  static const storeDetailScreen = 'store_detail_screen';
   static const storesScreen = 'stores_screen';
 
-  static const productDetailScreen = 'productDetail';
+  static const productDetailScreen = 'product_detail_screen';
 
 /*
      ------------------FAVORITE SCREEN-----------

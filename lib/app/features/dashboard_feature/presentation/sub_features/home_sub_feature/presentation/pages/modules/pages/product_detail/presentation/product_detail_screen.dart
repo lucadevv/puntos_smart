@@ -12,26 +12,59 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          const SliverAppbarProductWidget(),
-          const SliverHeaderWidget(),
-          SliverList.builder(
-            itemCount: 10,
-            itemBuilder: (contex, index) {
-              return GestureDetector(
-                onTap: () {
-                  context.push(
-                      '${NameRoutes.couponsScreen}/1/$index'); // Donde '1' es el idTienda y '2' es el idCoupon
-                },
-                child: CouponWidget(
-                  index: index,
-                ),
-              );
-            },
-          )
-        ],
+    final goRouterState = GoRouterState.of(context);
+    final extra = goRouterState.extra;
+
+    return PopScope(
+      onPopInvoked: (didPop) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (extra != null && extra is Map && extra['fromStores'] == true) {
+            context.go(
+                "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.storesScreen}");
+          } else if (extra != null &&
+              extra is Map &&
+              extra['fromStore'] == true) {
+            context.go(
+              "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.storesScreen}/${NameRoutes.storeDetailScreen}/$id",
+              extra: "fromDetailProductStore",
+            );
+          } else if (extra != null &&
+              extra is Map &&
+              extra['fromModule'] == true) {
+            context.go("${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}");
+          } else if (extra != null &&
+              extra is Map &&
+              extra['fromCategory'] == true) {
+            context.go(
+                "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.categorysScreen}");
+          } else {
+            context.go("${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}");
+          }
+        });
+      },
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverAppbarProductWidget(
+              id: id,
+            ),
+            const SliverHeaderWidget(),
+            SliverList.builder(
+              itemCount: 10,
+              itemBuilder: (contex, index) {
+                return GestureDetector(
+                  onTap: () {
+                    context.push(
+                        '${NameRoutes.couponsScreen}/1/$index'); // Donde '1' es el idTienda y '2' es el idCoupon
+                  },
+                  child: CouponWidget(
+                    index: index,
+                  ),
+                );
+              },
+            )
+          ],
+        ),
       ),
     );
   }

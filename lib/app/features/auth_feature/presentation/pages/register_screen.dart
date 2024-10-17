@@ -313,6 +313,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           switch (state.signUpStatus) {
                             case SignUpStatus.success:
                               context.go(NameRoutes.login);
+
                               break;
                             case SignUpStatus.termsNotAccepted:
                               ScaffoldMessenger.of(context).showSnackBar(

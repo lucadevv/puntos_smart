@@ -16,41 +16,47 @@ class ModuleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          const SliverAppbarHomePage(),
-          const SliverSubtitleWidget(),
-          const SliverBannersHomeWidget(),
-          const SliverSubtitleWidget(subTitle: AppText.categories, index: 2),
-          const CategoryModuleWidget(indexAnimtaion: 3),
-          SliverSubtitleWidget(
-            subTitle: AppText.winPoints,
-            subTitle2: AppText.seeMore,
-            index: 2,
-            onTap2: () {
-              context.push(
-                  "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.answerWinScreen}");
-            },
-          ),
-          const WinPointsModuleWidget(indexAnimation: 6),
-          const SliverSubtitleWidget(
-            subTitle: AppText.smartTrends,
-            index: 3,
-          ),
-          const SmartTrendsModuleWidget(),
-          SliverSubtitleWidget(
-            index: 4,
-            subTitle: AppText.newStores,
-            subTitle2: AppText.seeMore,
-            onTap2: () {
-              context.push(NameRoutes.storesScreen);
-            },
-          ),
-          const NewStoresModuleWidget(),
-          const SliverSubtitleWidget(subTitle: AppText.featuredProducts),
-          const FeatureProductsModuleWidget(),
-        ],
+    return PopScope(
+      onPopInvoked: (didPop) {
+        context.go(NameRoutes.homeScreen);
+      },
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            const SliverAppbarHomePage(),
+            const SliverSubtitleWidget(),
+            const SliverBannersHomeWidget(),
+            const SliverSubtitleWidget(subTitle: AppText.categories, index: 2),
+            const CategoryModuleWidget(indexAnimtaion: 3),
+            SliverSubtitleWidget(
+              subTitle: AppText.winPoints,
+              subTitle2: AppText.seeMore,
+              index: 2,
+              onTap2: () {
+                context.push(
+                    "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.answerWinScreen}");
+              },
+            ),
+            const WinPointsModuleWidget(indexAnimation: 6),
+            const SliverSubtitleWidget(
+              subTitle: AppText.smartTrends,
+              index: 3,
+            ),
+            const SmartTrendsModuleWidget(),
+            SliverSubtitleWidget(
+              index: 4,
+              subTitle: AppText.newStores,
+              subTitle2: AppText.seeMore,
+              onTap2: () {
+                context.push(
+                    "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.storesScreen}");
+              },
+            ),
+            const NewStoresModuleWidget(),
+            const SliverSubtitleWidget(subTitle: AppText.featuredProducts),
+            const FeatureProductsModuleWidget(),
+          ],
+        ),
       ),
     );
   }

@@ -47,13 +47,11 @@ class _RegisterWithNumberScreenState extends State<RegisterWithNumberScreen> {
 
           if (_focusNodes[i].hasFocus) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              // Calculamos la posición del campo de texto
               RenderObject? object = _focusNodes[i].context?.findRenderObject();
               if (object is RenderBox) {
                 double objectPosition = object.localToGlobal(Offset.zero).dy;
                 double screenHeight = MediaQuery.of(context).size.height;
 
-                // Calculamos si es necesario hacer scroll
                 if (objectPosition > screenHeight * 0.5 || objectPosition < 0) {
                   double scrollOffset = objectPosition - (screenHeight * 0.3);
                   scrollController.animateTo(
@@ -173,7 +171,8 @@ class _RegisterWithNumberScreenState extends State<RegisterWithNumberScreen> {
                         listener: (context, state) {
                           switch (state.sendNumberStatus) {
                             case SendNumberStatus.success:
-                              context.push("${NameRoutes.otpScreen}/${1}");
+                              context.push(
+                                  "${NameRoutes.login}/${NameRoutes.otpScreen}/${1}");
                               break;
                             case SendNumberStatus.server:
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -231,7 +230,8 @@ class _RegisterWithNumberScreenState extends State<RegisterWithNumberScreen> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                           content: Text(
-                                              'Numero de telefono invalido')),
+                                        'Numero de telefono invalido',
+                                      )),
                                     );
                                   }
 

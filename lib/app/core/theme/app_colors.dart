@@ -25,4 +25,7 @@ class AppColors {
   static const Color greynew = Color(0xFF6C6C6C);
   static const Color greymedium = Color(0xFFA1A1A1);
   static const Color greyligth = Color(0xFFF2F2F2);
+
+  static const baseShimmer = Color(0xFFE0E0E0);
+  static const highlightShimmer = Color(0xFFEEEEEE);
 }

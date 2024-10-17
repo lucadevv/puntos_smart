@@ -279,8 +279,10 @@ class _OtpScreenState extends State<OtpScreen> {
                           switch (state.sendCodeStatus) {
                             case SendCodeStatus.success:
                               widget.idPage == 1
-                                  ? context.push(NameRoutes.registerScreen)
-                                  : context.push(NameRoutes.resetScreen);
+                                  ? context.push(
+                                      "${NameRoutes.login}/${NameRoutes.registerScreen}")
+                                  : context.push(
+                                      "${NameRoutes.login}/${NameRoutes.resetScreen}");
                               break;
                             case SendCodeStatus.invalidCode:
                               ScaffoldMessenger.of(context).showSnackBar(

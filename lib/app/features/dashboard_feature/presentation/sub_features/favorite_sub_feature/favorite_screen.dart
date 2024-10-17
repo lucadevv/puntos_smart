@@ -57,10 +57,12 @@ class FavoriteScreen extends StatelessWidget {
                           child: CustomStoreWidget(
                             index: index,
                             navigateStoreLogo: () {
-                              context.push('${NameRoutes.storeScreen}/$index');
+                              context.push(
+                                  '${NameRoutes.storeDetailScreen}/$index');
                             },
                             navigateStoresTitle: () {
-                              context.push('${NameRoutes.storeScreen}/$index');
+                              context.push(
+                                  '${NameRoutes.storeDetailScreen}/$index');
                             },
                           ),
                         );

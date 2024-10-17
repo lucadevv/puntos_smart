@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 
 class SliverAppbarProductWidget extends StatelessWidget {
   const SliverAppbarProductWidget({
     super.key,
+    required this.id,
   });
+
+  final String id;
 
   @override
   Widget build(BuildContext context) {
+    final goRouterState = GoRouterState.of(context);
+    final extra = goRouterState.extra;
     return SliverAppBar(
       expandedHeight: 300,
       leadingWidth: 66,
@@ -18,7 +24,27 @@ class SliverAppbarProductWidget extends StatelessWidget {
         padding: const EdgeInsets.only(left: 16, bottom: 4),
         child: InkWell(
           onTap: () {
-            context.pop();
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (extra != null &&
+                  extra is Map &&
+                  extra['fromStores'] == true) {
+                context.go(
+                    "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.storesScreen}");
+              } else if (extra != null &&
+                  extra is Map &&
+                  extra['fromStore'] == true) {
+                context.go(
+                    "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.storesScreen}/${NameRoutes.storeDetailScreen}/$id");
+              } else if (extra != null &&
+                  extra is Map &&
+                  extra['fromCategory'] == true) {
+                context.go(
+                    "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.categorysScreen}");
+              } else {
+                context
+                    .go("${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}");
+              }
+            });
           },
           child: Container(
             alignment: Alignment.center,

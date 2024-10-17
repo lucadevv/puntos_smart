@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_carrd_product.dart';
 
 class FeatureProductsModuleWidget extends StatelessWidget {
@@ -17,6 +19,10 @@ class FeatureProductsModuleWidget extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 12),
             child: CustomCardProductWidget(
               index: index,
+              onTap: () {
+                context.push(
+                    '${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${NameRoutes.productDetailScreen}/$index');
+              },
             ),
           );
         },

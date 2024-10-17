@@ -29,7 +29,7 @@ import 'package:puntos_smart_user/app/features/auth_feature/domain/result/verify
 import 'package:puntos_smart_user/app/features/auth_feature/domain/result/sign_in_result.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/result/sign_up_result.dart';
 
-class AuthRepositoryImpl extends AuthRepository {
+class AuthRepositoryImpl implements AuthRepository {
   final AuthDatasourceNtw _datasourceNtw;
 
   AuthRepositoryImpl({required AuthDatasourceNtw datasourceNtw})
