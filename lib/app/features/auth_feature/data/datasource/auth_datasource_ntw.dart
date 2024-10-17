@@ -2,12 +2,18 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:puntos_smart_user/app/api/network/api_client.dart';
 import 'package:puntos_smart_user/app/core/constants/end_points.dart';
+import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_code_request_model.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/send_number_request_model.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/send_code_response_model.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/send_number_response_model.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/data/models/sig_up_model.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/data/models/sing_in_mode.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/update_password_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/forgot_verify_number_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/signin_response_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/singup_response_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/update_password_response_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/verify_codeotp_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/response/verify_number_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/sig_up_model.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/data/models/request/sing_in_mode.dart';
 
 class AuthDatasourceNtw {
   final ApiClient _apiClient;
@@ -15,7 +21,7 @@ class AuthDatasourceNtw {
   AuthDatasourceNtw({
     required ApiClient apiClient,
   }) : _apiClient = apiClient;
-  Future<Map<String, dynamic>> sigIn({required SignInModel model}) async {
+  Future<SignInResponseModel> sigIn({required SignInModel model}) async {
     try {
       final response = await _apiClient.postData(
         EndPoints.login,
@@ -23,9 +29,7 @@ class AuthDatasourceNtw {
       );
 
       if (response.statusCode == 200) {
-        final token = response.data['access_token'];
-        final status = response.data['status'];
-        return {'access_token': token, 'status': status};
+        return SignInResponseModel.fromJson(response.data);
       } else {
         throw DioException(
           requestOptions: response.requestOptions,
@@ -43,15 +47,16 @@ class AuthDatasourceNtw {
     }
   }
 
-  Future<SendNumberResponseModel> sendNumber(
+  Future<VerifyNumberModel> verifyNumber(
       {required SendNumberRequestModel model}) async {
     try {
       final response = await _apiClient.postData(
-        EndPoints.sendNumber,
+        EndPoints.verifyNumber,
         data: model.toJson(),
       );
+
       if (response.statusCode == 200) {
-        return SendNumberResponseModel.fromJson(response.data);
+        return VerifyNumberModel.fromJson(response.data);
       } else {
         throw DioException(
           requestOptions: response.requestOptions,
@@ -69,16 +74,21 @@ class AuthDatasourceNtw {
     }
   }
 
-  Future<SendCodeResponseModel> sendCode(
-      {required SendCodeRequestModel model}) async {
+  Future<VerifyCodeOtpModel> verifyCode({
+    required SendCodeRequestModel model,
+    required String otpScreen,
+  }) async {
     try {
+      final endoPont = otpScreen == NameRoutes.registerScreen
+          ? EndPoints.sendCodeVerify
+          : EndPoints.forgotSendCodeVerify;
       final response = await _apiClient.postData(
-        EndPoints.sendCodeVerify,
+        endoPont,
         data: model.toJson(),
       );
 
       if (response.statusCode == 200) {
-        return SendCodeResponseModel.fromJson(response.data);
+        return VerifyCodeOtpModel.fromJson(response.data);
       } else {
         throw DioException(
           requestOptions: response.requestOptions,
@@ -97,17 +107,14 @@ class AuthDatasourceNtw {
     }
   }
 
-  Future<Map<String, dynamic>> sigUp({required SignUpModel model}) async {
+  Future<SignUpResponseModel> sigUp({required SignUpModel model}) async {
     try {
       final response = await _apiClient.postData(
         EndPoints.register,
         data: model.toJson(),
       );
       if (response.statusCode == 200) {
-        final token = response.data['access_token'];
-        final status = response.data['status'];
-        final message = response.data['message'];
-        return {'access_token': token, 'status': status, 'message': message};
+        return SignUpResponseModel.fromJson(response.data);
       } else {
         throw DioException(
           requestOptions: response.requestOptions,
@@ -121,6 +128,62 @@ class AuthDatasourceNtw {
       } else {
         debugPrint('Error durante el registro: $e');
         throw Exception('Error inesperado durante el registro');
+      }
+    }
+  }
+
+  Future<ForgoutVerifyNumberModel> forgotVerifyNumber(
+      {required SendNumberRequestModel model}) async {
+    try {
+      final response = await _apiClient.postData(
+        EndPoints.forgotVerifyNumber,
+        data: model.toJson(),
+      );
+
+      if (response.statusCode == 200) {
+        return ForgoutVerifyNumberModel.fromJson(response.data);
+      } else {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          type: DioExceptionType.badResponse,
+        );
+      }
+    } catch (e) {
+      if (e is DioException) {
+        rethrow;
+      } else {
+        debugPrint(
+            'Error durante el envio de telefono para recuperar contraseña: $e');
+        throw Exception(
+            'Error durante el envio de telefono para recuperar contraseña');
+      }
+    }
+  }
+
+  Future<UpdatePasswordResponseModel> updatePassword(
+      {required UpdatePasswordModel model}) async {
+    try {
+      final response = await _apiClient.postData(
+        EndPoints.updatePassword,
+        data: model.toJson(),
+      );
+
+      if (response.statusCode == 200) {
+        return UpdatePasswordResponseModel.fromJson(response.data);
+      } else {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+          type: DioExceptionType.badResponse,
+        );
+      }
+    } catch (e) {
+      if (e is DioException) {
+        rethrow;
+      } else {
+        debugPrint('Error durante la acctualizacion de contraseña: $e');
+        throw Exception('Error durante la acctualizacion de contraseña');
       }
     }
   }

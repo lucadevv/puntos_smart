@@ -6,10 +6,9 @@ import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
-import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/sign_in_entity.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/bloc/sigin_bloc/sign_in_bloc.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/widgets/custom_button_widget.dart';
-import 'package:puntos_smart_user/app/features/store_feature/presentation/widgets/customt_extformfield_widget.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/store_detail/presentation/widgets/customt_extformfield_widget.dart';
 import 'widgets/custom_button_widget_social.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -22,11 +21,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _listLabe = [
-    AppText.mail,
+    AppText.numberPhone,
     AppText.password,
   ];
 
-  final _listIcon = [Iconsax.user, Iconsax.check];
+  final _listIcon = [Icons.phone, Iconsax.check];
   final List<FocusNode> _focusNodes = [];
   final List<bool> _isFocused = [];
 
@@ -40,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
     context.read<SignInBloc>().add(LoadSavedCredentials());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final state = context.read<SignInBloc>().state;
-      _controllers[0].text = state.user;
+      _controllers[0].text = state.phone;
       _controllers[1].text = state.password;
     });
   }
@@ -87,6 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
+
     return GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
@@ -137,7 +137,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               AppText.puntosSmart,
                               style: textTheme.headlineLarge!.copyWith(
                                 color: AppColors.onSecondary,
-                                //fontWeight: FontWeight.w700,
                                 fontFamily: 'Bungee',
                               ),
                             ),
@@ -170,14 +169,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                       child:
                                           BlocBuilder<SignInBloc, SignInState>(
                                         buildWhen: (previous, current) {
-                                          if (index == 0) {
-                                            return previous.user !=
-                                                current.user;
-                                          } else if (index == 1) {
-                                            return previous.password !=
-                                                current.password;
+                                          switch (index) {
+                                            case 0:
+                                              return previous.phone !=
+                                                      current.phone ||
+                                                  previous.errorPhone !=
+                                                      current.errorPhone;
+                                            case 1:
+                                              return previous.password !=
+                                                  current.password;
+                                            default:
+                                              return false;
                                           }
-                                          return false;
                                         },
                                         builder: (context, state) {
                                           return CustomTextFormFielWidget(
@@ -185,6 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             isFocused: isFocus,
                                             controller: controller,
                                             label: label,
+                                            isPhone: index == 0 ? true : false,
                                             isPassword: index == 1
                                                 ? _isPasswordVisible
                                                 : false,
@@ -203,11 +207,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     ? Icons.visibility
                                                     : Icons.visibility_off
                                                 : null,
+                                            errorText: _getErrorText(
+                                                        index, state) ==
+                                                    ""
+                                                ? null
+                                                : _getErrorText(index, state),
                                             onChanged: (value) {
                                               if (index == 0) {
                                                 context.read<SignInBloc>().add(
-                                                    SignInEmailChanged(
-                                                        user: value));
+                                                    SignInPhoneNumberChanged(
+                                                        number: value));
                                               } else if (index == 1) {
                                                 context.read<SignInBloc>().add(
                                                     SignInPasswordChanged(
@@ -251,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: InkWell(
                                     onTap: () {
                                       context.push(
-                                          NameRoutes.resetScreenWithNumber);
+                                          "${NameRoutes.login}/${NameRoutes.resetScreenWithNumber}");
                                     },
                                     splashColor:
                                         AppColors.onPrimary.withOpacity(0.2),
@@ -305,28 +314,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                 return CustomButtonWidget(
                                   onTap: () {
-                                    final email =
-                                        context.read<SignInBloc>().state.user;
-                                    final password = context
+                                    context
                                         .read<SignInBloc>()
-                                        .state
-                                        .password;
-                                    if (email.isNotEmpty &&
-                                        password.isNotEmpty) {
-                                      final signInEntity = SignInEntity(
-                                          email: email, password: password);
-                                      context.read<SignInBloc>().add(
-                                          SignInRequested(
-                                              signInEntity: signInEntity));
-                                    } else {
-                                      // Mostrar un mensaje de error si alguno de los campos está vacío
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                            content: Text(
-                                                'Por favor, ingrese un email y una contraseña válidos.')),
-                                      );
-                                    }
+                                        .add(const SignInRequested());
                                   },
                                   title: AppText.login,
                                   width: size.width,
@@ -352,52 +342,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               image: AppImages.apple,
                             ),
                             const SizedBox(height: 15),
-
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //   children: [
-                            //     Container(
-                            //       height: 2,
-                            //       width: size.width * 0.2,
-                            //       decoration: BoxDecoration(
-                            //         color: AppColors.surface,
-                            //         borderRadius: BorderRadius.circular(10),
-                            //       ),
-                            //     ),
-                            //     Text(
-                            //       AppText.loginWith,
-                            //       style: textTheme.labelMedium!.copyWith(
-                            //         color: AppColors.surface,
-                            //         fontWeight: FontWeight.w500,
-                            //       ),
-                            //     ),
-                            //     Container(
-                            //       height: 2,
-                            //       width: size.width * 0.2,
-                            //       decoration: BoxDecoration(
-                            //         color: AppColors.surface,
-                            //         borderRadius: BorderRadius.circular(10),
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.center,
-                            //   children: [
-                            //     SocialWidget(
-                            //       image: AppImages.google,
-                            //       ontap: () {},
-                            //     ),
-                            //     const SizedBox(width: 32),
-                            //     SocialWidget(
-                            //       image: AppImages.apple,
-                            //       ontap: () {},
-                            //     ),
-                            //   ],
-                            // ),
-
-                            // no tienes cuenta
-
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -415,8 +359,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   surfaceTintColor: Colors.amber,
                                   child: InkWell(
                                     onTap: () {
-                                      context
-                                          .push(NameRoutes.registerWithNumber);
+                                      context.push(
+                                          "${NameRoutes.login}/${NameRoutes.registerWithNumber}");
                                     },
                                     splashColor:
                                         AppColors.onPrimary.withOpacity(0.2),
@@ -441,5 +385,14 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
         ));
+  }
+
+  String? _getErrorText(int index, SignInState state) {
+    switch (index) {
+      case 0:
+        return state.errorPhone;
+      default:
+        return null;
+    }
   }
 }

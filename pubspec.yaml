@@ -21,6 +21,9 @@ version: 1.0.0+1
 environment:
   sdk: ">=3.4.4 <4.0.0"
 dependencies:
+  barcode_widget: ^2.0.4
+  cached_network_image: ^3.4.1
+  carousel_slider: ^5.0.0
   country_flags: ^3.0.0
   cupertino_icons: ^1.0.6
   dio: ^5.7.0
@@ -28,22 +31,25 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  flutter_local_notifications: ^17.2.3
+  flutter_map: ^7.0.2
   flutter_svg: ^2.0.10+1
   flutter_typeahead: ^5.2.0
   geocoding: ^3.0.0
   geolocator: ^13.0.1
   get_it: ^8.0.0
   go_router: ^14.2.8
-  google_maps_flutter: ^2.9.0
   iconsax: ^0.0.8
+  latlong2: ^0.9.1
+  marquee_list: ^1.0.0
   permission_handler: ^11.3.1
+  qr_flutter: ^4.1.0
   shared_preferences: ^2.3.2
+  shimmer: ^3.0.0
   sms_autofill: ^2.4.0
-  text_marquee: ^0.0.2
   url_launcher: ^6.3.0
   uuid: ^4.5.1
-  qr_flutter: ^4.1.0
-  barcode_widget: ^2.0.4
+  visibility_detector: ^0.4.0+2
 
 dev_dependencies:
   flutter_lints: ^3.0.0

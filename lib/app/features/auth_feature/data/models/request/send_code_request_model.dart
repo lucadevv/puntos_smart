@@ -1,37 +1,38 @@
-import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/send_code_entity.dart';
+import 'package:puntos_smart_user/app/features/auth_feature/domain/entities/request/send_codeotp_entity.dart';
 
 class SendCodeRequestModel {
-  final String number;
+  final String phone;
   final String code;
 
   SendCodeRequestModel({
-    required this.number,
+    required this.phone,
     required this.code,
   });
 
   SendCodeRequestModel copyWith({
-    String? number,
+    String? phone,
     String? code,
   }) =>
       SendCodeRequestModel(
-        number: number ?? this.number,
+        phone: phone ?? this.phone,
         code: code ?? this.code,
       );
 
   factory SendCodeRequestModel.fromJson(Map<String, dynamic> json) =>
       SendCodeRequestModel(
-        number: json["number"],
+        phone: json["phone"],
         code: json["code"],
       );
 
   Map<String, dynamic> toJson() => {
-        "number": number,
+        "phone": phone,
         "code": code,
       };
+
   factory SendCodeRequestModel.entityToMode(
-          {required SendCodeRequestEntity entity}) =>
+          {required SendCodeOtpEntity entity}) =>
       SendCodeRequestModel(
-        number: entity.number,
+        phone: entity.phone,
         code: entity.code,
       );
 }

@@ -1,8 +1,25 @@
 class EndPoints {
   const EndPoints._();
 
-  static const login = '/auth/customer/';
-  static const register = '/auth/customer/register/';
-  static const sendNumber = '/auth/customer/verify_acount';
-  static const sendCodeVerify = '/auth/customer/verify_code';
+  /*
+  ------------------------AUTH---------------------
+   */
+
+  static const login = '/api/v1/customers/login';
+  static const register = '/api/v1/customers/updateAfterNumberValidation';
+  static const verifyNumber = '/api/v1/customers/verifyPhoneNumber';
+  static const forgotVerifyNumber = '/api/v1/customers/forgotPhoneNumberPass';
+  static const sendCodeVerify = '/api/v1/customers/verifyOtpCode';
+  static const forgotSendCodeVerify =
+      '/api/v1/customers/verifyOptRecoveryPassword';
+  static const updatePassword = "/api/v1/customers/updatePasswordByUuid";
+
+  /*
+  ------------------------HOME PAGE---------------------
+   */
+
+  static const bannersNoLogin = '/api/v1/customers/getBanner';
+  static const modulesNoLogin = '/api/v1/customers/getCategory';
+  static const newsHome = '/api/v1/customers/getNoticias';
+  static const featuredHome = "/api/v1/customers/getProductosDestacados";
 }

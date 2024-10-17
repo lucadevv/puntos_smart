@@ -2,17 +2,20 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
+import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
 import 'package:puntos_smart_user/app/core/widgets/custom_arrow_back.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/cubit/cubit/send_number_cubit.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/widgets/custom_button_widget.dart';
-import 'package:puntos_smart_user/app/features/store_feature/presentation/widgets/customt_extformfield_widget.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/store_detail/presentation/widgets/customt_extformfield_widget.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({super.key});
+  final int idPage;
+  const OtpScreen({super.key, required this.idPage});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -33,9 +36,24 @@ class _OtpScreenState extends State<OtpScreen> {
     _scrollController = ScrollController();
     focusNodeListners();
     _listenForCode();
-    // Future.delayed(const Duration(seconds: 2)).then((_) {
-    //   populateOtpFields('4053');
-    // });
+    Future.delayed(const Duration(seconds: 3)).then((_) {
+      if (widget.idPage == 1) {
+        final code = context
+            .read<SendNumberCubit>()
+            .state
+            .verifyNumberEntity
+            .data
+            .otpcode;
+        populateOtpFields(code.toString());
+      } else if (widget.idPage == 2) {
+        final forgotCode = context
+            .read<SendNumberCubit>()
+            .state
+            .forgotVerifyNumberEntity
+            .otpcode;
+        populateOtpFields(forgotCode.toString());
+      }
+    });
   }
 
   void _listenForCode() async {
@@ -256,16 +274,73 @@ class _OtpScreenState extends State<OtpScreen> {
                               );
                             })),
                       ),
-                      CustomButtonWidget(
-                        onTap: () {
-                          focusNodeUnFocus();
-                          context
-                              .read<SendNumberCubit>()
-                              .requestCodeVerification();
-                          // context.push(NameRoutes.registerScreen);
+                      BlocConsumer<SendNumberCubit, SendNumberState>(
+                        listener: (context, state) {
+                          switch (state.sendCodeStatus) {
+                            case SendCodeStatus.success:
+                              widget.idPage == 1
+                                  ? context.push(
+                                      "${NameRoutes.login}/${NameRoutes.registerScreen}")
+                                  : context.push(
+                                      "${NameRoutes.login}/${NameRoutes.resetScreen}");
+                              break;
+                            case SendCodeStatus.invalidCode:
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("Codigo invalido")),
+                              );
+                              break;
+                            case SendCodeStatus.expiredCode:
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("Código otp expirado")),
+                              );
+                            case SendCodeStatus.alredyVerified:
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                  "El código enviado y número de telefono, ya han sido verificados.",
+                                )),
+                              );
+                              Future.delayed(const Duration(seconds: 2))
+                                  .then((_) {
+                                context
+                                    .read<SendNumberCubit>()
+                                    .resetStateInitial();
+                                context.go(NameRoutes.login);
+                              });
+
+                              break;
+                            default:
+                          }
                         },
-                        title: AppText.validate,
-                        width: size.width,
+                        builder: (BuildContext context, SendNumberState state) {
+                          switch (state.sendCodeStatus) {
+                            case SendCodeStatus.loading:
+                              return CustomButtonWidget(
+                                onTap: () {},
+                                title: "Cargando...",
+                                width: size.width,
+                              );
+
+                            default:
+                              return CustomButtonWidget(
+                                onTap: () {
+                                  focusNodeUnFocus();
+                                  final page = widget.idPage == 1
+                                      ? NameRoutes.registerScreen
+                                      : NameRoutes.resetScreen;
+                                  context
+                                      .read<SendNumberCubit>()
+                                      .requestCodeVerification(
+                                        page: page,
+                                      );
+                                },
+                                title: AppText.validate,
+                                width: size.width,
+                              );
+                          }
+                        },
                       )
                     ],
                   ),

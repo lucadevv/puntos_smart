@@ -2,50 +2,47 @@ part of 'sign_in_bloc.dart';
 
 class SignInState extends Equatable {
   final SignInStatus signInStatus;
-  final String token;
-  final String message;
-  final String user;
+  final String phone;
   final String password;
+  final String? errorPhone;
   final bool rememberCheck;
   const SignInState({
-    required this.token,
-    required this.message,
     required this.signInStatus,
-    required this.user,
+    required this.phone,
     required this.password,
     required this.rememberCheck,
+    this.errorPhone,
   });
 
   factory SignInState.initial() {
     return const SignInState(
-      token: '',
       signInStatus: SignInStatus.initial,
-      message: '',
-      user: '',
+      phone: '',
       password: '',
       rememberCheck: false,
+      errorPhone: null,
     );
   }
   SignInState copyWith({
     SignInStatus? signInStatus,
     String? token,
     String? message,
-    String? user,
+    String? phone,
     String? password,
     bool? rememberCheck,
+    String? errorPhone,
   }) =>
       SignInState(
-        token: token ?? this.token,
-        message: message ?? this.message,
         signInStatus: signInStatus ?? this.signInStatus,
-        user: user ?? this.user,
+        phone: phone ?? this.phone,
         password: password ?? this.password,
         rememberCheck: rememberCheck ?? this.rememberCheck,
+        errorPhone: errorPhone ?? this.errorPhone,
       );
 
   @override
   List<Object> get props =>
-      [signInStatus, token, message, user, password, rememberCheck];
+      [signInStatus, phone, password, rememberCheck, errorPhone ?? ""];
 }
 
 enum SignInStatus {

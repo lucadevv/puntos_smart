@@ -4,9 +4,12 @@ import 'package:puntos_smart_user/app/api/services_token/token_storage_services.
 import 'package:puntos_smart_user/app/features/auth_feature/data/datasource/auth_datasource_ntw.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/data/repositories/auth_repository_impl.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/domain/repositories/auth_repository.dart';
-import 'package:puntos_smart_user/app/features/personal_information_feature/data/datasource/location_datasource_ntw.dart';
-import 'package:puntos_smart_user/app/features/personal_information_feature/data/repository/location_respository_impl.dart';
-import 'package:puntos_smart_user/app/features/personal_information_feature/domain/repository/location_repository.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/data/datasource/home_datasource_ntw.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/data/repository/home_repository_impl.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/repository/home_repository.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/pages/address_page/data/datasource/location_datasource_ntw.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/pages/address_page/data/repository/location_respository_impl.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/pages/address_page/domain/repository/location_repository.dart';
 
 final getIt = GetIt.instance;
 
@@ -50,4 +53,13 @@ void setUpInyection(
           apiClient: getIt<ApiClient>(instanceName: "placesClient")));
   getIt.registerLazySingleton<LocationRepository>(() => LocationRespositoryImpl(
       locationDatasourceNtw: getIt<LocationDatasourceNtw>()));
+
+  /*
+  ------------------------HOME ---------------------
+   */
+
+  getIt.registerLazySingleton<HomeDatasourceNtw>(
+      () => HomeDatasourceNtw(apiClient: getIt<ApiClient>()));
+  getIt.registerLazySingleton<HomeRepository>(
+      () => HomeRepositoryImpl(homeDatasourceNtw: getIt<HomeDatasourceNtw>()));
 }

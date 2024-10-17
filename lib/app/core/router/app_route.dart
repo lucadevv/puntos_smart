@@ -2,44 +2,44 @@ import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:puntos_smart_user/app/core/constants/name_routes.dart';
-import 'package:puntos_smart_user/app/features/answer_win_detail_feature/presentation/answern_win_detailk_screen.dart';
-import 'package:puntos_smart_user/app/features/answer_win_feature/presentation/answer_win_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/coupon_sub_feature/coupon_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/favorite_sub_feature/favorite_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/game_sub_feature/game_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/home_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/answer_win_detail/presentation/answern_win_detailt_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/answers_win/presentation/answer_win_screen.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/login_screen.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/pages/otp_screen.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/pages/register_screen.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/pages/register_with_number_screen.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/pages/reset_screen.dart';
 import 'package:puntos_smart_user/app/features/auth_feature/presentation/pages/reset_with_number_screen.dart';
-import 'package:puntos_smart_user/app/features/coupon_feature/presentation/coupons_screen.dart';
-import 'package:puntos_smart_user/app/features/coupon_feature/presentation/pages/coupon_screen.dart';
-import 'package:puntos_smart_user/app/features/home_feature/presentation/home_screen.dart';
-import 'package:puntos_smart_user/app/features/modules_feature/presentation/module_screen.dart';
-import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/page/add_adresss_page.dart';
-import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/personal_inforamcion_screen.dart';
-import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/screens/address_screen.dart';
-import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/screens/favorites_screen.dart';
-import 'package:puntos_smart_user/app/features/personal_information_feature/presentation/screens/personal_preferences_screen.dart';
-import 'package:puntos_smart_user/app/features/product_detail_feature/presentation/product_detail_screen.dart';
-import 'package:puntos_smart_user/app/features/products_feature/presentation/products_screen.dart';
-import 'package:puntos_smart_user/app/features/rate_store_feature/presentation/rate_store_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/coupon_store/presentation/coupons_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/coupon_store/presentation/pages/coupon_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/dashboard_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/module_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/profile_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/pages/address_page/presentation/add_adresss_page.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/pages/personal_information_page/personal_inforamcion_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/pages/address_page/presentation/address_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/pages/favorites_page/favorites_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/pages/personal_preferences_page/personal_preferences_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/product_detail/presentation/product_detail_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/category/presentation/category_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/rate_store_feature/presentation/rate_store_screen.dart';
 import 'package:puntos_smart_user/app/features/splash_feature/presentation/splash_screen.dart';
-import 'package:puntos_smart_user/app/features/store_feature/presentation/store_screen.dart';
-import 'package:puntos_smart_user/app/features/stores_feature/presentation/stores_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/store_detail/presentation/store_detail_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/stores/presentation/stores_screen.dart';
 
+final GlobalKey<NavigatorState> _rootNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'Root');
+final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'Shell');
 final appRoute = GoRouter(
   initialLocation: NameRoutes.splash,
+  navigatorKey: _rootNavigatorKey,
   redirect: (context, state) {
-    // final authBloc = context.read<AuthBloc>().state;
-
-    // if (authBloc.authStateStatus == AuthStateStatus.authUnauthenticated &&
-    //     state.name != NameRoutes.homeScreen) {
-    //   return NameRoutes.login;
-    // }
-    // if (authBloc.authStateStatus == AuthStateStatus.authAuthenticated &&
-    //     state.name == NameRoutes.login) {
-    //   return NameRoutes.login;
-    // }
-
+    debugPrint('Ruta actual: ${state.uri.toString()}');
     return null;
   },
   routes: [
@@ -50,50 +50,198 @@ final appRoute = GoRouter(
     GoRoute(
       path: NameRoutes.login,
       builder: (context, state) => const LoginScreen(),
+      routes: [
+        GoRoute(
+          path: "${NameRoutes.otpScreen}/:idPage",
+          builder: (context, state) {
+            final idPage = int.parse(state.pathParameters['idPage']!);
+            return OtpScreen(idPage: idPage);
+          },
+        ),
+        GoRoute(
+          path: NameRoutes.resetScreen,
+          builder: (context, state) => const ResetScreen(),
+        ),
+        GoRoute(
+          path: NameRoutes.resetScreenWithNumber,
+          builder: (context, state) => const ResetWithNumberScreen(),
+        ),
+        GoRoute(
+          path: NameRoutes.registerScreen,
+          builder: (context, state) => const RegisterScreen(),
+        ),
+        GoRoute(
+          path: NameRoutes.registerWithNumber,
+          builder: (context, state) => const RegisterWithNumberScreen(),
+        ),
+      ],
     ),
-    GoRoute(
-      path: NameRoutes.otpScreen,
-      builder: (context, state) => const OtpScreen(),
-    ),
-    GoRoute(
-      path: NameRoutes.resetScreen,
-      builder: (context, state) => const ResetScreen(),
-    ),
-    GoRoute(
-      path: NameRoutes.resetScreenWithNumber,
-      builder: (context, state) => const ResetWithNumberScreen(),
-    ),
-    GoRoute(
-      path: NameRoutes.registerScreen,
-      builder: (context, state) => const RegisterScreen(),
-    ),
-    GoRoute(
-      path: NameRoutes.registerWithNumber,
-      builder: (context, state) => const RegisterWithNumberScreen(),
-    ),
-    GoRoute(
-      path: NameRoutes.homeScreen,
-      builder: (context, state) => const HomeScreen(),
-    ),
-
-    /*
-     ------------------STORES SCREEN-----------
-    */
-    GoRoute(
-        path: '${NameRoutes.storeScreen}/:idStore',
-        builder: (context, state) {
-          final id = int.parse(state.pathParameters['idStore']!);
-          return StoreScreen(index: id);
-        }),
-    GoRoute(
-      path: NameRoutes.storesScreen,
-      builder: (context, state) => const StoresScreen(),
-    ),
-    //
-
-    GoRoute(
-      path: NameRoutes.moduleScreen,
-      builder: (context, state) => const ModuleScreen(),
+    ShellRoute(
+      navigatorKey: _shellNavigatorKey,
+      builder: (context, state, child) => DashboardScreen(child: child),
+      routes: [
+        GoRoute(
+          path: NameRoutes.homeScreen,
+          pageBuilder: (context, state) => CustomTransitionPage<void>(
+            key: state.pageKey,
+            name: state.fullPath,
+            child: const HomeScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: animation, child: child),
+          ),
+          routes: [
+            GoRoute(
+              path: NameRoutes.moduleScreen,
+              builder: (context, state) => const ModuleScreen(),
+              routes: [
+                GoRoute(
+                  path: NameRoutes.categorysScreen,
+                  builder: (context, state) => const CateogryScreen(),
+                  routes: [
+                    GoRoute(
+                      path: '${NameRoutes.productDetailScreen}/:idProduct',
+                      builder: (context, state) {
+                        final id = state.pathParameters['idProduct'];
+                        return ProductDetailScreen(id: id!);
+                      },
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  path: NameRoutes.answerWinScreen,
+                  builder: (context, state) => const AnswerWinScreen(),
+                  routes: [
+                    GoRoute(
+                      path: '${NameRoutes.answerWinDetailScreen}/:idAnswer',
+                      builder: (context, state) {
+                        final idAnswer =
+                            int.parse(state.pathParameters['idAnswer']!);
+                        return AnswerWinDetailScreen(
+                          idAnswer: idAnswer,
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  path: NameRoutes.storesScreen,
+                  builder: (context, state) => const StoresScreen(),
+                  routes: [
+                    GoRoute(
+                      path: '${NameRoutes.storeDetailScreen}/:idStore',
+                      builder: (context, state) {
+                        final id = int.parse(state.pathParameters['idStore']!);
+                        return StoreDetailScreen(index: id);
+                      },
+                      routes: [
+                        GoRoute(
+                          path: '${NameRoutes.productDetailScreen}/:idProduct',
+                          builder: (context, state) {
+                            final id = state.pathParameters['idProduct'];
+                            return ProductDetailScreen(id: id!);
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+/*
+--------------------------MODULE SCREEN-------------------
+*/
+                GoRoute(
+                  path: '${NameRoutes.storeDetailScreen}/:idStore',
+                  builder: (context, state) {
+                    final id = int.parse(state.pathParameters['idStore']!);
+                    return StoreDetailScreen(index: id);
+                  },
+                ),
+                GoRoute(
+                  path: '${NameRoutes.answerWinDetailScreen}/:idAnswer',
+                  builder: (context, state) {
+                    final idAnswer =
+                        int.parse(state.pathParameters['idAnswer']!);
+                    return AnswerWinDetailScreen(
+                      idAnswer: idAnswer,
+                    );
+                  },
+                ),
+                GoRoute(
+                  path: '${NameRoutes.productDetailScreen}/:idProduct',
+                  builder: (context, state) {
+                    final id = state.pathParameters['idProduct'];
+                    return ProductDetailScreen(id: id!);
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+        GoRoute(
+          path: NameRoutes.favoriteScreen,
+          pageBuilder: (context, state) => CustomTransitionPage<void>(
+            key: state.pageKey,
+            child: const FavoriteScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: animation, child: child),
+          ),
+        ),
+        GoRoute(
+          path: NameRoutes.gameScreen,
+          pageBuilder: (context, state) => CustomTransitionPage<void>(
+            key: state.pageKey,
+            child: const GameScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: animation, child: child),
+          ),
+        ),
+        GoRoute(
+          path: NameRoutes.myCouponScreen,
+          pageBuilder: (context, state) => CustomTransitionPage<void>(
+            key: state.pageKey,
+            child: const MyCouponScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: animation, child: child),
+          ),
+        ),
+        GoRoute(
+          path: NameRoutes.settingsScreen,
+          pageBuilder: (context, state) => CustomTransitionPage<void>(
+            key: state.pageKey,
+            child: const SettingsScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: animation, child: child),
+          ),
+          routes: [
+            GoRoute(
+              path: NameRoutes.personalInformationScreen,
+              builder: (context, state) => const PersonalInforamcionScreen(),
+            ),
+            GoRoute(
+              path: NameRoutes.addressScreen,
+              builder: (context, state) => const AddressScreen(),
+              routes: [
+                GoRoute(
+                  path: NameRoutes.addAddressPage,
+                  builder: (context, state) => const AddAddressPage(),
+                ),
+              ],
+            ),
+            GoRoute(
+              path: NameRoutes.personalPreferencesScreen,
+              builder: (context, state) => const PersonalPreferencesScreen(),
+            ),
+            GoRoute(
+              path: NameRoutes.favoritesScreen,
+              builder: (context, state) => const FavoritesScreen(),
+            ),
+          ],
+        ),
+      ],
     ),
     GoRoute(
       path: '${NameRoutes.couponsScreen}/:idTienda',
@@ -102,42 +250,6 @@ final appRoute = GoRouter(
         return CouponsScreen(id: id!);
       },
     ),
-
-    /*
-     ------------------PRODUCTS SCREEN-----------
-    */
-    GoRoute(
-      path: NameRoutes.productsScreen,
-      builder: (context, state) => const ProductsScreen(),
-    ),
-    GoRoute(
-      path: '${NameRoutes.productDetailScreen}/:idProduct',
-      builder: (context, state) {
-        final id = state.pathParameters['idProduct'];
-        return ProductDetailScreen(id: id!);
-      },
-    ),
-
-    /*
-     ------------------ANSWER WIN SCREEN-----------
-    */
-    GoRoute(
-      path: NameRoutes.answerWinScreen,
-      builder: (context, state) => const AnswerWinScreen(),
-    ),
-    GoRoute(
-      path: '${NameRoutes.answerWinDetailScreen}/:idAnswer',
-      builder: (context, state) {
-        final idAnswer = int.parse(state.pathParameters['idAnswer']!);
-        return AnswerWinDetailScreen(
-          idAnswer: idAnswer,
-        );
-      },
-    ),
-
-    /*
-     ------------------COUPONS SCREEN-----------
-    */
     GoRoute(
       path: '${NameRoutes.couponsScreen}/:idTienda/:idCoupon',
       pageBuilder: (context, state) {
@@ -198,30 +310,6 @@ final appRoute = GoRouter(
           },
         );
       },
-    ),
-    /*
-     ------------------PERSONAL INFORMATION SCREEN-----------
-    */
-
-    GoRoute(
-      path: NameRoutes.personalInformationScreen,
-      builder: (context, state) => const PersonalInforamcionScreen(),
-    ),
-    GoRoute(
-      path: NameRoutes.addressScreen,
-      builder: (context, state) => const AddressScreen(),
-    ),
-    GoRoute(
-      path: NameRoutes.addAddressPage,
-      builder: (context, state) => const AddAddressPage(),
-    ),
-    GoRoute(
-      path: NameRoutes.personalPreferencesScreen,
-      builder: (context, state) => const PersonalPreferencesScreen(),
-    ),
-    GoRoute(
-      path: NameRoutes.favoritesScreen,
-      builder: (context, state) => const FavoritesScreen(),
     ),
   ],
 );

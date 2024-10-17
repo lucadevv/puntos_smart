@@ -12,6 +12,7 @@ class AppText {
   static const mail = 'Email';
   static const name = 'Nombres';
   static const lastName = 'Apellidos';
+  static const referenceCode = 'Códifo referido (opcional)';
   static const password = 'Contraseña';
   static const numberPhone = 'Número Celular';
   static const confirmPassword = 'Confirmar Contraseña';
@@ -31,7 +32,7 @@ class AppText {
       'Crea una nueva contraseña y confírmala para completar el proceso.';
   static const registerTitle =
       '¡Estás a un paso de convertirte en un usuario Smart! ';
-  static const registerTitile =
+  static const registerSubTitle =
       'Solo ingresa tus datos para completar el proceso.';
   static const enterPhoneNumber = 'Ingresa tu número de celular';
   static const next = 'Siguiente';
@@ -46,6 +47,7 @@ class AppText {
   static const smartNew = 'Noticias smart';
   static const highlightsSmart = 'Destacados smart';
   static const seeMore = 'Ver más';
+  static const hide = 'Ocultar';
   static const myFavorities = 'Mis Favoritos';
   static const myCouponSmart = 'Mis Cupones Smart';
   static const categories = 'Categorias';
@@ -90,4 +92,9 @@ class AppText {
   static const emptyProductsSubtitle =
       'Agrega los products que mas te gusta y encuéntralos más rápido aquí';
   static const newAddress = "Nueva dirección";
+  static const myCurrentLocation = "Mi ubicación actual";
+  static const selectOnMap = "Seleccionar en Mapa";
+  static const waitingVerification =
+      'El número encuentra se encuentra en proceso de verificación.';
+  static const loading = "Cargando...";
 }

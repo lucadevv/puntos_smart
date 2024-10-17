@@ -5,7 +5,9 @@ class SendNumberState extends Equatable {
   final String codeVerifiaction;
   final SendNumberStatus sendNumberStatus;
   final SendCodeStatus sendCodeStatus;
-
+  final VerifyNumberEntity verifyNumberEntity;
+  final VerifyCodeOtpEntity verifyCodeOtpEntity;
+  final ForgotVerifyNumberEntity forgotVerifyNumberEntity;
   final String numberOne;
   final String numberTwo;
   final String numberThree;
@@ -20,6 +22,9 @@ class SendNumberState extends Equatable {
     required this.numberFour,
     required this.sendCodeStatus,
     required this.codeVerifiaction,
+    required this.verifyNumberEntity,
+    required this.verifyCodeOtpEntity,
+    required this.forgotVerifyNumberEntity,
   });
 
   SendNumberState copyWith({
@@ -32,6 +37,9 @@ class SendNumberState extends Equatable {
     int? starTime,
     SendCodeStatus? sendCodeStatus,
     String? codeVerifiaction,
+    VerifyNumberEntity? verifyNumberEntity,
+    VerifyCodeOtpEntity? verifyCodeOtpEntity,
+    ForgotVerifyNumberEntity? forgotVerifyNumberEntity,
   }) =>
       SendNumberState(
         phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -42,8 +50,12 @@ class SendNumberState extends Equatable {
         numberFour: numberFour ?? this.numberFour,
         sendCodeStatus: sendCodeStatus ?? this.sendCodeStatus,
         codeVerifiaction: codeVerifiaction ?? this.codeVerifiaction,
+        verifyNumberEntity: verifyNumberEntity ?? this.verifyNumberEntity,
+        verifyCodeOtpEntity: verifyCodeOtpEntity ?? this.verifyCodeOtpEntity,
+        forgotVerifyNumberEntity:
+            forgotVerifyNumberEntity ?? this.forgotVerifyNumberEntity,
       );
-  factory SendNumberState.initial() => const SendNumberState(
+  factory SendNumberState.initial() => SendNumberState(
         phoneNumber: '',
         sendNumberStatus: SendNumberStatus.initial,
         numberOne: '',
@@ -52,6 +64,9 @@ class SendNumberState extends Equatable {
         numberFour: '',
         sendCodeStatus: SendCodeStatus.initial,
         codeVerifiaction: '',
+        verifyNumberEntity: VerifyNumberEntity.empty(),
+        verifyCodeOtpEntity: VerifyCodeOtpEntity.empty(),
+        forgotVerifyNumberEntity: ForgotVerifyNumberEntity.empty(),
       );
 
   @override
@@ -64,6 +79,9 @@ class SendNumberState extends Equatable {
         numberFour,
         sendCodeStatus,
         codeVerifiaction,
+        verifyNumberEntity,
+        verifyCodeOtpEntity,
+        forgotVerifyNumberEntity
       ];
 }
 
@@ -74,10 +92,10 @@ enum SendNumberStatus {
   network, // Error de red
   notFound, // Error 404 o similar
   server, // Error de servidor (500)
-  phoneNumberExist, // Numero ya existe
-  activeCodeExpiration, //expiracion de codigo activo
+  verifyNumber, // Numero ya existe
   invalidNumber, //numero invalido
-  invalidData, //Invalid data
+  userNotFout,
+  waitingVerification, //El número encuentra se encuentra en proceso de verificación.
   unknown // Error desconocido
 }
 
@@ -88,5 +106,7 @@ enum SendCodeStatus {
   network, // Error de red
   server, // Error de servidor (500)
   invalidCode, //numero invalido
+  expiredCode, //codigo otp expirado
+  alredyVerified, // codigo y numero ya verificado
   unknown // Error desconocido
 }
