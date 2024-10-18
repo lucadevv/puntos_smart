@@ -27,6 +27,9 @@ import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/su
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/product_detail/presentation/product_detail_screen.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/category/presentation/category_screen.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/rate_store_feature/presentation/rate_store_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/support/presentation/faq_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/support/presentation/privacy_screen.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/support/presentation/support_services_screen.dart';
 import 'package:puntos_smart_user/app/features/splash_feature/presentation/splash_screen.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/store_detail/presentation/store_detail_screen.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/pages/modules/pages/stores/presentation/stores_screen.dart';
@@ -310,6 +313,26 @@ final appRoute = GoRouter(
           },
         );
       },
+    ),
+
+    /*
+     ------------------ MODULO SOPORTE SMART -----------
+    */
+    GoRoute(
+      path: NameRoutes.privacyPolicyScreen,
+      //builder: (context, state) => const PrivacyScreen(),
+      builder: (context, state) {
+        final bool isPrivacyPolicies = state.extra as bool? ?? true;
+        return PrivacyScreen(isPrivacyPolicies: isPrivacyPolicies);
+      },
+    ),
+    GoRoute(
+      path: NameRoutes.faqScreen,
+      builder: (context, state) => const FaqScreen(),
+    ),
+    GoRoute(
+      path: NameRoutes.supportServicesScreen,
+      builder: (context, state) => const SupportServicesScreen(),
     ),
   ],
 );

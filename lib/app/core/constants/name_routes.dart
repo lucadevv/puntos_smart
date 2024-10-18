@@ -51,4 +51,13 @@ class NameRoutes {
   static const couponsScreen = '/coupons';
   static const couponScreen = '/coupon';
   static const rateStoreScreen = '/rate_store_screen';
+
+/*
+     ------------------SOPORTE SMART-----------
+*/
+  static const privacyPolicyScreen = '/privacyPolicyScreen';
+  static const termsConditionsScreen = '/termsConditionsScreen';
+  static const supportServicesScreen = '/supportServicesScreen';
+  static const faqScreen = '/faqScreen';
+
 }
