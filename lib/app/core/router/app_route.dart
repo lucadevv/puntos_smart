@@ -97,8 +97,13 @@ final appRoute = GoRouter(
           ),
           routes: [
             GoRoute(
-              path: NameRoutes.moduleScreen,
-              builder: (context, state) => const ModuleScreen(),
+              path: "${NameRoutes.moduleScreen}/:idModule",
+              builder: (context, state) {
+                final idModule = state.pathParameters["idModule"];
+                return ModuleScreen(
+                  idModule: int.parse(idModule!),
+                );
+              },
               routes: [
                 GoRoute(
                   path: NameRoutes.categorysScreen,

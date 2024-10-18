@@ -1,17 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/data/datasource/home_datasource_ntw.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/entities/response/banner_entity.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/entities/response/featured_entity.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/entities/response/module/geo_promotions_response_entity.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/entities/response/module_no_login_entity.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/entities/response/news_entity.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/entities/response/home/featured_entity.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/entities/response/home/banner_entity.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/entities/response/home/module_no_login_entity.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/entities/response/home/news_entity.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/repository/home_repository.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/results/banner_results.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/results/featured_result.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/results/geo_promotions_result.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/results/module_no_login_result.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/results/news_result.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/results/home/banner_results.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/results/home/featured_result.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/results/home/module_no_login_result.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/results/home/news_result.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
   final HomeDatasourceNtw _homeDatasourceNtw;
@@ -87,26 +84,6 @@ class HomeRepositoryImpl implements HomeRepository {
       } else {
         return FeaturedFailure(
             featuredFailureStatus: FeaturedFailureStatus.unknown);
-      }
-    }
-  }
-
-  @override
-  Future<GeoPromotionsResult> getAllGeoPromotions(
-      {required LatLng latLng}) async {
-    try {
-      final response =
-          await _homeDatasourceNtw.getAllGeoPromotions(latLng: latLng);
-      return GeoPromotionsSuccess(
-          listGeoPromotiosns: GeoPromotionsResponseEntity.listModelToListEntity(
-              listModel: response));
-    } catch (e) {
-      if (e is DioException) {
-        return GeoPromotionsFailure(
-            geoPromotionsFailureStatus: GeoPromotionsFailureStatus.notFound);
-      } else {
-        return GeoPromotionsFailure(
-            geoPromotionsFailureStatus: GeoPromotionsFailureStatus.unknown);
       }
     }
   }

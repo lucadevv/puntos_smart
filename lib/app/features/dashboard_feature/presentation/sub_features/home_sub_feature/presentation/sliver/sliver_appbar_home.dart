@@ -4,7 +4,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:puntos_smart_user/app/core/constants/app_images.dart';
 import 'package:puntos_smart_user/app/core/constants/app_text.dart';
 import 'package:puntos_smart_user/app/core/theme/app_colors.dart';
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/presentation/modals/location_modal.dart';
 import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/settings_sub_feature/presentation/pages/address_page/presentation/bloc/location/location_bloc.dart';
 
 class SliverAppbarHomePage extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/entities/response/news_entity.dart';
+import 'package:puntos_smart_user/app/features/dashboard_feature/presentation/sub_features/home_sub_feature/domain/entities/response/home/news_entity.dart';
 
 abstract class NewsResult {}
 

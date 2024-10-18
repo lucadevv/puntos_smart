@@ -59,7 +59,7 @@ class SliverModulesHomeWidget extends StatelessWidget {
                     indexAnimation: index,
                     ontap: () {
                       context.push(
-                          "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}");
+                          "${NameRoutes.homeScreen}/${NameRoutes.moduleScreen}/${item.id}");
                     },
                     isLoading: false,
                   );

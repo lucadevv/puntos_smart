@@ -26,4 +26,6 @@ class EndPoints {
   ------------------------MODULE PAGE---------------------
    */
   static const geoPromotions = "/api/v1/customers/findPromotionalProductNear";
+  static const categories = "/api/v1/customers/getSubCategory";
+  static const surveys = "/api/v1/customers/findSurveys";
 }

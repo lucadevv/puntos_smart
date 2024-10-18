@@ -1,4 +1,4 @@
-import '../../../data/model/response/home/news_response_db_model.dart';
+import '../../../../data/model/response/home/news_response_db_model.dart';
 
 class NewsEntity {
   final int id;
@@ -63,3 +63,14 @@ class NewsEntity {
   static List<NewsEntity> listModelToListEntity({required List<Datum> list}) =>
       list.map((model) => NewsEntity.modelToEntity(model: model)).toList();
 }
+
+final listNewsEntity = [
+  NewsEntity(
+    id: 0,
+    titulo: "titulo",
+    notaCorta: "notaCorta",
+    descripcion: "descripcion",
+    imagen1: "assets/images/news1.png",
+    imagen2: "assets/images/news1.png",
+  ),
+];

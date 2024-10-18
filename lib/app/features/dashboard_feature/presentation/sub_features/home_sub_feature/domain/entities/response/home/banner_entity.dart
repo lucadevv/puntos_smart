@@ -48,3 +48,8 @@ class BannerEntity {
         .toList();
   }
 }
+
+final listBannerEntity = [
+  BannerEntity(id: 0, titulo: "banner 1", imagen1: "assets/images/1.png"),
+  BannerEntity(id: 1, titulo: "banner 2", imagen1: "assets/images/2.png")
+];

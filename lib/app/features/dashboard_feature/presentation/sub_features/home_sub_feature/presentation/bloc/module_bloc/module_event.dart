@@ -8,3 +8,15 @@ sealed class ModuleEvent extends Equatable {
 }
 
 class GetAllGeoPromotions extends ModuleEvent {}
+
+class GetCategoriesPromotions extends ModuleEvent {
+  final int idModule;
+
+  const GetCategoriesPromotions({required this.idModule});
+  @override
+  List<Object> get props => [idModule];
+}
+
+class GetAllFlasPromotions extends ModuleEvent {}
+
+class GetAllSurvers extends ModuleEvent {}
